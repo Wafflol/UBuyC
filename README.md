@@ -1,5 +1,5 @@
 # project-hundar-marketplace
-![logo](./pictures/Logo.png)
+<img src="./pictures/Logo.png" width="200" height="200">
 
 
 ## The Team
