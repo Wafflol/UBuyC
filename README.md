@@ -1,5 +1,7 @@
 # project-hundar-marketplace
-TODO: TEAM LOGO AND NAME
+![logo](./pictures/Logo.png)
+
+
 ## The Team
 - Peter Gao - Project Manager
 - Ian Lee - Designer
