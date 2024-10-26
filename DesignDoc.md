@@ -29,17 +29,21 @@ creating an account for the user. They have to
 input their name, UBC student email, and their
 password. Once they have completed this step,
 we move on to the verification page
-![Signup](pictures/Signup.png)
+<img src="pictures/Signup.png" width="500" height="400">
 
 The verification is a simple one-time password 
 sent to the email address If the correct OTP is 
 given, then an account is created for them.
-![Verification](pictures/Verification.png)
+
+<img src="pictures/Verification.png" width="500" height="400">
+
 
 The login page is also simple, requiring only the
 email and password to be given access to the rest 
 of the platform.
-![Login](pictures/Login.png)
+
+<img src="pictures/Login.png" width="500" height="400">
+
 
 Once the user logs in, they land on the home page.
 In this page, the user can see every listing sorted
@@ -51,13 +55,17 @@ loading the home page. The user can then search
 for specific listings using keywords or tags, if
 the listing name (or description?) matches the
 search, then the listing will be displayed.
-![Discover](pictures/Discover.png)
+
+<img src="pictures/Discover.png" width="500" height="400">
+
 
 The user can also view a listing in more detail
 by clicking on the listing name to show listing
 information including name, picture, price, 
 seller description and listing description.
-![ViewListing](pictures/ViewListing.png)
+
+<img src="pictures/ViewListing.png" width="500" height="400">
+
 
 Users can create a new public listing. The user 
 will be required to fill in all relevant fields
@@ -68,14 +76,18 @@ listings, such as “Textbooks”,
 selecting “post”, the user’s new listing will
 be added to the home page. Users may then also
 edit their own postings.
-![CreateListing](pictures/CreateListing.png)
+
+<img src="pictures/CreateListing.png" width="500" height="400">
+
 
 The user can also navigate to the profile page.
 Here, they will be able to view the UBC email 
 associated with their account and their set 
 password. They will have the option to change 
 their password.
-![AccountDetails](pictures/AccountDetails.png)
+
+<img src="pictures/AccountDetails.png" width="500" height="400">
+
 
 #### Screens/Pages
 - Sign up: user enters valid UBC email address
