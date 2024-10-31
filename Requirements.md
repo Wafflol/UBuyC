@@ -1,5 +1,5 @@
 # LALALALALA
 
-- [x] Write the press release
-- [ ] Update the website
-- [ ] Contact the media
+- [x] Peter
+- [ ] peter2
+- [ ] peter3
