@@ -56,7 +56,7 @@ for specific listings using keywords or tags, if
 the listing name (or description?) matches the
 search, then the listing will be displayed.
 
-<img src="pictures/Discover.png" width="500" height="400">
+<img src="../pictures/Discover.png" width="500" height="400">
 
 
 The user can also view a listing in more detail
