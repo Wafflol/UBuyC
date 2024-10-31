@@ -29,20 +29,20 @@ creating an account for the user. They have to
 input their name, UBC student email, and their
 password. Once they have completed this step,
 we move on to the verification page
-<img src="pictures/Signup.png" width="500" height="400">
+<img src="../pictures/Signup.png" width="500" height="400">
 
 The verification is a simple one-time password 
 sent to the email address If the correct OTP is 
 given, then an account is created for them.
 
-<img src="pictures/Verification.png" width="500" height="400">
+<img src="../pictures/Verification.png" width="500" height="400">
 
 
 The login page is also simple, requiring only the
 email and password to be given access to the rest 
 of the platform.
 
-<img src="pictures/Login.png" width="500" height="400">
+<img src="../pictures/Login.png" width="500" height="400">
 
 
 Once the user logs in, they land on the home page.
@@ -64,7 +64,7 @@ by clicking on the listing name to show listing
 information including name, picture, price, 
 seller description and listing description.
 
-<img src="pictures/ViewListing.png" width="500" height="400">
+<img src="../pictures/ViewListing.png" width="500" height="400">
 
 
 Users can create a new public listing. The user 
@@ -77,7 +77,7 @@ selecting “post”, the user’s new listing will
 be added to the home page. Users may then also
 edit their own postings.
 
-<img src="pictures/CreateListing.png" width="500" height="400">
+<img src="../pictures/CreateListing.png" width="500" height="400">
 
 
 The user can also navigate to the profile page.
@@ -86,7 +86,7 @@ associated with their account and their set
 password. They will have the option to change 
 their password.
 
-<img src="pictures/AccountDetails.png" width="500" height="400">
+<img src="../pictures/AccountDetails.png" width="500" height="400">
 
 
 #### Screens/Pages
