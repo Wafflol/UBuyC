@@ -68,17 +68,17 @@ This document specifies all models, controllers, and views in the application ([
 ### Controllers
 
 #### **AuthorizationController**
-- **Responsibility**: Define the purpose of this controller and its main operations.
+- **Responsibility**: Handles signup, login, OTPs, and password updates.
 - **Location**: (Client/Server/Both)
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### **ListingController**
-- **Responsibility**: Define the purpose of this controller and its main operations.
+- **Responsibility**: Manages listing creation, editing, retrieval, and deletion.
 - **Location**: (Client/Server/Both)
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### **SearchController**
-- **Responsibility**: Define the purpose of this controller and its main operations.
+- **Responsibility**: Operates search queries and displaying results.
 - **Location**: (Client/Server/Both)
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
