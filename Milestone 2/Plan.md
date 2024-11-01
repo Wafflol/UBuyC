@@ -2,8 +2,8 @@
 
 ## 1. Coordination
 
-### Project Coordinator
-- **Coordinator**: [Name of the project manager/lead]
+### Project Manager
+- **Coordinator**: [Peter Gao]
 - **Responsibilities**:
   - Overseeing project progress
   - Ensuring deadlines and milestones are met
@@ -17,7 +17,7 @@
 
 ### Meetings
 - **Frequency**: [e.g., Weekly/bi-weekly]
-- **Agenda Planner**: [Name of the person responsible for planning]
+- **Agenda Planner**: [Project Manager]
 - **Purpose**: Reviewing progress, discussing blockers, planning next steps
 
 ---
@@ -25,9 +25,9 @@
 ## 2. Communication Tools
 
 ### Primary Communication Channels
-- **Tool**: [e.g., Slack, Microsoft Teams]
-  - **Alternatives Considered**: [Alternative options and why the chosen tool was selected]
-  - **Justification**: [e.g., Reliability, ease of integration with other tools, etc.]
+- **Tool**: [Discord]
+  - **Alternatives Considered**: [Options reviewed and reason for final choice]
+  - **Justification**: [Ease of use, allows for multiple forms of communication (texting, voice call, screen share etc.) and sharing of files]
 
 ### Project Documentation and File Sharing
 - **Tool**: [e.g., Google Drive, Notion]
@@ -42,11 +42,17 @@
 
 ## 3. Component Ownership
 
-| Component               | Owner                 | Responsibilities                            |
-|-------------------------|-----------------------|---------------------------------------------|
-| [Component Name]        | [Name]                | Ensure functionality, conduct testing       |
-| [Component Name]        | [Name]                | Write code, manage integration              |
-| [Component Name]        | [Name]                | Maintain and verify correctness             |
+| Component               | Owner          | Responsibilities                            |
+|-------------------------|----------------|---------------------------------------------|
+| [Login Page]            | [Name]         | Implement, ensure functionality, conduct testing       |
+| [Sign Up Page]          | [Name]         | Write code, manage integration              |
+| [OTP Page]              | [Name]         | Maintain and verify correctness             |
+| [Home Page]             | [Name]         |                                             |
+| [Listing View Page]     | [Name]         |                                             |
+| [Listing Creation Page] | [Name]         |                                             | 
+| [Account Page]          | [Name]         |                                             | 
+| [Search Listings]       | [Name]         |                                             | 
+
 
 - **Responsibility Definition**:
   - Each owner is responsible for implementing, testing, and verifying their assigned component’s functionality. Owners will ensure the component integrates well with the broader application.
@@ -55,12 +61,13 @@
 
 ## 4. Timeline and Milestones
 
-| Milestone                 | Deadline              | Description                                   |
-|---------------------------|-----------------------|-----------------------------------------------|
-| [Milestone 1: Requirement Analysis] | [Date] | Complete requirement analysis and documentation |
-| [Milestone 2: Architecture Finalization] | [Date] | Finalize architectural designs and stubs      |
-| [Milestone 3: Component Implementation] | [Date] | Complete core component implementations       |
-| [Milestone 4: Integration and Testing] | [Date] | Conduct integration and acceptance testing    |
+| Milestone                 | Deadline (dates to be updated)   | Description                                      |
+|---------------------------|-----------------------|--------------------------------------------------|
+| [Milestone 1: Requirement Analysis]  | [Nov 1, 2024] | Create a tentative list of requirements (will be updated) |
+| [Milestone 2: Architecture & Plan Finalization] | [Nov 1, 2024] | Finalize component designs and stubs           |
+| [Milestone 3: Component Implementation]  | [Nov 15, 2024] | Complete core component implementations              |
+| [Milestone 4: Integration and Testing]   | [Nov 22, 2024] | Conduct integration and acceptance testing           |
+| [Milestone 5: Final Design Review]       | [Nov 29, 2024] | Conduct final review and finishing touches           | 
 
 - **Timeline Justification**:
   - Each deadline aligns with project goals and allows for adequate testing, code review, and adjustments based on feedback or unforeseen issues.
