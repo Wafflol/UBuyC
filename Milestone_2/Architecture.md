@@ -9,39 +9,78 @@ This document outlines the architecture of our application, detailing each compo
 
 ### Models
 
-#### **[Model Name]**
+#### UserModel
 - **Responsibility**: Describe the specific function or data this model manages.
 - **Location**: (Client/Server/Both)
-- **Communication**:
-  - **Interacting Components**: List each component that communicates with this model.
-  - **Communication Details**:
-    - What it receives or provides in interaction with each component.
+- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
----
-
-### Controllers
-
-#### **[Controller Name]**
-- **Responsibility**: Define the purpose of this controller and its main operations.
+#### ListingModel
+- **Responsibility**: Describe the specific function or data this model manages.
 - **Location**: (Client/Server/Both)
-- **Communication**:
-  - **Interacting Components**: List each component that interacts with this controller.
-  - **Communication Details**:
-    - What it receives or sends to other components and how it processes them.
+- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+
+#### AuthorizationModel
+- **Responsibility**: Describe the specific function or data this model manages.
+- **Location**: (Client/Server/Both)
+- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+
+#### SearchModel
+- **Responsibility**: Describe the specific function or data this model manages.
+- **Location**: (Client/Server/Both)
+- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 ---
 
 ### Views
 
-#### **[View Name]**
+#### **SignUpView**
 - **Responsibility**: Explain what the view displays or allows the user to do.
 - **Location**: (Client/Server/Both)
-- **Communication**:
-  - **Interacting Components**: List each component that communicates with this view.
-  - **Communication Details**:
-    - Specify the data or commands exchanged with other components.
+- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+
+#### **LoginView**
+- **Responsibility**: Explain what the view displays or allows the user to do.
+- **Location**: (Client/Server/Both)
+- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+
+#### **HomePageView**
+- **Responsibility**: Explain what the view displays or allows the user to do.
+- **Location**: (Client/Server/Both)
+- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+
+#### **ListingView**
+- **Responsibility**: Explain what the view displays or allows the user to do.
+- **Location**: (Client/Server/Both)
+- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+
+#### **ListingCreationView**
+- **Responsibility**: Explain what the view displays or allows the user to do.
+- **Location**: (Client/Server/Both)
+- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+
+#### **?? OTPView ??**
+- **Responsibility**: Explain what the view displays or allows the user to do.
+- **Location**: (Client/Server/Both)
+- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 ---
+
+### Controllers
+
+#### **AuthorizationController**
+- **Responsibility**: Define the purpose of this controller and its main operations.
+- **Location**: (Client/Server/Both)
+- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+
+#### **ListingController**
+- **Responsibility**: Define the purpose of this controller and its main operations.
+- **Location**: (Client/Server/Both)
+- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+
+#### **SearchController**
+- **Responsibility**: Define the purpose of this controller and its main operations.
+- **Location**: (Client/Server/Both)
+- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 ## Component Stubs
 
