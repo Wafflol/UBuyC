@@ -10,22 +10,22 @@ This document specifies all models, controllers, and views in the application ([
 ### Models
 
 #### UserModel
-- **Responsibility**: Describe the specific function or data this model manages.
+- **Responsibility**: Stores user info such as name, UBC email, password, (other personal info?)
 - **Location**: (Client/Server/Both)
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### ListingModel
-- **Responsibility**: Describe the specific function or data this model manages.
+- **Responsibility**: Stores listing information such as title, description, price, seller, date posted, tags, and pictures.
 - **Location**: (Client/Server/Both)
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### AuthorizationModel
-- **Responsibility**: Describe the specific function or data this model manages.
+- **Responsibility**: Manages signup/OTPs for new users and login for existing ones.
 - **Location**: (Client/Server/Both)
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### SearchModel
-- **Responsibility**: Describe the specific function or data this model manages.
+- **Responsibility**: Manages search algorithms for synonym recognition and spell correction (Ex. displays all listings that match search query, displays no listings found if no listings match). *(Too hard? idk)*
 - **Location**: (Client/Server/Both)
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
