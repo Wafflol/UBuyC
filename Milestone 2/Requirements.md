@@ -14,7 +14,10 @@ make a requirement section for each page I guess.
 - [ ] Needs a signup button
 - [ ] Redirects to OTP page on successful signup
 - [ ] Prints account already exists in red on unsuccessful signup
-
+- [ ] Error if already exists
+- [ ] Adds login details to db if success
+- [ ] Error if passwords do not match
+- [ ] Displays sign up screen correctly
 #### OTP Page
 - [ ] Needs 6, 1-digit fields for each digit of the OTP
 - [ ] Sends a 6 digit OTP to the given student email in the signup page
