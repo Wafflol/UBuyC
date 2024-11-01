@@ -34,32 +34,32 @@ This document specifies all models, controllers, and views in the application ([
 ### Views
 
 #### **SignUpView**
-- **Responsibility**: Explain what the view displays or allows the user to do.
+- **Responsibility**: Displays sign up fields such as first/last name, student email, password, and re-type password field. Also provides relevant errors (Ex. invalid email, passwords don't match).
 - **Location**: (Client/Server/Both)
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### **LoginView**
-- **Responsibility**: Explain what the view displays or allows the user to do.
+- **Responsibility**: Displays email/password field, login button, and relevant errors (Ex. invalid username/password).
 - **Location**: (Client/Server/Both)
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### **HomePageView**
-- **Responsibility**: Explain what the view displays or allows the user to do.
+- **Responsibility**: Displays all listings in grid format, header bar with logo, along with search bar and account button.
 - **Location**: (Client/Server/Both)
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### **ListingView**
-- **Responsibility**: Explain what the view displays or allows the user to do.
+- **Responsibility**: Shows detailed information for the selected listing, including image, price, seller info, and an email option.
 - **Location**: (Client/Server/Both)
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### **ListingCreationView**
-- **Responsibility**: Explain what the view displays or allows the user to do.
+- **Responsibility**: Shows fields for insertion of a picture, title, price, and description.
 - **Location**: (Client/Server/Both)
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### **?? OTPView ??**
-- **Responsibility**: Explain what the view displays or allows the user to do.
+- **Responsibility**: idk bout dis one
 - **Location**: (Client/Server/Both)
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
