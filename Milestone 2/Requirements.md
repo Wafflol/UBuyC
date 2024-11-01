@@ -13,14 +13,16 @@ make a requirement section for each page I guess.
 - [ ] Needs a first name, last name, student email, password, and re-type password field
 - [ ] Needs a signup button
 - [ ] Redirects to OTP page on successful signup
-- [ ] Prints "Account already exists" in red on unsuccessful signup
-- [ ] Prints "Invalid UBC email" in red if the email does not end in "@ubc.ca"
-
+- [ ] Prints account already exists in red on unsuccessful signup
+- [ ] Error if already exists
+- [ ] Adds login details to db if success
+- [ ] Error if passwords do not match
+- [ ] Displays sign up screen correctly
 #### OTP Page
 - [ ] Needs 6, 1-digit fields for each digit of the OTP
 - [ ] Sends a 6 digit OTP to the given student email in the signup page
 - [ ] Either automatically submits when 6 digits are inputted or include a submit button
-- [ ] Prints OTP is wrong if OTP does not match or expired
+- [ ] Prints OTP is wrong if OTP does not match
 - [ ] Creates new account object in DB on successful OTP entry
 - [ ] Redirects to home page on successfull OTP entry
 
@@ -41,12 +43,12 @@ make a requirement section for each page I guess.
 - [ ] Allows insertion of a picture
 - [ ] Includes title, price, and description button
 - [ ] Throws error if not all fields are populated
-- [ ] Throws error is price is non-positive
+- [ ] Throws error is price is negative
 - [ ] Adds a listing object to the database
 - [ ] Also includes a header bar
 
 #### Account Details Page
-- [ ] Displays current email and password (maybe censorable?)
+- [ ] Displays current email and password
 - [ ] Allows user to change password
 - [ ] Updates password field in database on successful password change
 
