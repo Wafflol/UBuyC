@@ -1,7 +1,7 @@
 # Software Architecture (example template)
 
 ## Overview
-This document outlines the architecture of our application, detailing each component in terms of its responsibilities, location (client or server), and communication patterns with other components.
+This document specifies all models, controllers, and views in the application ([Model–view–controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)). Each component is detailed in terms of its responsibilities, location, and communication with other components. 
 
 ---
 
