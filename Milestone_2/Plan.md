@@ -11,53 +11,47 @@
 
 ### Project Management Practices
 - **Practices**:
-  - Task tracking through [tool, e.g., GitHub Projects, Jira]
+  - Task tracking through [tool, e.g., GitHub Projects]
   - Regular sprint reviews and retrospectives
-  - [Any additional practices, e.g., Agile methodologies, Kanban, etc.]
+  - Weekly check-ins with team members to see progress
 
 ### Meetings
-- **Frequency**: [e.g., Weekly/bi-weekly]
-- **Agenda Planner**: [Project Manager]
-- **Purpose**: Reviewing progress, discussing blockers, planning next steps
+- **Frequency**: Weekly meetings during the weekend
+- **Agenda Planner**: Project Manager (Peter Gao)
+- **Purpose**: Reviewing progress, discussing any high-level implementation problems, planning next steps
 
 ---
 
 ## 2. Communication Tools
 
 ### Primary Communication Channels
-- **Tool**: [Discord]
-  - **Alternatives Considered**: [Options reviewed and reason for final choice]
-  - **Justification**: [Ease of use, allows for multiple forms of communication (texting, voice call, screen share etc.) and sharing of files]
+- **Tool**: Discord
+  - **Alternatives Considered**: Imessage, Instgram
+  - **Justification**: Everyone already has discord and is very comfortable using it. We are also all active on Discord. It also has features to easily share code and discuss problems.
 
 ### Project Documentation and File Sharing
-- **Tool**: [e.g., Google Drive, Notion]
-  - **Alternatives Considered**: [Options reviewed and reason for final choice]
-  - **Justification**: [Explanation of how this tool best supports file management and collaborative editing]
+- **Tool**: GitHub
+  - **Alternatives Considered**: Notion
+  - **Justification**: GitHub and git are widely used applications to collaborate with others when writing code. Everyone in the team already has a few months of using GitHub as we all have 2 classes that require its use. 
 
 ### Code Collaboration
 - **Tool**: GitHub (for version control and code review)
-  - **Justification**: Allows for version control, pull requests, and team code reviews
+  - **Justification**: Same reason as above
 
 ---
 
 ## 3. Component Ownership
 
-| Component               | Owner          | Responsibilities                            |
-|-------------------------|----------------|---------------------------------------------|
-| [Login Page]            | [Name]         | Implement, ensure functionality, conduct testing       |
-| [Sign Up Page]          | [Name]         | Write code, manage integration              |
-| [OTP Page]              | [Name]         | Maintain and verify correctness             |
-| [Home Page]             | [Name]         |                                             |
-| [Listing View Page]     | [Name]         |                                             |
-| [Listing Creation Page] | [Name]         |                                             | 
-| [Account Page]          | [Name]         |                                             | 
-| [Search Listings]       | [Name]         |                                             | 
-
-
-- **Responsibility Definition**:
-  - Each owner is responsible for implementing, testing, and verifying their assigned component’s functionality. Owners will ensure the component integrates well with the broader application.
-
----
+| Component               | Owner                                   |
+|-------------------------|------------------------------|
+| Login Page            | Ian         
+| Sign Up Page          | Tommy
+| OTP Page              | Peter         
+| Home Page             | Ethan
+| Listing View Page     | Peter 
+| Listing Creation Page | Elaina 
+| Account Page          | Ian  
+| Search Listings       | Tommy  
 
 ## 4. Timeline and Milestones
 
