@@ -13,18 +13,20 @@ This document specifies all models, controllers, and views in the application ([
 - **Responsibility**: Stores user info such as name, UBC email, password, (other personal info?)
 - **Location**: Server
 - **Communication**:
-  - Au
-  - 
+  - AuthenticationController
+    - Verifies that user input (email, password) matches with an existing user
+    - Adds new users/removes user on account deletion
+    - Handles password change requests
+    - Updates user details when changes are made
 
 #### ListingModel
 - **Responsibility**: Stores listing information such as title, description, price, seller, date posted, tags, and pictures.
 - **Location**: Server
-- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
-
-#### AuthenticationModel
-- **Responsibility**: Manages signup/OTPs for new users and login for existing ones.
-- **Location**: Server
-- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+- **Communication**:
+  - ListingController
+    - Asks ListingModel for listing information (title, description, price, etc.)
+    - Can retrieve specific listing details and a specific ID for a listing (HashCode)
+    - Will tell ListingModel to add/delete listings based on user input
 
 #### SearchModel
 - **Responsibility**: Manages search algorithms for synonym recognition and spell correction (Ex. displays all listings that match search query, displays no listings found if no listings match). *(Too hard? idk)*
