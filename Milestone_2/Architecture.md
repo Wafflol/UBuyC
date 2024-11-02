@@ -124,7 +124,7 @@ This document specifies all models, controllers, and views in the application ([
 
 ## Component Stubs
 
-### [UserModel]
+### UserModel
 
 ```java
 // File: [User.java]
@@ -154,14 +154,50 @@ public encryptPassword(String password) {
     // TODO: Encrypt with SHA256 and store to passwordHash   
 }
 
-/**
- * @param paramType paramName - Describe the parameter
- * @return returnType - Describe what is returned
- * @precondition - Preconditions for this function
- * @postcondition - Postconditions for this function
+```
+
+### SearchModel
+
+```java
+// File: [User.java]
+/** 
+ * Creates a new User object
+ * @param searchQuery
+ * @param maxPrice
+ * @param minPrice
+ * @param dateListed
+ * @precondition searchQuery is not null
+ * @postcondition return a list of corresponding listings that match the query. Returns an empty list if none exist.
  */
-public returnType functionName(paramType paramName) {
-    // TODO: Replace with actual implementation
-    return defaultValue;
+public List<listing> find(String searchQuery, int maxPrice, int minPrice, int dateListed) {
+    // TODO: return a list of all matching listings
+}
+```
+
+### ListingModel
+
+```java
+// File: [User.java]
+/** 
+ * Adds a listing.
+ * @param title
+ * @param description
+ * @param price
+ * @param pictures
+ * @param tags
+ * @precondition no inputs are null
+ * @postcondition returns true if a successful listing was made and false otherwise
+ */
+public boolean addListing(String title, String description, double price, List<Image> pictures, List<Tags> tags) {
+    // TODO: Implement constructor
+}
+/**
+ * Removes a listing
+ * @param listing
+ * @precondition - listing exists
+ * @postcondition - returns true if the listing was removed and false otherwise 
+ */
+public boolean removeListing(Listing listing) {
+    // TODO: remove the listing if it exists, return false otherwise
 }
 ```
