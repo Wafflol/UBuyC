@@ -89,10 +89,34 @@ Each component has been stubbed in source files within the repository. These stu
 ### Example Stub: [Component Name]
 
 ```java
-// File: [ComponentFileName.java]
+// File: [User.java]
+private String firstName
+private String lastName
+private String email
+private String passwordHash
+/** 
+ * Creates a new User object
+ * @param String firstName
+ * @param String lastName
+ * @param String email
+ * @param String passwordHash
+ * @precondition firstName is not null, lastName is not null, email is not null, password is not null
+ * @postcondition creates a user object and instantiates all instance variables
+ */
+public User(String firstName, String lastName, String email, String password) {
+    // TODO: Implement constructor
+}
+/**
+ * Encrypts the a string and stores it as the password
+ * @param String password
+ * @precondition - password not null
+ * @postcondition - sets passwordHash
+ */
+public encryptPassword(String password) {
+    // TODO: Encrypt with SHA256 and store to passwordHash   
+}
 
 /**
- * Function description
  * @param paramType paramName - Describe the parameter
  * @return returnType - Describe what is returned
  * @precondition - Preconditions for this function
@@ -103,5 +127,3 @@ public returnType functionName(paramType paramName) {
     return defaultValue;
 }
 ```
-
-wawawaw
