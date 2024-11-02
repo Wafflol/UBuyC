@@ -42,16 +42,16 @@
 
 ## 3. Component Ownership
 
-| Component               | Owner                                   |
-|-------------------------|------------------------------|
-| Login Page            | Ian         
-| Sign Up Page          | Tommy
-| OTP Page              | Peter         
-| Home Page             | Ethan
-| Listing View Page     | Peter 
-| Listing Creation Page | Elaina 
-| Account Page          | Ian  
-| Search Listings       | Tommy  
+| Component               | Owner         |
+|-------------------------|---------------|
+| Login Page              | Ian           |
+| Sign Up Page            | Tommy         |
+| OTP Page                | Peter         |    
+| Home Page               | Ethan         |
+| Listing View Page       | Peter         |
+| Listing Creation Page   | Ellaina       |
+| Account Page            | Ian           |
+| Search Listings         | Tommy         | 
 
 ## 4. Timeline and Milestones
 
@@ -71,14 +71,23 @@
 ## 5. Verification Plan
 
 ### Requirement Verification
-| Requirement | Verification Method | Details and Justification |
-|-------------|---------------------|---------------------------|
-| [Requirement 1] | Automated Tests | Run unit tests post-build |
-| [Requirement 2] | Code Review | Scheduled reviews of logic and structure |
-| [Requirement 3] | User Testing | Validate UI/UX functionality              |
+| Requirement                    | Verification Method      | Details and Justification                                                     |
+|--------------------------------|--------------------------|-------------------------------------------------------------------------------|
+| [Login Page Reqs]              | User and Automated Tests | Run unit tests for each component/aspect during and post-build                |
+| [Signup Page Reqs]             | User and Automated Tests | Run unit tests for each component/aspect during and post-build                |
+| [OTP Page Reqs]                | User and Automated Tests | Run unit tests for each component/aspect during and post-build                |
+| [Home Page Reqs]               | User and Automated Tests | Run unit tests for each component/aspect during and post-build                |
+| [Listing View Page Reqs]       | User and Automated Tests | Run unit tests for each component/aspect during and post-build                |
+| [Listing Creating Reqs]        | User and Automated Tests | Run unit tests for each component/aspect during and post-build                |
+| [Accounts Page Reqs]           | User and Automated Tests | Run unit tests for each component/aspect during and post-build                |
+| [Search Bar Reqs]              | User Testing             | Run unit tests for each component/aspect during and post-build                |
+| [User Interface Functionality] | User Testing             | Validate UI/UX functionality                                                  |
+| [Integration Testing]          | User Testing             | Validate functionality of all pages/components/controllers                    |
+| [Code Style]                   | Code Inspections         | Review all program aspects for efficiency, functionality, good style/practice |
 
 - **Test Types**:
-  - **Automated Testing**: Conduct automated tests after every build for core functionalities.
+  - **Automated Testing**: Implement pre-written test suite after and during every build for core functionalities.
+  - **User Testing**: User interacting with the program.
   - **Code Inspections**: Team members will review code for security, efficiency, and functionality.
 
 - **Verification Justification**:

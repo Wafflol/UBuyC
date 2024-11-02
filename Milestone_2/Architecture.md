@@ -88,14 +88,14 @@ This document specifies all models, controllers, and views in the application ([
 
 Each component has been stubbed in source files within the repository. These stubs define the basic structure, with function headers, arguments, return values, preconditions, and postconditions for all inter-component requests.
 
-### Example Stub: [Component Name]
+### User: [UserModel]
 
 ```java
 // File: [User.java]
-private String firstName
-private String lastName
-private String email
-private String passwordHash
+private String firstName;
+private String lastName;
+private String email;
+private String passwordHash;
 /** 
  * Creates a new User object
  * @param String firstName
@@ -129,3 +129,5 @@ public returnType functionName(paramType paramName) {
     return defaultValue;
 }
 ```
+
+

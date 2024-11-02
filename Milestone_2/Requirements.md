@@ -17,6 +17,7 @@ make a requirement section for each page I guess.
 - [ ] Error if already exists
 - [ ] Adds login details to db if success
 - [ ] Error if passwords do not match
+- [ ] Error if email entered does not end in "@ubc.ca"
 - [ ] Displays sign up screen correctly
 #### OTP Page
 - [ ] Needs 6, 1-digit fields for each digit of the OTP
