@@ -55,13 +55,13 @@
 
 ## 4. Timeline and Milestones
 
-| Milestone                 | Deadline (dates to be updated)   | Description                                      |
-|---------------------------|-----------------------|--------------------------------------------------|
-| [Milestone 1: Requirement Analysis]  | [Nov 1, 2024] | Create a tentative list of requirements (will be updated) |
-| [Milestone 2: Architecture & Plan Finalization] | [Nov 1, 2024] | Finalize component designs and stubs           |
-| [Milestone 3: Component Implementation]  | [Nov 15, 2024] | Complete core component implementations              |
-| [Milestone 4: Integration and Testing]   | [Nov 22, 2024] | Conduct integration and acceptance testing           |
-| [Milestone 5: Final Design Review]       | [Nov 29, 2024] | Conduct final review and finishing touches           | 
+| Milestone                                         | Deadline (dates to be updated) | Description                                               |
+|---------------------------------------------------|--------------------------------|-----------------------------------------------------------|
+| [Milestone 1: Requirement Analysis]               | [Nov 1, 2024]                  | Create a tentative list of requirements (will be updated) |
+| [Milestone 2: Architecture & Plan Finalization]   | [Nov 1, 2024]                  | Finalize component designs and stubs                      |
+| [Milestone 3: Component Implementation]           | [Nov 15, 2024]                 | Complete core component implementations                   |
+| [Milestone 4: Integration and Testing]            | [Nov 22, 2024]                 | Conduct integration and acceptance testing                |
+| [Milestone 5: Final Design Review]                | [Nov 29, 2024]                 | Conduct final review and finishing touches                | 
 
 - **Timeline Justification**:
   - Each deadline aligns with project goals and allows for adequate testing, code review, and adjustments based on feedback or unforeseen issues.
