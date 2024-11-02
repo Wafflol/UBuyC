@@ -11,22 +11,22 @@ This document specifies all models, controllers, and views in the application ([
 
 #### UserModel
 - **Responsibility**: Stores user info such as name, UBC email, password, (other personal info?)
-- **Location**: (Client/Server/Both)
+- **Location**: Server
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### ListingModel
 - **Responsibility**: Stores listing information such as title, description, price, seller, date posted, tags, and pictures.
-- **Location**: (Client/Server/Both)
+- **Location**: Server
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### AuthorizationModel
 - **Responsibility**: Manages signup/OTPs for new users and login for existing ones.
-- **Location**: (Client/Server/Both)
+- **Location**: Server
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### SearchModel
 - **Responsibility**: Manages search algorithms for synonym recognition and spell correction (Ex. displays all listings that match search query, displays no listings found if no listings match). *(Too hard? idk)*
-- **Location**: (Client/Server/Both)
+- **Location**: Client + Server
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 ---
@@ -35,27 +35,27 @@ This document specifies all models, controllers, and views in the application ([
 
 #### **SignUpView**
 - **Responsibility**: Displays sign up fields such as first/last name, student email, password, and re-type password field. Also provides relevant errors (Ex. invalid email, passwords don't match).
-- **Location**: (Client/Server/Both)
+- **Location**: Client
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### **LoginView**
 - **Responsibility**: Displays email/password field, login button, and relevant errors (Ex. invalid username/password).
-- **Location**: (Client/Server/Both)
+- **Location**: Client
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### **HomePageView**
 - **Responsibility**: Displays all listings in grid format, header bar with logo, along with search bar and account button.
-- **Location**: (Client/Server/Both)
+- **Location**: Client
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### **ListingView**
 - **Responsibility**: Shows detailed information for the selected listing, including image, price, seller info, and an email option.
-- **Location**: (Client/Server/Both)
+- **Location**: Client
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### **ListingCreationView**
 - **Responsibility**: Shows fields for insertion of a picture, title, price, and description.
-- **Location**: (Client/Server/Both)
+- **Location**: Client
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### **?? OTPView ??**
@@ -69,17 +69,17 @@ This document specifies all models, controllers, and views in the application ([
 
 #### **AuthorizationController**
 - **Responsibility**: Handles signup, login, OTPs, and password updates.
-- **Location**: (Client/Server/Both)
+- **Location**: Server
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### **ListingController**
 - **Responsibility**: Manages listing creation, editing, retrieval, and deletion.
-- **Location**: (Client/Server/Both)
+- **Location**: Server
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 #### **SearchController**
 - **Responsibility**: Operates search queries and displaying results.
-- **Location**: (Client/Server/Both)
+- **Location**: Client + Server
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
 ## Component Stubs
