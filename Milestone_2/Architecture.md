@@ -12,14 +12,16 @@ This document specifies all models, controllers, and views in the application ([
 #### UserModel
 - **Responsibility**: Stores user info such as name, UBC email, password, (other personal info?)
 - **Location**: Server
-- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+- **Communication**:
+  - Au
+  - 
 
 #### ListingModel
 - **Responsibility**: Stores listing information such as title, description, price, seller, date posted, tags, and pictures.
 - **Location**: Server
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
 
-#### AuthorizationModel
+#### AuthenticationModel
 - **Responsibility**: Manages signup/OTPs for new users and login for existing ones.
 - **Location**: Server
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
@@ -67,7 +69,7 @@ This document specifies all models, controllers, and views in the application ([
 
 ### Controllers
 
-#### **AuthorizationController**
+#### **AuthenticationController**
 - **Responsibility**: Handles signup, login, OTPs, and password updates.
 - **Location**: Server
 - **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
