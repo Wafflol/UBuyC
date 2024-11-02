@@ -1,4 +1,4 @@
-# Software Architecture (example template)
+# Architecture (Components + Stubs)
 
 ## Overview
 This document specifies all models, controllers, and views in the application ([Model–view–controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)). Each component is detailed in terms of its responsibilities, location, and communication with other components. 
@@ -88,9 +88,7 @@ This document specifies all models, controllers, and views in the application ([
 
 ## Component Stubs
 
-Each component has been stubbed in source files within the repository. These stubs define the basic structure, with function headers, arguments, return values, preconditions, and postconditions for all inter-component requests.
-
-### Example Stub: [Component Name]
+### [UserModel]
 
 ```java
 // File: [User.java]
