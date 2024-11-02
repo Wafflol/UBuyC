@@ -132,6 +132,7 @@ private String firstName
 private String lastName
 private String email
 private String passwordHash
+
 /** 
  * Creates a new User object
  * @param String firstName
@@ -144,6 +145,7 @@ private String passwordHash
 public User(String firstName, String lastName, String email, String password) {
     // TODO: Implement constructor
 }
+
 /**
  * Encrypts the a string and stores it as the password
  * @param String password
@@ -153,6 +155,12 @@ public User(String firstName, String lastName, String email, String password) {
 public encryptPassword(String password) {
     // TODO: Encrypt with SHA256 and store to passwordHash   
 }
+
+/**
+ * @param paramType paramName - Describe the parameter
+ * @return returnType - Describe what is returned
+ * @precondition - Preconditions for this function
+ * @postcondition - Postconditions for this function
 
 ```
 
