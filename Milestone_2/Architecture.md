@@ -31,7 +31,11 @@ This document specifies all models, controllers, and views in the application ([
 #### SearchModel
 - **Responsibility**: Manages search algorithms for synonym recognition and spell correction (Ex. displays all listings that match search query, displays no listings found if no listings match). *(Too hard? idk)*
 - **Location**: Client + Server
-- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+- **Communication**:
+  - SearchController
+    - Communicates specific search queries to the SearchModel (sort by price, date, specific item)
+  - ListingModel/ListingController
+    - Provides listing details required for a search
 
 ---
 
@@ -40,33 +44,46 @@ This document specifies all models, controllers, and views in the application ([
 #### **SignUpView**
 - **Responsibility**: Displays sign up fields such as first/last name, student email, password, and re-type password field. Also provides relevant errors (Ex. invalid email, passwords don't match).
 - **Location**: Client
-- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+- **Communication**:
+  - AuthenticationController
+    - Retrieves data from sign up fields as specified above for account creation
 
 #### **LoginView**
 - **Responsibility**: Displays email/password field, login button, and relevant errors (Ex. invalid username/password).
 - **Location**: Client
-- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+- **Communication**:
+  - AuthenticationController
+    - Sends login credentials from fields as outlined above for verification
 
 #### **HomePageView**
 - **Responsibility**: Displays all listings in grid format, header bar with logo, along with search bar and account button.
 - **Location**: Client
-- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+- **Communication**:
+  - ListingController
+    - Requests recent listings to display on the homepage
 
 #### **ListingView**
 - **Responsibility**: Shows detailed information for the selected listing, including image, price, seller info, and an email option.
 - **Location**: Client
-- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+- **Communication**:
+  - ListingController
+    - Asks for listing details to display to user
 
 #### **ListingCreationView**
 - **Responsibility**: Shows fields for insertion of a picture, title, price, and description.
 - **Location**: Client
-- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+- **Communication**:
+  - ListingController
+    - Sends listing data as outlined above for new listing creation
 
-#### **?? OTPView ??**
-- **Responsibility**: idk bout dis one
-- **Location**: (Client/Server/Both)
-- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
-
+#### **AccountView**
+- **Responsibility**: Displays account details and allows user to edit personal info/request password changes.
+- **Location**: Client
+- **Communication**:
+  - AuthenticationController
+    - Sends password update requests
+    - Updates user info in UserModel when user makes changes to profile
+    
 ---
 
 ### Controllers
@@ -74,17 +91,36 @@ This document specifies all models, controllers, and views in the application ([
 #### **AuthenticationController**
 - **Responsibility**: Handles signup, login, OTPs, and password updates.
 - **Location**: Server
-- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+- **Communication**:
+  - UserModel
+    - Sends user data for account creation and validation/verification
+  - SignupView/LoginView
+    - Gets user input for signup/login
+  - AccountView
+    - Sends password update requests
 
 #### **ListingController**
 - **Responsibility**: Manages listing creation, editing, retrieval, and deletion.
 - **Location**: Server
-- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+- **Communication**:
+  - ListingModel
+    - Sends data for listing creation, retrival, and updates (edits made by seller)
+  - HomePageView
+    - Sends current listings to be displayed
+  - ListingView
+    - Provides specific listing details when a listing is selected
+  - ListingCreationView
+    - Gets user input for creating a new listing
+    - Says if listing creation was successful
 
 #### **SearchController**
 - **Responsibility**: Operates search queries and displaying results.
 - **Location**: Client + Server
-- **Communication**: What other components the component needs to communicate with and precisely what they will communicate.
+- **Communication**:
+  - SearchModel
+    - Provides search queries to execute searches and retrive results
+  - HomePageView
+    - Takes search input and outputs filtered results based on search criteria
 
 ## Component Stubs
 
