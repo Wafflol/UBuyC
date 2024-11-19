@@ -1,8 +1,7 @@
-package org.example;
-
-import java.security.MessageDigest;
+package project.marketplace.models;
 
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 
 public class User {
     private String firstName;
@@ -25,8 +24,36 @@ public class User {
         this.passwordHash = encryptPassword(password);
     }
 
+    /**
+      * Returns the first name of the user
+      * @return the first name of the user
+     */
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    /**
+     * Returns the last name of the user
+     * @return the last name of the user
+     */
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    /**
+     * Returns the email of the user
+     * @return the email of the user
+     */
+    public String getEmail() {
+        return this.email;
+    }
+
+    /**
+     * Returns the hash of the user's password
+     * @return the has of the user's password
+     */
     public String getPasswordHash() {
-        return passwordHash;
+        return this.passwordHash;
     }
     
     /**

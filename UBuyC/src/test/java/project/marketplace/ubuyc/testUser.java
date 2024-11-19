@@ -1,8 +1,8 @@
 package project.marketplace.ubuyc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import project.marketplace.models.User;
 
-import org.example.User;
 import org.junit.jupiter.api.Test;
 
 public class testUser {
