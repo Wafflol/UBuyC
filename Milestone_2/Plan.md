@@ -42,16 +42,16 @@
 
 ## 3. Component Ownership
 
-| Component               | Owner         |
-|-------------------------|---------------|
-| Login Page              | Ian           |
-| Sign Up Page            | Tommy         |
-| OTP Page                | Peter         |    
-| Home Page               | Ethan         |
-| Listing View Page       | Peter         |
-| Listing Creation Page   | Ellaina       |
-| Account Page            | Ian           |
-| Search Listings         | Tommy         | 
+| Component               | Owner                         |
+|-------------------------|-------------------------------|
+| Login Page              | Ian                           |
+| Sign Up Page            | Tommy                         |
+| OTP Page                | Peter                         |    
+| Home Page               | Ethan                         |
+| Listing View Page       | Peter                         |
+| Listing Creation Page   | Ellaina                       |
+| Account Page            | Ian                           |
+| Search Listings         | Tommy                         | 
 
 ## 4. Timeline and Milestones
 
