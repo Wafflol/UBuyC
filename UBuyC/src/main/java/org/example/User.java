@@ -2,8 +2,6 @@ package org.example;
 
 import java.security.MessageDigest;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-
 import java.nio.charset.StandardCharsets;
 
 public class User {
