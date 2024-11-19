@@ -2,6 +2,7 @@ package project.marketplace.models;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.Objects;
 
 public class User {
     private String firstName;
@@ -89,5 +90,18 @@ public class User {
             hexString.append(hex);
         }
         return hexString.toString();
-    } 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(email);
+    }
 }
