@@ -14,6 +14,4 @@ public class UbuycApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(UbuycApplication.class, args);
 	}
-
-
 }
