@@ -19,6 +19,4 @@ public class Listing {
         this.imagePath = imagePath;
         this.tags = tags;
     }
-
-
 }

@@ -1,7 +1,12 @@
 package org.example;
 
+import java.security.MessageDigest;
+
+import com.fasterxml.jackson.annotation.JsonGetter;
+
+import java.nio.charset.StandardCharsets;
+
 public class User {
-    // File: [User.java]
     private String firstName;
     private String lastName;
     private String email;
@@ -21,6 +26,11 @@ public class User {
         this.email = email;
         this.passwordHash = encryptPassword(password);
     }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+    
     /**
      * Encrypts the a string and stores it as the password
      * @param String password
@@ -28,6 +38,31 @@ public class User {
      * @postcondition - sets passwordHash
      */
     public String encryptPassword(String password) {
-        return password;
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] encodedhash = digest.digest(password.getBytes(StandardCharsets.UTF_8)); 
+            return bytesToHex(encodedhash);
+        }
+        catch (Exception e) {
+            System.out.println("Wrong algorithm name");
+            return null;
+        }
     }
+    
+    /**
+     * Turns a list of bytes into its hex representation
+     * @param hash the list of bytes to transform
+     * @return the hex representation
+     */
+    private static String bytesToHex(byte[] hash) {
+        StringBuilder hexString = new StringBuilder(2 * hash.length);
+        for (int i = 0; i < hash.length; i++) {
+            String hex = Integer.toHexString(0xff & hash[i]);
+            if(hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return hexString.toString();
+    } 
 }
