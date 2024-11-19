@@ -1,7 +1,6 @@
-package org.example;
+package project.marketplace.models;
 
 import java.util.Set;
-import java.util.HashSet;
 
 public class Listing {
     private User owner;
@@ -19,6 +18,4 @@ public class Listing {
         this.imagePath = imagePath;
         this.tags = tags;
     }
-
-
 }
