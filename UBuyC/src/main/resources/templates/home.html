@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaft.org">
+<html>
+    <head>
+        <title>Home Page</title>
+        <link rel="stylesheet" type="text/css" href="css/test.css"/>
+        <script src="js/home.js"></script>
+    </head>
+    <body>
+        <hi>Home Page</hi>
+        <p th:text="${email}"></p>
+        <input type="button" id="changeButton" class="red" value="Click me!" onclick="changeTextButton()"></input>
+    </body>
+</html>
