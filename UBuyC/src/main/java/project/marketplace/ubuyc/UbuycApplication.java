@@ -1,14 +1,14 @@
 package project.marketplace.ubuyc;
 
 import org.springframework.boot.SpringApplication;
-//import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.context.annotation.*;
 
-//@SpringBootApplication
+@SpringBootApplication
 @EnableAutoConfiguration
 @Configuration
-@ComponentScan("java")
+@ComponentScan("java.project")
 public class UbuycApplication {
 
 	public static void main(String[] args) {
