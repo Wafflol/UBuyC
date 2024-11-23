@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
@@ -21,19 +21,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "First name is required")
-    @Size(min = 2, message = "First name must be at least 2 characters")
+    @NotNull
+    @NotBlank
     private String firstName;
 
-    @NotBlank(message = "Last name is required")
+    @NotNull
+    @NotBlank
     private String lastName;
 
-    @NotBlank(message = "Email is required")
-    @Email(message = "Email must be valid")
+    @NotNull
+    @NotBlank
+    @Email
     private String email;
 
-    @NotBlank(message = "Password is required")
-    @Size(min = 6, message = "Password must be at least 6 characters")
+    @NotNull
+    @NotBlank
     private String passwordHash;
 
     /**
@@ -74,6 +76,22 @@ public class User {
      */
     public String getPasswordHash() {
         return this.passwordHash;
+    }
+
+    public void setFirstName(String fname) {
+        this.firstName = fname;
+    }
+
+    public void setLastName(String lname) {
+        this.lastName = lname;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPasswordHash(String password) {
+        this.passwordHash = encryptPassword(password);
     }
     
     /**

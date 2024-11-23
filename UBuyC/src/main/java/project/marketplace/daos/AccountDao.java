@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import project.marketplace.models.User;
-import project.marketplace.daos.UserAlreadyExistsException;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_SINGLETON)
@@ -24,16 +23,27 @@ public class AccountDao {
         return namesFound.get(0);
     }
 
-    public int createUser(User user) throws UserAlreadyExistsException {
-        if (emailExists(user.getEmail())) {
+    public int createUser(User userDTO) throws UserAlreadyExistsException {
+
+        // checks if user already exists by email
+        if (emailExists(userDTO.getEmail())) {
             throw new UserAlreadyExistsException("An account has already been registered with that email address.");
         }
-        String sql = "INSERT INTO users (fname, lname, email, password) VALUE(:fname, :lname, :email, :password)";
+
+        // defensive copying
+        final User user = new User();
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setEmail(userDTO.getEmail());
+        user.setPasswordHash(userDTO.getPasswordHash());
+
+        // adding new user to database
+        String sql = "INSERT INTO users (fname, lname, email, password) VALUES(:fname, :lname, :email, :password)";
         MapSqlParameterSource parameters = new MapSqlParameterSource()
             .addValue("fname", user.getFirstName())
-            .addValue("fname", user.getLastName())
-            .addValue("fname", user.getEmail())
-            .addValue("fname", user.getPasswordHash());
+            .addValue("lname", user.getLastName())
+            .addValue("email", user.getEmail())
+            .addValue("password", user.getPasswordHash());
         return jdbcTemplate.update(sql, parameters);
     }
 }
