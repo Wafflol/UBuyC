@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -37,6 +38,16 @@ public class User {
     @NotNull
     @NotBlank
     private String passwordHash;
+
+    @Column(name = "validated")
+    private boolean validated;
+
+    /**
+     * Creates new user object with no validation
+     */
+    public User() {
+        this.validated = false;
+    }
 
     /**
      * Returns the id of the user
@@ -92,6 +103,10 @@ public class User {
 
     public void setPasswordHash(String password) {
         this.passwordHash = encryptPassword(password);
+    }
+
+    public void setValidated(boolean bool) {
+        this.validated = bool;
     }
     
     /**
