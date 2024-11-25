@@ -61,10 +61,11 @@ public class AccountDao {
     
     public int createVerificationToken(User user) {
         VerificationToken token = new VerificationToken(user);
-        String sql = "INSERT INTO tokens (token, user, expiryDate) VALUES(:token, :user, :expiryDate)";
+        String sql = "INSERT INTO verification_tokens (email, otp, expiry_date) VALUES(:email, :otp, :expiry_date)";
         MapSqlParameterSource parameters = new MapSqlParameterSource()
-            .addValue("user", token.getUser())
-            .addValue("expiryDate", token.getExpiryDate());
+            .addValue("email", token.getUser().getEmail())
+            .addValue("otp", token.getOtp())
+            .addValue("expiry_date", token.getExpiryDate());
         jdbcTemplate.update(sql, parameters);
         return token.getOtp();
     }
