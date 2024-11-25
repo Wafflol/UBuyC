@@ -2,18 +2,19 @@ package project.marketplace.models;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.Objects;
 
 public class User {
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String passwordHash;
+    private final String firstName;
+    private final String lastName;
+    private final String email;
+    private final String passwordHash;
     /**
      * Creates a new User object
-     * @param String firstName
-     * @param String lastName
-     * @param String email
-     * @param String passwordHash
+     * @param firstName the first name of the user
+     * @param lastName the last name of the user
+     * @param email the email of the user
+     * @param password the password of the user
      * @precondition firstName is not null, lastName is not null, email is not null, password is not null
      * @postcondition creates a user object and instantiates all instance variables
      */
@@ -57,8 +58,8 @@ public class User {
     }
     
     /**
-     * Encrypts the a string and stores it as the password
-     * @param String password
+     * Hashes a given string and returns it
+     * @param password the to hash password
      * @precondition - password not null
      * @postcondition - sets passwordHash
      */
@@ -89,5 +90,24 @@ public class User {
             hexString.append(hex);
         }
         return hexString.toString();
-    } 
+    }
+
+    /**
+     * Overrides the equals method using the email field
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(email, user.email);
+    }
+
+    /**
+     * Overrides the hashcode method using the hashcode of the email field
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(email);
+    }
 }
