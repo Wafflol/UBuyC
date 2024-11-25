@@ -5,16 +5,16 @@ import java.security.MessageDigest;
 import java.util.Objects;
 
 public class User {
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String passwordHash;
+    private final String firstName;
+    private final String lastName;
+    private final String email;
+    private final String passwordHash;
     /**
      * Creates a new User object
-     * @param String firstName
-     * @param String lastName
-     * @param String email
-     * @param String passwordHash
+     * @param firstName the first name of the user
+     * @param lastName the last name of the user
+     * @param email the email of the user
+     * @param password the password of the user
      * @precondition firstName is not null, lastName is not null, email is not null, password is not null
      * @postcondition creates a user object and instantiates all instance variables
      */
@@ -58,8 +58,8 @@ public class User {
     }
     
     /**
-     * Encrypts the a string and stores it as the password
-     * @param String password
+     * Hashes a given string and returns it
+     * @param password the to hash password
      * @precondition - password not null
      * @postcondition - sets passwordHash
      */
@@ -92,6 +92,9 @@ public class User {
         return hexString.toString();
     }
 
+    /**
+     * Overrides the equals method using the email field
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -100,6 +103,9 @@ public class User {
         return Objects.equals(email, user.email);
     }
 
+    /**
+     * Overrides the hashcode method using the hashcode of the email field
+     */
     @Override
     public int hashCode() {
         return Objects.hashCode(email);

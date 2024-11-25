@@ -15,6 +15,16 @@ public class Listing {
     private final LocalDateTime listingAge;
     private final int listingId;
 
+    /**
+     * creates a new listing object
+     * @param owner the owner of the listing
+     * @param title the title of the listing
+     * @param description the description of the listing
+     * @param price the price of the listing
+     * @param imagePath the path to the image of the listing
+     * @param tags the tags of the listing
+     * @param listingId the listing ID
+     */
     public Listing (User owner, String title, String description, double price, String imagePath, Set<String> tags, int listingId) {
         this.owner = owner;
         this.title = title;
