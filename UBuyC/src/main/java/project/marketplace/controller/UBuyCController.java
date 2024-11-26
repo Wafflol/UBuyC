@@ -83,7 +83,7 @@ public class UBuyCController {
         
         try {
             User registeredUser = dao.createUser(user);
-            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registeredUser, request.getLocale()));
+            //eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registeredUser, request.getLocale()));
         } catch (UserAlreadyExistsException e) {
             return new ModelAndView().addObject("message", "An account for that email already exists.");
         } catch (RuntimeException e) {
@@ -104,26 +104,26 @@ public class UBuyCController {
         return "verification";
     }
 
-    @PostMapping("/verification")
-    public ModelAndView verifyOtp(@ModelAttribute("otp") @Valid String otp, @ModelAttribute("user") @Valid User user, WebRequest request) {
-        Locale locale = request.getLocale();
-        int otpToken = dao.getOtpByUser(user);
-        LocalDate expiryDate = dao.getTokenExpiryDateByUser(user);
+    // @PostMapping("/verification")
+    // public ModelAndView verifyOtp(@ModelAttribute("otp") @Valid String otp, @ModelAttribute("user") @Valid User user, WebRequest request) {
+    //     Locale locale = request.getLocale();
+    //     int otpToken = dao.getOtpByUser(user);
+    //     LocalDate expiryDate = dao.getTokenExpiryDateByUser(user);
         
-        if (otpToken != Integer.parseInt(otp)) {
-            String invalidMessage = messages.getMessage("auto.message.invalid", null, locale);
-            return new ModelAndView("badUser", "message", invalidMessage);
-        }
+    //     if (otpToken != Integer.parseInt(otp)) {
+    //         String invalidMessage = messages.getMessage("auto.message.invalid", null, locale);
+    //         return new ModelAndView("badUser", "message", invalidMessage);
+    //     }
 
-        if (expiryDate.isAfter(LocalDate.now())) {
-            String expiryMessage = messages.getMessage("auth.message.expired", null, locale);
-            return new ModelAndView("badUser", "message", expiryMessage);
-        }
+    //     if (expiryDate.isAfter(LocalDate.now())) {
+    //         String expiryMessage = messages.getMessage("auth.message.expired", null, locale);
+    //         return new ModelAndView("badUser", "message", expiryMessage);
+    //     }
 
-        user.setValidated(true);
-        dao.updateValidatedUser(user);
-        return new ModelAndView("index");
-    }
+    //     user.setValidated(true);
+    //     dao.updateValidatedUser(user);
+    //     return new ModelAndView("index");
+    // }
 
     /**
      * Displays the account screen
@@ -144,11 +144,4 @@ public class UBuyCController {
     public String index() { 
         return "index";
     }
-
-    // @GetMapping("home")
-    // public String home(ModelMap modelMap){
-    //     modelMap.addAttribute("email", dao.getEmail());
-    //     return "home";
-    // }
-    
 }

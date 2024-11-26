@@ -59,33 +59,33 @@ public class AccountDao {
         return user;
     }
     
-    public int createVerificationToken(User user) {
-        VerificationToken token = new VerificationToken(user);
-        String sql = "INSERT INTO verification_tokens (email, otp, expiry_date) VALUES(:email, :otp, :expiry_date)";
-        MapSqlParameterSource parameters = new MapSqlParameterSource()
-            .addValue("email", token.getUser().getEmail())
-            .addValue("otp", token.getOtp())
-            .addValue("expiry_date", token.getExpiryDate());
-        jdbcTemplate.update(sql, parameters);
-        return token.getOtp();
-    }
+    // public int createVerificationToken(User user) {
+    //     VerificationToken token = new VerificationToken(user);
+    //     String sql = "INSERT INTO verification_tokens (email, otp, expiry_date) VALUES(:email, :otp, :expiry_date)";
+    //     MapSqlParameterSource parameters = new MapSqlParameterSource()
+    //         .addValue("email", token.getUser().getEmail())
+    //         .addValue("otp", token.getOtp())
+    //         .addValue("expiry_date", token.getExpiryDate());
+    //     jdbcTemplate.update(sql, parameters);
+    //     return token.getOtp();
+    // }
 
-    public int getOtpByUser(User user) {
-        String sql = "SELECT otp FROM verification_tokens WHERE email = '" + user.getEmail() + "')";
-        List<Integer> otps = jdbcTemplate.queryForList(sql, new MapSqlParameterSource(), Integer.class);
-        return otps.get(0);
-    }
+    // public int getOtpByUser(User user) {
+    //     String sql = "SELECT otp FROM verification_tokens WHERE email = '" + user.getEmail() + "')";
+    //     List<Integer> otps = jdbcTemplate.queryForList(sql, new MapSqlParameterSource(), Integer.class);
+    //     return otps.get(0);
+    // }
 
-    public LocalDate getTokenExpiryDateByUser(User user) {
-        String sql = "SELECT expiry_date FROM verification_tokens WHERE email = '" + user.getEmail() + "')";
-        List<LocalDate> expiryDate = jdbcTemplate.queryForList(sql, new MapSqlParameterSource(), LocalDate.class);
-        return expiryDate.get(0);
-    }
+    // public LocalDate getTokenExpiryDateByUser(User user) {
+    //     String sql = "SELECT expiry_date FROM verification_tokens WHERE email = '" + user.getEmail() + "')";
+    //     List<LocalDate> expiryDate = jdbcTemplate.queryForList(sql, new MapSqlParameterSource(), LocalDate.class);
+    //     return expiryDate.get(0);
+    // }
 
-    public void updateValidatedUser(User user) {
-        String sql = "UPDATE users SET validated = true WHERE email = :email)";
-        MapSqlParameterSource parameters =  new MapSqlParameterSource();
-        parameters.addValue("email", user.getEmail());
-        jdbcTemplate.update(sql, parameters);
-    }
+    // public void updateValidatedUser(User user) {
+    //     String sql = "UPDATE users SET validated = true WHERE email = :email)";
+    //     MapSqlParameterSource parameters =  new MapSqlParameterSource();
+    //     parameters.addValue("email", user.getEmail());
+    //     jdbcTemplate.update(sql, parameters);
+    // }
 }
