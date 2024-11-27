@@ -19,16 +19,35 @@ public class UBuyCController {
         this.dao = dao;
     }
 
-    @RequestMapping(value="/index", method = RequestMethod.GET)
-    @ResponseBody
-    public String index() { 
-        return "Your first return";
+    @GetMapping({"/", "login"})
+    public String login() { 
+        return "login";
     }
 
-    @GetMapping("home")
-    public String home(ModelMap modelMap){
-        modelMap.addAttribute("email", dao.getEmail());
-        return "home";
+    @GetMapping("signup")
+    public String signup() { 
+        return "signup";
     }
+
+    @GetMapping("account")
+    public String account() { 
+        return "account";
+    }
+
+    @GetMapping("verification")
+    public String verification() { 
+        return "verification";
+    }
+
+    @GetMapping("index")
+    public String index() { 
+        return "index";
+    }
+
+    // @GetMapping("home")
+    // public String home(ModelMap modelMap){
+    //     modelMap.addAttribute("email", dao.getEmail());
+    //     return "home";
+    // }
     
 }
