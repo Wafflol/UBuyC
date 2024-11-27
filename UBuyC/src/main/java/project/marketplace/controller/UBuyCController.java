@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,6 +28,7 @@ import project.marketplace.registration.OnRegistrationCompleteEvent;
  * Creates a class for controller of the entire website. Controls the I/O of each page.
  */
 @Controller
+@SessionAttributes("user")
 public class UBuyCController {
 
     @Autowired
@@ -34,6 +36,11 @@ public class UBuyCController {
 
     @Autowired
     private MessageSource messages;
+
+    @ModelAttribute("user")
+    public User createUserModel() {
+        return new User();
+    }
 
     private final AccountDao dao;
 
@@ -59,14 +66,14 @@ public class UBuyCController {
      * @return signup.html file
      */
     @GetMapping("/signup")
-    public String loadSignupPage(Model model) {
+    public ModelAndView loadSignupPage() {
         User user = new User();
-        model.addAttribute("user", user);
-        return "signup";
+        ModelAndView model = new ModelAndView("signup", "user", user);
+        return model;
     }
 
     /**
-     * Posts a request to the accounts database to try and add a new user. 
+     * Posts a request to the accounts database to try and add a new user.
      * 
      * Redirects to verification page if successful and sends an OTP email
      * to user on successful account creation.
@@ -83,11 +90,11 @@ public class UBuyCController {
         
         try {
             User registeredUser = dao.createUser(user);
-            //eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registeredUser, request.getLocale()));
+            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registeredUser, request.getLocale()));
         } catch (UserAlreadyExistsException e) {
             return new ModelAndView().addObject("message", "An account for that email already exists.");
         } catch (RuntimeException e) {
-            return new ModelAndView("emailError", "user", user);
+            return new ModelAndView("redirect:/verification", "user", user); // TODO: temporary fix change back to emailError
         }
         return new ModelAndView("verification", "user", user);
         
@@ -98,32 +105,38 @@ public class UBuyCController {
      * @return verification.html
      */
     @GetMapping("/verification")
-    public String loadVerificationPage(Model model) { 
+    public ModelAndView loadVerificationPage(@ModelAttribute("user") @Valid User user) { 
         String otp = new String();
-        model.addAttribute("otp", otp);
-        return "verification";
+        ModelAndView model = new ModelAndView("verification");
+        model.addObject("otp", otp);
+        model.addObject("user", user);
+        return model;
     }
 
-    // @PostMapping("/verification")
-    // public ModelAndView verifyOtp(@ModelAttribute("otp") @Valid String otp, @ModelAttribute("user") @Valid User user, WebRequest request) {
-    //     Locale locale = request.getLocale();
-    //     int otpToken = dao.getOtpByUser(user);
-    //     LocalDate expiryDate = dao.getTokenExpiryDateByUser(user);
-        
-    //     if (otpToken != Integer.parseInt(otp)) {
-    //         String invalidMessage = messages.getMessage("auto.message.invalid", null, locale);
-    //         return new ModelAndView("badUser", "message", invalidMessage);
-    //     }
+    @PostMapping("/verification")
+    public ModelAndView verifyOtp(@ModelAttribute("otp") @Valid String otp, @ModelAttribute("user") @Valid User user, WebRequest request) {
+        Locale locale = request.getLocale();
+        int otpToken = dao.getOtpByUser(user);
+        LocalDate expiryDate = dao.getTokenExpiryDateByUser(user);
+        System.out.println("verifyOTP: otp = " + otp);
+        System.out.println("verifyOTP: otpToken = " + otpToken);
+        System.out.println("verifyOTP: expiryDate = " + expiryDate);
+        System.out.println("verifyOTP: currentDate = " + LocalDate.now());
 
-    //     if (expiryDate.isAfter(LocalDate.now())) {
-    //         String expiryMessage = messages.getMessage("auth.message.expired", null, locale);
-    //         return new ModelAndView("badUser", "message", expiryMessage);
-    //     }
+        if (otpToken != Integer.parseInt(otp)) {
+            //String invalidMessage = messages.getMessage("auto.message.invalid", null, locale);
+            return new ModelAndView("badUser", "message", "invalid OTP!");
+        }
 
-    //     user.setValidated(true);
-    //     dao.updateValidatedUser(user);
-    //     return new ModelAndView("index");
-    // }
+        if (expiryDate.isBefore(LocalDate.now())) { // TODO: make it so its not date but rather time
+            //String expiryMessage = messages.getMessage("auth.message.expired", null, locale);
+            return new ModelAndView("badUser", "message", "OTP is expired!");
+        }
+
+        user.setValidated(true);
+        dao.updateValidatedUser(user); // TODO: not working because user it not being transfered from signup to verification view but im pushing anyways
+        return new ModelAndView("redirect:/index");
+    }
 
     /**
      * Displays the account screen
