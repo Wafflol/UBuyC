@@ -1,21 +1,28 @@
 package project.marketplace.controller;
 
+import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.validation.BindingResult;
 
-import project.marketplace.daos.UBuyCDao;
+import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpServletRequest;
+
+import project.marketplace.daos.AccountDao;
+import project.marketplace.daos.UserAlreadyExistsException;
+import project.marketplace.models.User;
 
 
 @Controller
 public class UBuyCController {
 
-    private final UBuyCDao dao;
+    private final AccountDao dao;
 
-    public UBuyCController(UBuyCDao dao) {
+    public UBuyCController(AccountDao dao) {
         this.dao = dao;
     }
 
@@ -24,9 +31,25 @@ public class UBuyCController {
         return "login";
     }
 
-    @GetMapping("signup")
-    public String signup() { 
+    @GetMapping("/signup")
+    public String loadSignupPage(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
         return "signup";
+    }
+
+    @PostMapping("signup")
+    public ModelAndView signup(@ModelAttribute("user") @Valid User user, HttpServletRequest request, Error errors, ModelAndView mav) { 
+        
+        try {
+            dao.createUser(user);
+        } catch (UserAlreadyExistsException e) {
+            mav.addObject("message", "An account for that email already exists.");
+            return mav;
+        }
+
+        return new ModelAndView("verification", "user", user);
+        
     }
 
     @GetMapping("account")
