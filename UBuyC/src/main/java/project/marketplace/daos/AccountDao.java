@@ -83,7 +83,7 @@ public class AccountDao {
     }
 
     public void updateValidatedUser(User user) {
-        String sql = "UPDATE users SET validated = true WHERE email = ':email'";
+        String sql = "UPDATE users SET validated = true WHERE email = :email";
         MapSqlParameterSource parameters =  new MapSqlParameterSource();
         parameters.addValue("email", user.getEmail());
         jdbcTemplate.update(sql, parameters);

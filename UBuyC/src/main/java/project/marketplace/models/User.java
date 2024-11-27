@@ -39,7 +39,7 @@ public class User {
     @NotBlank
     private String passwordHash;
 
-    @Column(name = "validated")
+    @NotNull
     private boolean validated;
 
     /**
@@ -87,6 +87,10 @@ public class User {
      */
     public String getPasswordHash() {
         return this.passwordHash;
+    }
+
+    public boolean getValidation() {
+        return this.validated;
     }
 
     public void setFirstName(String fname) {

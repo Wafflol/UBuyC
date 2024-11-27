@@ -96,6 +96,7 @@ public class UBuyCController {
         } catch (RuntimeException e) {
             return new ModelAndView("redirect:/verification", "user", user); // TODO: temporary fix change back to emailError
         }
+        user.setValidated(false);
         return new ModelAndView("verification", "user", user);
         
     }
@@ -122,6 +123,8 @@ public class UBuyCController {
         System.out.println("verifyOTP: otpToken = " + otpToken);
         System.out.println("verifyOTP: expiryDate = " + expiryDate);
         System.out.println("verifyOTP: currentDate = " + LocalDate.now());
+        System.out.println("verifyOTP: user.email = " + user.getEmail());
+        System.out.println("verifyOTP: user.validated (before) = " + user.getValidation());
 
         if (otpToken != Integer.parseInt(otp)) {
             //String invalidMessage = messages.getMessage("auto.message.invalid", null, locale);
@@ -132,8 +135,9 @@ public class UBuyCController {
             //String expiryMessage = messages.getMessage("auth.message.expired", null, locale);
             return new ModelAndView("badUser", "message", "OTP is expired!");
         }
-
+        
         user.setValidated(true);
+        System.out.println("verifyOTP: user.validated (after) = " + user.getValidation());
         dao.updateValidatedUser(user); // TODO: not working because user it not being transfered from signup to verification view but im pushing anyways
         return new ModelAndView("redirect:/index");
     }
