@@ -4,25 +4,57 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "users")
 public class User {
-    private final String firstName;
-    private final String lastName;
-    private final String email;
-    private final String passwordHash;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    @NotBlank
+    private String firstName;
+
+    @NotNull
+    @NotBlank
+    private String lastName;
+
+    @NotNull
+    @NotBlank
+    @Email
+    private String email;
+
+    @NotNull
+    @NotBlank
+    private String passwordHash;
+
+    @Column(name = "validated")
+    private boolean validated;
+
     /**
-     * Creates a new User object
-     * @param firstName the first name of the user
-     * @param lastName the last name of the user
-     * @param email the email of the user
-     * @param password the password of the user
-     * @precondition firstName is not null, lastName is not null, email is not null, password is not null
-     * @postcondition creates a user object and instantiates all instance variables
+     * Creates new user object with no validation
      */
-    public User(String firstName, String lastName, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.passwordHash = encryptPassword(password);
+    public User() {
+        this.validated = false;
+    }
+
+    /**
+     * Returns the id of the user
+     * @return the id of the user
+     */
+    public Long getId() {
+        return this.id;
     }
 
     /**
@@ -55,6 +87,26 @@ public class User {
      */
     public String getPasswordHash() {
         return this.passwordHash;
+    }
+
+    public void setFirstName(String fname) {
+        this.firstName = fname;
+    }
+
+    public void setLastName(String lname) {
+        this.lastName = lname;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPasswordHash(String password) {
+        this.passwordHash = encryptPassword(password);
+    }
+
+    public void setValidated(boolean bool) {
+        this.validated = bool;
     }
     
     /**
