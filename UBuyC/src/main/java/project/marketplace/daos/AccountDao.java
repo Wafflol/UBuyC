@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import project.marketplace.models.Login;
 import project.marketplace.models.User;
 import project.marketplace.models.VerificationToken;
 
@@ -87,5 +88,21 @@ public class AccountDao {
         MapSqlParameterSource parameters =  new MapSqlParameterSource();
         parameters.addValue("email", user.getEmail());
         jdbcTemplate.update(sql, parameters);
+    }
+
+    public boolean checkLoginInfo(Login login) {
+        String sql = "SELECT password, validated FROM users WHERE email = :email";
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("email", login.getEmail());
+
+        try {
+            return jdbcTemplate.queryForObject(sql, parameters, (rs, rowNum) -> {
+                String storedPassword = rs.getString("password");
+                boolean isValidated = rs.getBoolean("validated");
+                return isValidated && storedPassword.equals(login.getPassword());
+            });
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
