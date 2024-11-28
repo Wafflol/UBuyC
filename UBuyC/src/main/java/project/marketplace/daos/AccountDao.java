@@ -32,50 +32,43 @@ public class AccountDao {
      * @return true if the email exists, false otherwise
      */
     private Boolean emailExists(String email) {
-        List<Boolean> namesFound = jdbcTemplate.queryForList("SELECT EXISTS (SELECT 1 FROM users WHERE email = '" + email + "')", new MapSqlParameterSource(), Boolean.class); 
+        List<Boolean> namesFound = jdbcTemplate.queryForList("SELECT EXISTS (SELECT 1 FROM users WHERE email = '" + email + "')", new MapSqlParameterSource(), Boolean.class);
         System.out.println(namesFound.get(0));
         return namesFound.get(0);
     }
 
     /**
      * Adds new user to accounts database if the user's email is not already registered
-     * 
+     *
      * @param userDTO - The user to be added
      * @return the user being added
      * @throws UserAlreadyExistsException - thrown if user's email is already registered
      */
     public User createUser(User userDTO) throws UserAlreadyExistsException {
 
-        // checks if user already exists by email
-        if (emailExists(userDTO.getEmail())) {
-            throw new UserAlreadyExistsException("An account has already been registered with that email address.");
-        }
+       // checks if user already exists by email
+       if (emailExists(userDTO.getEmail())) {
+           throw new UserAlreadyExistsException("An account has already been registered with that email address.");
+       }
 
-        // defensive copying
-        final User user = new User();
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-        user.setEmail(userDTO.getEmail());
-        user.setPasswordHash(userDTO.getPasswordHash());
+       // defensive copying
+       final User user = new User();
+       user.setFirstName(userDTO.getFirstName());
+       user.setLastName(userDTO.getLastName());
+       user.setEmail(userDTO.getEmail());
+       user.setPasswordHash(userDTO.getPasswordHash());
 
-        // adding new user to database
-        String sql = "INSERT INTO users (fname, lname, email, password) VALUES(:fname, :lname, :email, :password)";
-        MapSqlParameterSource parameters = new MapSqlParameterSource()
-            .addValue("fname", user.getFirstName())
-            .addValue("lname", user.getLastName())
-            .addValue("email", user.getEmail())
-            .addValue("password", user.getPasswordHash());
-        jdbcTemplate.update(sql, parameters);
-        return user;
-    }
-    
-    /**
-     * Creates a verification token and stores it in the database. The token contains the email linked to the token,
-     * a 6-digit OTP, and an expiry date.
-     * 
-     * @param user The user that the token is being created for
-     * @return the 6-digit OTP in the verification token
-     */
+       // adding new user to database
+       String sql = "INSERT INTO users (fname, lname, email, password) VALUES(:fname, :lname, :email, :password)";
+       MapSqlParameterSource parameters = new MapSqlParameterSource()
+           .addValue("fname", user.getFirstName())
+           .addValue("lname", user.getLastName())
+           .addValue("email", user.getEmail())
+           .addValue("password", user.getPasswordHash());
+       jdbcTemplate.update(sql, parameters);
+       return user;
+   }
+
     public int createVerificationToken(User user) {
         VerificationToken token = new VerificationToken(user);
         String sql = "INSERT INTO verification_tokens (email, otp, expiry_date) VALUES(:email, :otp, :expiry_date)";
