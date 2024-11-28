@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
@@ -168,7 +169,10 @@ public class UBuyCController {
      * @return account.html file
      */
     @GetMapping("account")
-    public String account() { 
+    public String account(Model model) { 
+        model.addAttribute("userFName", "Fname");
+        model.addAttribute("userLName", "Lname");
+        model.addAttribute("userEmail", "email@ubc.ca");
         return "account";
     }
 
@@ -200,5 +204,13 @@ public class UBuyCController {
         listing.setListingAge(LocalDateTime.now());
         listingDao.createListing(listing);
         return "index";
+    }
+
+    @GetMapping("/viewlisting/{id}")
+    public String viewListing(@PathVariable Long id, Model model) {
+        //Listing listing = find the listing by id?
+        Listing listing = new Listing(new User(), "c", "ckajasdhfkahsdfkjhasdkfjhaskjdhfksajhdfkashdkfhaskjdfhskjdfkajshdfkjagsdkfgsakdfgslkadgfksadgfkjasdgfkjsgdfkasgdfkljgsakldfgskajdgfskj adfksjgdfkjasgdfjgsadfjgsakljdfgksjadgfkjsagdfkljsadfkljhFKJHKJF DkjdgfkajgfkgdfKL askjfh askjdfhs", 2, "c", null, 2);
+        model.addAttribute("listing", listing);
+        return "viewListing"; 
     }
 }

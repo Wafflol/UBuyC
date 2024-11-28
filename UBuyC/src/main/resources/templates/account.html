@@ -18,8 +18,8 @@
         <div class="profile-header">
             <img src="https://via.placeholder.com/80" alt="Profile Picture">
             <div class="details">
-                <h2>John Doe</h2>
-                <p>Email: johndoe@example.com</p>
+                <h2 th:text="${userFName}">John Doe</h2>
+                <p th:text="${userEmail}">Email: johndoe@example.com</p>
             </div>
             <form class="settings-form">
                 <button type="submit">Edit</button> <br>

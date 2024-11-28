@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="'Listing: ' + ${listing.getTitle}">View Listing</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <div class="listing-container">
+        <div class="image-container">
+            <img src="https://via.placeholder.com/200" alt="Listing Image" class="listing-image">
+        </div>
+        <div class="details-container">
+            <h1 th:text="${listing.getTitle}">Listing Title</h1>
+            <p><strong>Owner:</strong> 
+                <a href="mailto:test@gmail.com" th:text="${listing.getUser.getFirstName} + ' ' + ${listing.getUser.getLastName}">John Doe</a>
+            </p>
+            <p><strong>Description:</strong> <span th:text="${listing.getDescription}">Description goes here</span></p>
+            <p><strong>Price:</strong> <span th:text="'$' + ${listing.getPrice}">$0.00</span></p>
+        
+        </div>
+    </div>
+</body>
+</html>
