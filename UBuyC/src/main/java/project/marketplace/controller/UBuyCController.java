@@ -21,6 +21,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import project.marketplace.daos.AccountDao;
 import project.marketplace.daos.UserAlreadyExistsException;
+import project.marketplace.models.Login;
 import project.marketplace.models.User;
 import project.marketplace.registration.OnRegistrationCompleteEvent;
 
@@ -53,9 +54,24 @@ public class UBuyCController {
      * 
      * @return login.html file
      */
-    @GetMapping({"/", "login"})
-    public String login() { 
+    @GetMapping({"/", "/login"})
+    public String loadLoginPage(Model model) { 
+        Login login = new Login();
+        model.addAttribute("login", login);
         return "login";
+    }
+
+    @PostMapping({"/", "/login"})
+    public String login(@ModelAttribute("login") @Valid Login login, Model model) {
+        Login hashedLogin = new Login();
+        hashedLogin.setEmail(login.getEmail());
+        hashedLogin.setPassword(login.getPassword());
+        if (dao.checkLoginInfo(hashedLogin)) {
+            return "redirect:/index";
+        } else {
+            model.addAttribute("message", "Invalid email/password!");
+            return "login";
+        }
     }
 
     /**
