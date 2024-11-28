@@ -75,7 +75,7 @@ public class UBuyCController {
      * @return signup.html file
      */
     @GetMapping("/signup")
-    public ModelAndView loadSignupPage() {
+    public ModelAndView loadSignupPage() throws InvalidEmailException {
         User user = new User();
         ModelAndView model = new ModelAndView("signup", "user", user);
         return model;
@@ -95,8 +95,11 @@ public class UBuyCController {
      * @return verfication.html on success or emailError.html otherwise
      */
     @PostMapping("/signup")
-    public ModelAndView signup(@ModelAttribute("user") @Valid User user, HttpServletRequest request, Error errors) { 
-        
+    public ModelAndView signup(@ModelAttribute("user") @Valid User user, HttpServletRequest request, Error errors) {
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.ubc\\.ca$";
+        if (!user.getEmail().matches(regex)) {
+            return new ModelAndView().addObject("message", "Email does not match @_.ubc.ca");
+        }
         try {
             User registeredUser = dao.createUser(user);
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registeredUser, request.getLocale()));

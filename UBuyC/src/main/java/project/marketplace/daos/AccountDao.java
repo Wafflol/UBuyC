@@ -28,11 +28,11 @@ public class AccountDao {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public void ensureConnectionSecure() throws IllegalStateException {
+    public void ensureConnectionSecure() {
         try {
             jdbcTemplate.queryForList("SELECT email FROM users where fname = 'peter'", new MapSqlParameterSource());
         } catch (DataAccessException e) {
-            throw new IllegalStateException("Database connection is not secure or unavailable", e);
+            throw new RuntimeException("Database connection is not secure or unavailable", e);
         }
     }
 
