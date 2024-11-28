@@ -12,7 +12,11 @@ import org.springframework.stereotype.Repository;
 
 import project.marketplace.models.User;
 import project.marketplace.models.VerificationToken;
-
+    
+/**
+ * Creates an AccountDao object to access data from the accounts database. Uses NamedParameterJdbcTemplates
+ * to stop SQL injection attacks.
+ */
 @Repository
 @Scope(BeanDefinition.SCOPE_SINGLETON)
 public class AccountDao {
@@ -20,6 +24,12 @@ public class AccountDao {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
+    /**
+     * Checks if the given email exists in the users table. Returns true if it exists, false otherwise.
+     * 
+     * @param email the given email
+     * @return true if the email exists, false otherwise
+     */
     private Boolean emailExists(String email) {
         List<Boolean> namesFound = jdbcTemplate.queryForList("SELECT EXISTS (SELECT 1 FROM users WHERE email = '" + email + "')", new MapSqlParameterSource(), Boolean.class); 
         System.out.println(namesFound.get(0));
@@ -33,7 +43,6 @@ public class AccountDao {
      * @return the user being added
      * @throws UserAlreadyExistsException - thrown if user's email is already registered
      */
-
     public User createUser(User userDTO) throws UserAlreadyExistsException {
 
         // checks if user already exists by email
@@ -59,6 +68,13 @@ public class AccountDao {
         return user;
     }
     
+    /**
+     * Creates a verification token and stores it in the database. The token contains the email linked to the token,
+     * a 6-digit OTP, and an expiry date.
+     * 
+     * @param user The user that the token is being created for
+     * @return the 6-digit OTP in the verification token
+     */
     public int createVerificationToken(User user) {
         VerificationToken token = new VerificationToken(user);
         String sql = "INSERT INTO verification_tokens (email, otp, expiry_date) VALUES(:email, :otp, :expiry_date)";
@@ -70,18 +86,35 @@ public class AccountDao {
         return token.getOtp();
     }
 
+    /**
+     * Returns the OTP with the matching email as the user
+     * 
+     * @param user The user that holds the token
+     * @return a 6-digit OTP
+     */
     public int getOtpByUser(User user) {
         String sql = "SELECT otp FROM verification_tokens WHERE email = '" + user.getEmail() + "'";
         List<Integer> otps = jdbcTemplate.queryForList(sql, new MapSqlParameterSource(), Integer.class);
         return otps.get(0);
     }
 
+    /**
+     * Returns the expiry date of the token held by the given user
+     * 
+     * @param user THe user that holds the token
+     * @return the expiry date of the token
+     */
     public LocalDate getTokenExpiryDateByUser(User user) {
         String sql = "SELECT expiry_date FROM verification_tokens WHERE email = '" + user.getEmail() + "'";
         List<LocalDate> expiryDate = jdbcTemplate.queryForList(sql, new MapSqlParameterSource(), LocalDate.class);
         return expiryDate.get(0);
     }
 
+    /**
+     * Updates the users table in the database to set the given user's validated field to true
+     * 
+     * @param user The user whose field is being updated
+     */
     public void updateValidatedUser(User user) {
         String sql = "UPDATE users SET validated = true WHERE email = :email";
         MapSqlParameterSource parameters =  new MapSqlParameterSource();

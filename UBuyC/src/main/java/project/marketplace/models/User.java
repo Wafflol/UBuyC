@@ -51,6 +51,7 @@ public class User {
 
     /**
      * Returns the id of the user
+     * 
      * @return the id of the user
      */
     public Long getId() {
@@ -59,6 +60,7 @@ public class User {
 
     /**
       * Returns the first name of the user
+
       * @return the first name of the user
      */
     public String getFirstName() {
@@ -67,6 +69,7 @@ public class User {
 
     /**
      * Returns the last name of the user
+     * 
      * @return the last name of the user
      */
     public String getLastName() {
@@ -75,6 +78,7 @@ public class User {
 
     /**
      * Returns the email of the user
+     * 
      * @return the email of the user
      */
     public String getEmail() {
@@ -83,35 +87,67 @@ public class User {
 
     /**
      * Returns the hash of the user's password
-     * @return the has of the user's password
+     * 
+     * @return the hash of the user's password
      */
     public String getPasswordHash() {
         return this.passwordHash;
     }
-
+    
+    /**
+     * Gets the validation status of the user.
+     *
+     * @return the validation status of the user
+     */
     public boolean getValidation() {
         return this.validated;
     }
 
+    /**
+     * Sets the user's first name.
+     *
+     * @param fname The first name to set for the user.
+     */
     public void setFirstName(String fname) {
         this.firstName = fname;
     }
 
+    /**
+     * Sets the user's last name.
+     *
+     * @param lname The last name to set for the user.
+     */
     public void setLastName(String lname) {
         this.lastName = lname;
     }
 
+    /**
+     * Sets the user's email address.
+     *
+     * @param email The email address to set for the user.
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Sets the user's password hash.
+     * The password is encrypted before it is stored.
+     *
+     * @param password The plaintext password to be encrypted and stored.
+     */
     public void setPasswordHash(String password) {
         this.passwordHash = encryptPassword(password);
     }
 
+    /**
+     * Sets the validation status of the user.
+     *
+     * @param bool The validation status to set. True if the user is validated, false otherwise.
+     */
     public void setValidated(boolean bool) {
         this.validated = bool;
-    }
+    }   
     
     /**
      * Hashes a given string and returns it

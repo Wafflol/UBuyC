@@ -12,6 +12,10 @@ import org.springframework.stereotype.Component;
 import project.marketplace.models.User;
 import project.marketplace.daos.AccountDao;
 
+/**
+ * Creates a registration listener class that listens to /signup for an OnRegistrationCompleteEvent.
+ * Sends an email containing the OTP linked to the registering user.
+ */
 @Component
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
  
@@ -24,11 +28,20 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     @Autowired
     private JavaMailSender mailSender;
 
+    /**
+     * Calls confirmRegistration once is hears the registration event occur
+     */
     @Override
     public void onApplicationEvent(OnRegistrationCompleteEvent event) {
         this.confirmRegistration(event);
     }
-
+    
+    /**
+     * Creates a new verification token linked to the user. Sends an email with the generated OTP
+     * to the user's email.
+     * 
+     * @param event the registration event heard by this
+     */
     private void confirmRegistration(OnRegistrationCompleteEvent event) {
         User user = event.getUser();
         int otp = dao.createVerificationToken(user);

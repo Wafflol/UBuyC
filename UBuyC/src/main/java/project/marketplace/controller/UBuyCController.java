@@ -114,6 +114,9 @@ public class UBuyCController {
         return model;
     }
 
+    /**
+     * Checks if the OTP entered by the user matches any token in the database that is linked to their email
+     */
     @PostMapping("/verification")
     public ModelAndView verifyOtp(@ModelAttribute("otp") @Valid String otp, @ModelAttribute("user") @Valid User user, WebRequest request) {
         Locale locale = request.getLocale();
