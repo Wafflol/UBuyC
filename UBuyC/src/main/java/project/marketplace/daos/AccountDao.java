@@ -3,6 +3,7 @@ package project.marketplace.daos;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import project.marketplace.models.Login;
 import project.marketplace.models.User;
 import project.marketplace.models.VerificationToken;
+
     
 /**
  * Creates an AccountDao object to access data from the accounts database. Uses NamedParameterJdbcTemplates
@@ -51,22 +53,15 @@ public class AccountDao {
            throw new UserAlreadyExistsException("An account has already been registered with that email address.");
        }
 
-       // defensive copying
-       final User user = new User();
-       user.setFirstName(userDTO.getFirstName());
-       user.setLastName(userDTO.getLastName());
-       user.setEmail(userDTO.getEmail());
-       user.setPasswordHash(userDTO.getPasswordHash());
-
        // adding new user to database
        String sql = "INSERT INTO users (fname, lname, email, password) VALUES(:fname, :lname, :email, :password)";
        MapSqlParameterSource parameters = new MapSqlParameterSource()
-           .addValue("fname", user.getFirstName())
-           .addValue("lname", user.getLastName())
-           .addValue("email", user.getEmail())
-           .addValue("password", user.getPasswordHash());
+           .addValue("fname", userDTO.getFirstName())
+           .addValue("lname", userDTO.getLastName())
+           .addValue("email", userDTO.getEmail())
+           .addValue("password", userDTO.getPasswordHash());
        jdbcTemplate.update(sql, parameters);
-       return user;
+       return userDTO;
    }
 
     public int createVerificationToken(User user) {
@@ -125,7 +120,10 @@ public class AccountDao {
             return jdbcTemplate.queryForObject(sql, parameters, (rs, rowNum) -> {
                 String storedPassword = rs.getString("password");
                 boolean isValidated = rs.getBoolean("validated");
-                return isValidated && storedPassword.equals(login.getPassword());
+                System.out.println("checkLoginInfo: storedPassword = " + storedPassword);
+                System.out.println("checkLoginInfo: login.password = " + login.getPassword());
+                System.out.println("checkLoginInfo: hashed login.password = " + User.encryptPassword(login.getPassword()));
+                return isValidated && BCrypt.checkpw(login.getPassword(), storedPassword);
             });
         } catch (Exception e) {
             return false;

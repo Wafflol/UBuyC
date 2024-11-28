@@ -8,7 +8,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,10 +62,7 @@ public class UBuyCController {
 
     @PostMapping({"/", "/login"})
     public String login(@ModelAttribute("login") @Valid Login login, Model model) {
-        Login hashedLogin = new Login();
-        hashedLogin.setEmail(login.getEmail());
-        hashedLogin.setPassword(login.getPassword());
-        if (dao.checkLoginInfo(hashedLogin)) {
+        if (dao.checkLoginInfo(login)) {
             return "redirect:/index";
         } else {
             model.addAttribute("message", "Invalid email/password!");

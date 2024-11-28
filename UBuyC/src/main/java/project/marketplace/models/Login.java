@@ -1,11 +1,5 @@
 package project.marketplace.models;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-
-import org.mindrot.jbcrypt.BCrypt;
-
-import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
