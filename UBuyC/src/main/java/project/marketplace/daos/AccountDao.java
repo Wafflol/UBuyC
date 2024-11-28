@@ -94,7 +94,7 @@ public class AccountDao {
      * @return a 6-digit OTP
      */
     public int getOtpByUser(User user) {
-        String sql = "SELECT otp FROM verification_tokens WHERE email = '" + user.getEmail() + "'";
+        String sql = "SELECT otp FROM verification_tokens WHERE id = (SELECT MAX(id) FROM verification_tokens WHERE email = '" + user.getEmail() + "')";
         List<Integer> otps = jdbcTemplate.queryForList(sql, new MapSqlParameterSource(), Integer.class);
         return otps.get(0);
     }

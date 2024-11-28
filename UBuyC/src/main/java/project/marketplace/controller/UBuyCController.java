@@ -110,10 +110,10 @@ public class UBuyCController {
         } catch (UserAlreadyExistsException e) {
             return new ModelAndView().addObject("message", "An account for that email already exists.");
         } catch (RuntimeException e) {
-            return new ModelAndView("redirect:/verification", "user", user); // TODO: temporary fix change back to emailError
+            System.out.println(e);
+            return new ModelAndView("emailError", "user", user); 
         }
-        user.setValidated(false);
-        return new ModelAndView("verification", "user", user);
+        return new ModelAndView("redirect:/verification", "user", user);
         
     }
 
@@ -157,7 +157,7 @@ public class UBuyCController {
         
         user.setValidated(true);
         System.out.println("verifyOTP: user.validated (after) = " + user.getValidation());
-        dao.updateValidatedUser(user); // TODO: not working because user it not being transfered from signup to verification view but im pushing anyways
+        dao.updateValidatedUser(user);
         return new ModelAndView("redirect:/index");
     }
 
