@@ -1,10 +1,6 @@
 
 const selectedTags = new Set(); // To track selected tags
-
-const tagsContainer = document.querySelector('.tags');
-const tagCount = document.getElementById('tag-count');
 const removeAllButton = document.getElementById('remove-all');
-
 
 // Handle tag selection
 tagsContainer.addEventListener('click', (e) => {
@@ -18,10 +14,8 @@ tagsContainer.addEventListener('click', (e) => {
             selectedTags.add(tag);
             e.target.classList.add('selected');
         }
-
-
-        }
-    });
+    }
+});
 
 // Remove all selected tags
 removeAllButton.addEventListener('click', () => {

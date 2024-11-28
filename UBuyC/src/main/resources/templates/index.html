@@ -13,7 +13,7 @@
             <input type="text" placeholder="Search for items...">
         </div>
         <!-- Profile Icon -->
-        <a href="account.html">
+        <a href="account">
             <img src="/pictures/profile.png" alt="Profile" class="profile-icon">
         </a>
     </div>
@@ -64,46 +64,31 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <h2>Create Listing</h2>
-            <form action="#" method="post" enctype="multipart/form-data">
+            <form action="#" method="post" enctype="multipart/form-data" th:object="${listing}">
                 <div class="form-group">
                     <label for="item-picture">Upload Picture</label>
                     <input type="file" id="item-picture" name="item-picture" accept="image/*" required>
                 </div>
                 <div class="form-group">
                     <label for="item-name">Item Name</label>
-                    <input type="text" id="item-name" name="item-name" placeholder="Enter item name" required>
+                    <input type="text" th:field="*{title}" placeholder="Enter item name" required>
                 </div>
                 <div class="form-group">
                     <label for="item-price">Price</label>
-                    <input type="number" min="0" id="item-price" name="item-price" placeholder="Enter price" step="0.10" required>
+                    <input type="number" min="0" th:field="*{price}" placeholder="Enter price" step="0.10" required>
                 </div>
                 <div class="form-group">
                     <label for="item-description">Description</label>
-                    <textarea id="item-description" name="item-description" placeholder="Enter a description..." required></textarea>
-                </div>
-                <div class="tags-container">
-                    <label>Tags</label>
-                    <p>Select tags from the options below:</p>
-                    <div class="tags">
-                        <div class="tag" data-tag="Electronics">Electronics</div>
-                        <div class="tag" data-tag="Books">Books</div>
-                        <div class="tag" data-tag="Clothing">Clothing</div>
-                        <div class="tag" data-tag="Furniture">Furniture</div>
-                        <div class="tag" data-tag="Toys">Games</div>
-                        <div class="tag" data-tag="Sports">Other</div>
-                    </div>
+                    <textarea th:field="*{description}" placeholder="Enter a description..." required></textarea>
                 </div>
                 <div class="form-buttons">
                     <button type="submit">Create Listing</button>
                     <button type="reset">Clear</button>
                 </div>
-        
-</div>
-
             </form>
         </div>
     </div>
    
-    <script src="../static/js/index.js"></script>
+    <script src="/js/index.js"></script>
 </body>
 </html>

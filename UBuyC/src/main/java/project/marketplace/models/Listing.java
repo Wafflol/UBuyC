@@ -2,18 +2,32 @@ package project.marketplace.models;
 
 import java.util.Objects;
 import java.util.Set;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 import java.util.HashSet;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.GenerationType;
+
+@Entity
 public class Listing {
-    private final User owner;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String email;
     private String title;
     private String description;
     private double price;
     private String imagePath;
-    private Set<String> tags;
-    private final LocalDateTime listingAge;
-    private final int listingId;
+    private LocalDateTime listingAge;
+
+    public Listing() {
+        //lmao
+    }
 
     /**
      * creates a new listing object
@@ -23,25 +37,22 @@ public class Listing {
      * @param price the price of the listing
      * @param imagePath the path to the image of the listing
      * @param tags the tags of the listing
-     * @param listingId the listing ID
      */
-    public Listing (User owner, String title, String description, double price, String imagePath, Set<String> tags, int listingId) {
-        this.owner = owner;
+    public Listing (String email, String title, String description, double price, String imagePath) {
+        this.email = email;
         this.title = title;
         this.description = description;
         this.price = price;
         this.imagePath = imagePath;
-        this.tags = tags;
         this.listingAge = java.time.LocalDateTime.now();
-        this.listingId = listingId;
     }
 
     /**
      * Returns the owner of the listing
      * @return the owner of the listing
      */
-    public User getUser() {
-        return this.owner;
+    public String getEmail() {
+        return this.email;
     }
 
     /**
@@ -77,14 +88,6 @@ public class Listing {
     }
 
     /**
-     * Returns the tags of the listing
-     * @return the tags of the listing
-     */
-    public Set<String> getTags() {
-        return new HashSet<>(tags);
-    }
-
-    /**
      * Returns the age of the listing
      * @return the age of the listing
      */
@@ -93,11 +96,11 @@ public class Listing {
     }
 
     /**
-     * Returns the age of the listing
-     * @return the age of the listing
+     * Sets the email of the listing
+     * @param email the email to set
      */
-    public int getListingId() {
-        return this.listingId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**
@@ -133,27 +136,11 @@ public class Listing {
     }
 
     /**
-     * Sets the tags of the listing
-     * @param tags the tags to set
+     * Sets the listing age to present datetime
+     * @param listingAge the current datetime
      */
-    public void setTags(Set<String> tags) {
-        this.tags = new HashSet<>(tags);
-    }
-
-    /**
-     * Adds a set of tags to the current tags
-     * @param tags the tags to add
-     */
-    public void addTags(Set<String> tags) {
-        this.tags.addAll(tags);
-    }
-
-    /**
-     * Removes a set of tags from the current tags
-     * @param tags the tags to remove
-     */
-    public void removeTags(Set<String> tags) {
-        this.tags.removeAll(tags);
+    public void setListingAge(LocalDateTime listingAge) {
+        this.listingAge = listingAge;
     }
 
     @Override
@@ -161,12 +148,12 @@ public class Listing {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Listing listing = (Listing) o;
-        return listingId == listing.listingId;
+        return id == listing.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(listingId);
+        return Objects.hashCode(id);
     }
 }
 
