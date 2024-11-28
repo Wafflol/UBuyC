@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.checkerframework.checker.units.qual.g;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
@@ -24,8 +25,8 @@ import project.marketplace.daos.UserAlreadyExistsException;
 import project.marketplace.models.Listing;
 import project.marketplace.models.Login;
 import project.marketplace.models.User;
-import project.marketplace.registration.OnRegistrationCompleteEvent;e I/O of each page.
- */
+import project.marketplace.registration.OnRegistrationCompleteEvent;
+
 @Controller
 @SessionAttributes("user")
 public class UBuyCController {
