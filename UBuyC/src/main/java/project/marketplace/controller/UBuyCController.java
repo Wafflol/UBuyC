@@ -27,6 +27,9 @@ import project.marketplace.models.Login;
 import project.marketplace.models.User;
 import project.marketplace.registration.OnRegistrationCompleteEvent;
 
+/**
+ * Creates a class for controller of the entire website. Controls the I/O of each page.
+ */
 @Controller
 @SessionAttributes("user")
 public class UBuyCController {
