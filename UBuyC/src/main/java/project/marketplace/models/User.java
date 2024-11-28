@@ -156,7 +156,7 @@ public class User {
      * @precondition - password not null
      * @postcondition - sets passwordHash
      */
-    public String encryptPassword(String password) {
+    public static String encryptPassword(String password) {
         int wFactor = 12;
         return BCrypt.hashpw(password, BCrypt.gensalt(wFactor));
     }

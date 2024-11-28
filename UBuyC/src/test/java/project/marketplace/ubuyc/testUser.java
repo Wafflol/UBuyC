@@ -3,24 +3,16 @@ package project.marketplace.ubuyc;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import project.marketplace.models.User;
+import project.marketplace.models.Login;
 
 import org.junit.jupiter.api.Test;
 
 import org.mindrot.jbcrypt.BCrypt;
 
 public class testUser {
-
-    // @Test
-    // public void bcrypt() {
-
-    //     String password = "abc";
-
-    //     // assertEquals(BCrypt.hashpw(password, BCrypt.gensalt(12), );
-
-    // }
-
 
     @Test
     public void testHash() {
@@ -33,12 +25,28 @@ public class testUser {
         peterGao.setPasswordHash("abc123xyz");
 
         User u2 = new User();
-
         u2.setPasswordHash("abc123xyz");
 
         assertTrue(peterGao.compare("abc123xyz"));
         assertTrue(u2.compare("abc123xyz"));
 
         assertNotEquals(peterGao.getPasswordHash(), u2.getPasswordHash());
+    }
+
+    @Test 
+    public void testLogin() {
+        User u1 = new User();
+
+        u1.setPasswordHash("ABC");
+        String savedHash = u1.getPasswordHash();
+
+        Login login = new Login();
+        login.setPassword("ABC");
+        
+        String password = login.getPassword();
+
+        assertTrue(BCrypt.checkpw(password, savedHash));
+        assertFalse(BCrypt.checkpw("abc", savedHash));
+
     }
 }

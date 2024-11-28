@@ -44,12 +44,7 @@ public class AccountDao {
      * @return the user being added
      * @throws UserAlreadyExistsException - thrown if user's email is already registered
      */
-<<<<<<< HEAD
     public User createUser(User userDTO) throws UserAlreadyExistsException {
-=======
-
-   public User createUser(User userDTO) throws UserAlreadyExistsException {
->>>>>>> e590ed6 (encrypt test)
 
        // checks if user already exists by email
        if (emailExists(userDTO.getEmail())) {
@@ -74,27 +69,6 @@ public class AccountDao {
        return user;
    }
 
-<<<<<<< HEAD
-        // adding new user to database
-        String sql = "INSERT INTO users (fname, lname, email, password) VALUES(:fname, :lname, :email, :password)";
-        MapSqlParameterSource parameters = new MapSqlParameterSource()
-            .addValue("fname", user.getFirstName())
-            .addValue("lname", user.getLastName())
-            .addValue("email", user.getEmail())
-            .addValue("password", user.getPasswordHash());
-        jdbcTemplate.update(sql, parameters);
-        return user;
-    }
-    
-    /**
-     * Creates a verification token and stores it in the database. The token contains the email linked to the token,
-     * a 6-digit OTP, and an expiry date.
-     * 
-     * @param user The user that the token is being created for
-     * @return the 6-digit OTP in the verification token
-     */
-=======
->>>>>>> e590ed6 (encrypt test)
     public int createVerificationToken(User user) {
         VerificationToken token = new VerificationToken(user);
         String sql = "INSERT INTO verification_tokens (email, otp, expiry_date) VALUES(:email, :otp, :expiry_date)";
