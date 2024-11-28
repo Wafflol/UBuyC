@@ -13,6 +13,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -155,33 +157,13 @@ public class User {
      * @postcondition - sets passwordHash
      */
     public String encryptPassword(String password) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] encodedhash = digest.digest(password.getBytes(StandardCharsets.UTF_8)); 
-            return bytesToHex(encodedhash);
-        }
-        catch (Exception e) {
-            System.out.println("Wrong algorithm name");
-            return null;
-        }
+        int wFactor = 12;
+        return BCrypt.hashpw(password, BCrypt.gensalt(wFactor));
     }
-    
-    /**
-     * Turns a list of bytes into its hex representation
-     * @param hash the list of bytes to transform
-     * @return the hex representation
-     */
-    private static String bytesToHex(byte[] hash) {
-        StringBuilder hexString = new StringBuilder(2 * hash.length);
-        for (int i = 0; i < hash.length; i++) {
-            String hex = Integer.toHexString(0xff & hash[i]);
-            if(hex.length() == 1) {
-                hexString.append('0');
-            }
-            hexString.append(hex);
-        }
-        return hexString.toString();
-    }
+
+    public Boolean compare(String password) {
+        return BCrypt.checkpw(password, this.getPasswordHash());
+    } 
 
     /**
      * Overrides the equals method using the email field
