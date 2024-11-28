@@ -72,9 +72,6 @@ public class UBuyCController {
 
     /**
      * Displays the signup screen and binds the User object to the form
-     * 
-     * @param request
-     * @param model the model that the User object binds to
      * @return signup.html file
      */
     @GetMapping("/signup")
