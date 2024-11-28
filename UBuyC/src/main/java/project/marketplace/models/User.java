@@ -105,6 +105,15 @@ public class User {
     }
 
     /**
+     * Sets the user's id.
+     *
+     * @param fname The id to be set for the user.
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
      * Sets the user's first name.
      *
      * @param fname The first name to set for the user.
@@ -139,6 +148,15 @@ public class User {
      */
     public void setPasswordHash(String password) {
         this.passwordHash = encryptPassword(password);
+    }
+
+    /**
+     * Sets the user's password hash.
+     *
+     * @param password The plaintext password to be stored.
+     */
+    public void setPassword(String password) {
+        this.passwordHash = password;
     }
 
     /**
