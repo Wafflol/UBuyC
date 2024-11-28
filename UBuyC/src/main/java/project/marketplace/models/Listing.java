@@ -23,10 +23,6 @@ public class Listing {
     private String description;
     private double price;
     private String imagePath;
-<<<<<<< HEAD
-=======
-    private Set<String> tags;
->>>>>>> de2f4d999a5f04bcf5b85c9dd0f0c1df138ac6fb
     private LocalDateTime listingAge;
 
     public Listing() {
@@ -42,11 +38,7 @@ public class Listing {
      * @param imagePath the path to the image of the listing
      * @param tags the tags of the listing
      */
-<<<<<<< HEAD
     public Listing (String email, String title, String description, double price, String imagePath) {
-=======
-    public Listing (String email, String title, String description, double price, String imagePath, Set<String> tags) {
->>>>>>> de2f4d999a5f04bcf5b85c9dd0f0c1df138ac6fb
         this.email = email;
         this.title = title;
         this.description = description;
@@ -96,21 +88,6 @@ public class Listing {
     }
 
     /**
-<<<<<<< HEAD
-=======
-     * Returns the tags of the listing
-     * @return the tags of the listing
-     */
-    public Set<String> getTags() {
-        if (tags == null) {
-            return new HashSet<>(); // TODO: temp fix
-        } else {
-            return new HashSet<>(tags);
-        }
-    }
-
-    /**
->>>>>>> de2f4d999a5f04bcf5b85c9dd0f0c1df138ac6fb
      * Returns the age of the listing
      * @return the age of the listing
      */
