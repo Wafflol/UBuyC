@@ -1,0 +1,26 @@
+CREATE TABLE users (
+    id BIGSERIAL PRIMARY KEY,           
+    fname VARCHAR(50),    
+    lname VARCHAR(50),     
+    email VARCHAR(100),
+    password VARCHAR(255),
+    validated BOOLEAN DEFAULT FALSE 
+);
+
+CREATE TABLE verification_tokens (
+    id BIGSERIAL PRIMARY KEY,            
+    email VARCHAR(100),    
+    otp INT,          
+    expiry_date TIMESTAMP
+);
+
+CREATE TABLE listings (
+    id BIGSERIAL PRIMARY KEY,                   
+    email VARCHAR(100), 
+    title VARCHAR(255),
+    description TEXT,                        
+    price NUMERIC(10, 2), 
+    imagePath VARCHAR(255),                 
+    tags TEXT[],                            
+    listingAge TIMESTAMP     
+);
