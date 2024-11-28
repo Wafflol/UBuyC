@@ -2,13 +2,9 @@ package project.marketplace.models;
 
 import java.util.Objects;
 import java.util.Set;
-
-import jakarta.persistence.Entity;
-
 import java.util.HashSet;
 import java.time.LocalDateTime;
 
-@Entity
 public class Listing {
     private final User owner;
     private String title;
