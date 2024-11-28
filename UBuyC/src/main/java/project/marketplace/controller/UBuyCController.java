@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import jakarta.validation.Valid;
 import jakarta.servlet.http.HttpServletRequest;
-
+import jakarta.validation.Valid;
 import project.marketplace.daos.AccountDao;
 import project.marketplace.daos.ListingDao;
 import project.marketplace.daos.UserAlreadyExistsException;
@@ -173,6 +172,7 @@ public class UBuyCController {
         return "account";
     }
 
+
     /**
      * Displays the home page
      * 
@@ -180,7 +180,7 @@ public class UBuyCController {
      */
     @GetMapping("/index")
     public String index(Model model) { 
-        Listing listing = new Listing();
+        Listing listing = new Listing("test@ubc.ca", "c", "c", 2, null);
         model.addAttribute("listing", listing);
         return "index";
     }
