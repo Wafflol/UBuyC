@@ -92,12 +92,13 @@ public class UBuyCController {
      * @param user the user DTO being sent to the database
      * @param request
      * @param errors thrown errors
-     * @return verfication.html on success or emailError.html otherwise
+     * @return verification.html on success or emailError.html otherwise
      */
     @PostMapping("/signup")
     public ModelAndView signup(@ModelAttribute("user") @Valid User user, HttpServletRequest request, Error errors) {
         String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.ubc\\.ca$";
         if (!user.getEmail().matches(regex)) {
+            System.out.println("Bad email entered, doesn't end in ubc.ca, or doesn't match an email format");
             return new ModelAndView().addObject("message", "Email does not match @_.ubc.ca");
         }
         try {
@@ -113,7 +114,7 @@ public class UBuyCController {
         
     }
 
-    /** Displays the verfication screen
+    /** Displays the verification screen
      * 
      * @return verification.html
      */
