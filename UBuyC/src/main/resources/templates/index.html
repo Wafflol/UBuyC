@@ -24,34 +24,15 @@
         <button>Vehicles</button>
         <button>Other</button>
     </div>
-    <div class="items-grid">
-        <div class="item-card">
-            <img src="https://via.placeholder.com/200" alt="Item">
-            <div class="info">
-                <h3>Item 1</h3>
-                <p>$100</p>
-            </div>
-            
-        </div>
-        <div class="item-card">
-            <img src="https://via.placeholder.com/200" alt="Item">
-            <div class="info">
-                <h3>Item 2</h3>
-                <p>$200</p>
-            </div>
-        </div>
-        <div class="item-card">
-            <img src="https://via.placeholder.com/200" alt="Item">
-            <div class="info">
-                <h3>Item 3</h3>
-                <p>$300</p>
-            </div>
-        </div>
-        <div class="item-card">
-            <img src="https://via.placeholder.com/200" alt="Item">
-            <div class="info">
-                <h3>Item 4</h3>
-                <p>$400</p>
+    <div class="items-grid" id="items-grid">
+        <!-- Items will be dynamically added here from list-->
+        <div th:each="Listing: ${listings}">
+            <div class="item-card">
+                <img src="https://via.placeholder.com/200" alt="Item">
+                <div class="info">
+                    <h3 th:text="${listing.title}">Item</h3>
+                    <p th:text="'$' + ${listing.price}"> Price</p>
+                </div>
             </div>
         </div>
     </div>

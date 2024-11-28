@@ -1,14 +1,16 @@
 package project.marketplace.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
+import org.checkerframework.checker.units.qual.g;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,11 +18,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import jakarta.validation.Valid;
 import jakarta.servlet.http.HttpServletRequest;
-
+import jakarta.validation.Valid;
 import project.marketplace.daos.AccountDao;
 import project.marketplace.daos.UserAlreadyExistsException;
+import project.marketplace.models.Listing;
 import project.marketplace.models.Login;
 import project.marketplace.models.User;
 import project.marketplace.registration.OnRegistrationCompleteEvent;
@@ -177,7 +179,9 @@ public class UBuyCController {
      * @return index.html file
      */
     @GetMapping("index")
-    public String index() { 
+    public String index(Model model) { 
+        List<Listing> listings = new ArrayList<>();
+        model.addAttribute("listings", listings);
         return "index";
     }
 }
