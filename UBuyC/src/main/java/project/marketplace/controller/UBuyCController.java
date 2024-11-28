@@ -185,6 +185,13 @@ public class UBuyCController {
         return "index";
     }
 
+    /**
+     * Posts a request to the database upon valid listing form completion.
+     * 
+     * @param user The user currently in session
+     * @param listing The listing to be added
+     * @return index.html file
+     */
     @PostMapping("/index")
     public String createNewListing(@ModelAttribute("user") User user, @ModelAttribute("listing") Listing listing) {
         System.out.println("createNewListing: listing = " + listing);

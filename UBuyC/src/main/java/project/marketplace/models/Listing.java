@@ -23,7 +23,6 @@ public class Listing {
     private String description;
     private double price;
     private String imagePath;
-    private Set<String> tags;
     private LocalDateTime listingAge;
 
     public Listing() {
@@ -39,13 +38,12 @@ public class Listing {
      * @param imagePath the path to the image of the listing
      * @param tags the tags of the listing
      */
-    public Listing (String email, String title, String description, double price, String imagePath, Set<String> tags) {
+    public Listing (String email, String title, String description, double price, String imagePath) {
         this.email = email;
         this.title = title;
         this.description = description;
         this.price = price;
         this.imagePath = imagePath;
-        this.tags = tags;
         this.listingAge = java.time.LocalDateTime.now();
     }
 
@@ -87,18 +85,6 @@ public class Listing {
      */
     public String getImagePath() {
         return this.imagePath;
-    }
-
-    /**
-     * Returns the tags of the listing
-     * @return the tags of the listing
-     */
-    public Set<String> getTags() {
-        if (tags == null) {
-            return new HashSet<>(); // TODO: temp fix
-        } else {
-            return new HashSet<>(tags);
-        }
     }
 
     /**
@@ -150,35 +136,11 @@ public class Listing {
     }
 
     /**
-     * Sets the tags of the listing
-     * @param tags the tags to set
-     */
-    public void setTags(Set<String> tags) {
-        this.tags = new HashSet<>(tags);
-    }
-
-    /**
-     * Adds a set of tags to the current tags
-     * @param tags the tags to add
-     */
-    public void addTags(Set<String> tags) {
-        this.tags.addAll(tags);
-    }
-
-    /**
      * Sets the listing age to present datetime
      * @param listingAge the current datetime
      */
     public void setListingAge(LocalDateTime listingAge) {
         this.listingAge = listingAge;
-    }
-
-    /**
-     * Removes a set of tags from the current tags
-     * @param tags the tags to remove
-     */
-    public void removeTags(Set<String> tags) {
-        this.tags.removeAll(tags);
     }
 
     @Override
