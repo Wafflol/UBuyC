@@ -25,6 +25,7 @@ Once you are done and have tested that the code works
 you can rebase from origin/main and push it to remote,
 and make a pull request
 ```
+git fetch
 git rebase origin/main
 ```
 fix any merge conflicts
