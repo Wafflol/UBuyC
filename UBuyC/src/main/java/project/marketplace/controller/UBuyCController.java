@@ -2,6 +2,7 @@ package project.marketplace.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,11 @@ import org.springframework.web.servlet.ModelAndView;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import project.marketplace.daos.AccountDao;
-<<<<<<< HEAD
+import project.marketplace.models.Listing;
+import project.marketplace.models.Login;
+import project.marketplace.models.User;
 import project.marketplace.daos.ListingDao;
-=======
+
 import project.marketplace.daos.ListingSearch;
 import project.marketplace.daos.UserAlreadyExistsException;
 import project.marketplace.registration.OnRegistrationCompleteEvent;
@@ -50,19 +53,13 @@ public class UBuyCController {
     }
 
     private final AccountDao dao;
-<<<<<<< HEAD
     private final ListingDao listingDao;
-
-    public UBuyCController(AccountDao dao, ListingDao listingDao) {
-        this.dao = dao;
-        this.listingDao = listingDao;
-=======
     private final ListingSearch listingSearch;
 
-    public UBuyCController(AccountDao dao, ListingSearch listingSearch) {
+    public UBuyCController(AccountDao dao, ListingDao listingDao, ListingSearch listingSearch) {
         this.dao = dao;
+        this.listingDao = listingDao;
         this.listingSearch = listingSearch;
->>>>>>> 1b63d8c (rebase)
     }
 
     /**
@@ -226,10 +223,28 @@ public class UBuyCController {
         return "index";
     }
 
+<<<<<<< HEAD
     @GetMapping("/viewlisting/{id}")
     public String viewListing(@PathVariable Long id, Model model) {
         Listing listing = new Listing("test@ubc.ca", "c", "c", 2, null);
         model.addAttribute("listing", listing);
         return "viewListing"; 
+=======
+
+    //****** Listing Search *******//
+
+    @GetMapping("/search")
+    public String searchListings(@RequestParam(name = "query", required = false, defaultValue = "") String query, Model model) {
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
+        List<Listing> listings = this.listingSearch.searchListings(query);
+        
+        System.out.println(query);
+        System.out.println(listings);
+        // Add the listings to the model
+        // model.addAttribute("listings", listings);
+
+        return "index";  // Return the view (index.html in this case)
+>>>>>>> 4842281 (rebase)
     }
 }

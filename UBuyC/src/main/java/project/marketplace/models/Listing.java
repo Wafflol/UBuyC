@@ -44,6 +44,24 @@ public class Listing {
     }
 
     /**
+     * creates a new listing object
+     * @param owner the owner of the listing
+     * @param title the title of the listing
+     * @param description the description of the listing
+     * @param price the price of the listing
+     * @param imagePath the path to the image of the listing
+     * @param tags the tags of the listing
+     */
+    public Listing (String email, String title, String description, double price, String imagePath, LocalDateTime listingAge) {
+        this.email = email;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.imagePath = imagePath;
+        this.listingAge = listingAge;
+    }
+
+    /**
      * Returns the owner of the listing
      * @return the owner of the listing
      */

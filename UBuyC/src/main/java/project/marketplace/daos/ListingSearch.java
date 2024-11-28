@@ -1,5 +1,6 @@
 package project.marketplace.daos;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -53,7 +54,7 @@ public class ListingSearch {
     public List<Listing> searchListings(String query) {
         ensureConnectionSecure();
         String sql = """
-                     SELECT id, email, title, description, price, imagepath, tags, listingage 
+                     SELECT email, title, description, price, imagepath, listingage 
                      FROM listings
                      WHERE document_with_idx @@ to_tsquery(:query)
                      ORDER BY ts_rank(document_with_weights, plainto_tsquery(:query)) DESC;
@@ -71,13 +72,12 @@ public class ListingSearch {
      */
     private RowMapper<Listing> listingRowMapper() {
         return (rs, rowNum) -> new Listing(
-            new User(rs.getString("email")),
-            rs.getString("title"),
-            rs.getString("description"),
-            rs.getDouble("price"),
-            rs.getString("imagepath"),
-            Set.of(rs.getString("tags").split(",")),
-            rs.getInt("id")
+            rs.getString("email") != null ? rs.getString("email") : "",   // Default to empty string if null
+            rs.getString("title") != null ? rs.getString("title") : "",   // Default to empty string if null
+            rs.getString("description") != null ? rs.getString("description") : "", // Default to empty string if null
+            rs.getDouble("price") != 0.0 ? rs.getDouble("price") : 0.0,    // Default to 0.0 if null (or you can use `Double` for nullable)
+            rs.getString("imagepath") != null ? rs.getString("imagepath") : "", // Default to empty string if null
+            rs.getTimestamp("listingage") != null ? rs.getTimestamp("listingage").toLocalDateTime() : LocalDateTime.now() // Default to current time if null
         );
     }
 }
