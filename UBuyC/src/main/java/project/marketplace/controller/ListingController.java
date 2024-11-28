@@ -2,35 +2,32 @@ package project.marketplace.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import project.marketplace.models.Listing;
-import project.marketplace.services.ListingService;
+import project.marketplace.daos.ListingSearch;
 
 @Controller
 public class ListingController {
 
-    private final ListingService listingService;
+    private final ListingSearch listingSearch;
 
-    @Autowired
-    public ListingController(ListingService listingService) {
-        this.listingService = listingService;
+    public ListingController(ListingSearch listingSearch) {
+        this.listingSearch = listingSearch;
     }
 
     @GetMapping("/search")
     public String searchListings(@RequestParam(name = "query", required = false, defaultValue = "") String query, Model model) {
-        ListingService ls = new ListingService();
-
-        List<Listing> listings = ls.searchListings(query);
+        System.out.println("suckywucky");
+        List<String> listings = this.listingSearch.searchListings(query);
         
         System.out.println(query);
         System.out.println(listings);
         // Add the listings to the model
-        model.addAttribute("listings", listings);
+        //model.addAttribute("listings", listings);
 
         return "index";  // Return the view (index.html in this case)
     }
