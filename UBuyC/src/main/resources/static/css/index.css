@@ -88,72 +88,64 @@
 /* Individual Listing*/
 .listing-container {
     display: flex;
-    flex-direction: row;
-    align-items:flex-start;
-    gap: 20px;
-    max-width: 800px;
-    height: 100vh;
-    width: fit-content;
+    height: 100vh; 
+    background-color: #f9f9f9; 
 }
 
 .image-container {
-    flex: 2;
+    flex: 1; 
+    background-color: #ffffff; 
+    border-radius: 15px; 
+    margin: 10px; 
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    width: 100%;
-    padding-left: 25px;
-    padding-right: 5px;
-    padding-top: 20px;
+    justify-content: center; 
+    align-items: center; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 .listing-image {
-    width: 450px; 
-    height: auto;
-    border-radius: 8px;
-    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
 }
 
 .details-container {
-    flex: 1; 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; 
-    background-color: #000b3f;
-    color: white;
-    border-radius: 20px; 
+    flex: 2; 
+    background-color: #000b3f; 
+    border-radius: 15px; 
+    margin: 10px; 
     padding: 20px; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
-    margin-top: 20px;
-    margin-bottom: 50px;
-    height: 90%;
-    width:100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; 
 }
 
-h1 {
-    text-align: center;
-    font-size: 50px;
+.details-container h1 {
+    font-size: 2em;
     margin-bottom: 10px;
-}
-
-p {
-    margin: 5px 0;
-    font-size: 20px;
-    word-wrap: break-word;
-    margin-bottom: 10px;
-}
-
-a {
     color: white;
+    font-size: 2.5em;
 }
 
-a:visited {
+.details-container p {
     color: white;
+    margin: 10px 0;
+    font-size:1.2em;
 }
 
-a:hover {
+.details-container a {
     color: white; 
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+.details-container a:visited {
+    text-decoration: underline;
+    color: white;
+}
+
+
+.details-container a:hover {
+    text-decoration: underline;
 }
 
 a:active {
