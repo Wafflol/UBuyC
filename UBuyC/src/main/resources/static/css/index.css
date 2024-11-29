@@ -51,14 +51,13 @@
     background-color: #e4e6eb;
 }
 
-
+/* Listing Cards */
 .items-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 15px; 
     padding: 10px; 
 }
-/* Listing Cards */
 .item-card {
     background-color: white;
     border: 1px solid #ccc;
@@ -259,68 +258,15 @@ strong {
     background-color: #333a6b;
 }
 
-.tags-container {
-    margin-top: 20px;
-    text-align: center;
-    margin-bottom: 20px;
+.back-link {
+    position: absolute; /* Positions the element relative to the viewport */
+    right: 40px;       /* Moves it 10px away from the right edge */
+    top: 30px;         /* Moves it 10px away from the top edge */
+    text-decoration: none; /* Optional: Removes the underline from the link */
+    color: white;          /* Optional: Sets the link color */
+    font-weight: bold;     /* Optional: Makes the link text bold */
 }
 
-/* Heading */
-.tags-container label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 10px;
-}
-
-.tags-container p {
-    font-size: 14px;
-    color: #666;
-}
-
-/* Tags container (flex layout) */
-.tags {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #ffffff;
-}
-
-/* Tag styles */
-.tag {
-    background-color: #f9f9f9;
-    color: #bb9610;
-    padding: 8px 15px;
-    border-radius: 15px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    user-select: none;
-}
-
-/* Highlight selected tags */
-.tag.selected {
-    background-color: #333a6b;
-    color: #bb9610;
-}
-
-/* Tag count and button styles */
-#tag-count {
-    margin: 15px 0;
-}
-
-#remove-all {
-    background-color: #000b3f;
-    color: white;
-    padding: 8px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#remove-all:hover {
-    background-color: #333a6b;
+.back-link :hover{
+    text-decoration: underline;
 }
