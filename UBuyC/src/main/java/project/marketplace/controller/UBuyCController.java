@@ -108,7 +108,7 @@ public class UBuyCController {
      * 
      * Redirects to verification page if successful and sends an OTP email
      * to user on successful account creation.
-     * 
+     *
      * Redirects to emailError page if email cannot be sent
      * 
      * @param user the user DTO being sent to the database

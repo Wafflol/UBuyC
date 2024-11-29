@@ -42,9 +42,14 @@ public class SecurityConfig {
                         .successHandler(successHandler)
                         .permitAll())
                 .logout(form -> form
-                        .logoutUrl("/account/submit")
-                        .logoutSuccessUrl("/login")
-                        .permitAll())
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/account")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
+                        )
+
                 .csrf(form -> form.disable());
         return http.build();
     }
