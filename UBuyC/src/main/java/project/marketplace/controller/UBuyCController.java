@@ -73,19 +73,19 @@ public class UBuyCController {
     }
 
     @PostMapping({"/", "/login"})
-    public ModelAndView login(@ModelAttribute("login") @Valid Login login, HttpServletRequest request, Model model) {
+    public String login(@ModelAttribute("login") @Valid Login login, HttpServletRequest request, Model model) {
         if (dao.checkPassword(login) && dao.checkValidation(login)) {
             User user = dao.getUserByLogin(login);
             model.addAttribute("user", user);
-            return new ModelAndView("redirect:/index", "user", user);
+            return "redirect:/index";
         } else if (dao.checkPassword(login) && !dao.checkValidation(login)) {
             User user = dao.getUserByLogin(login);
             model.addAttribute("user", user);
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, request.getLocale()));
-            return new ModelAndView("redirect:/verification", "user", user);
+            return "redirect:/verification";
         } else {
             model.addAttribute("message", "Invalid email or password");
-            return new ModelAndView("login");
+            return "login";
         }
     }
 
@@ -199,10 +199,8 @@ public class UBuyCController {
      */
     @GetMapping("/index")
     public String index(@ModelAttribute("user") User user, Model model) { 
-        System.out.println("index: user.email = " + user.getEmail());
-
+        System.out.println("Controller: index: user.email = " + user.getEmail());
         List<Listing> listings = this.listingSearch.getAll();
-        
         model.addAttribute("listing", new Listing());
         model.addAttribute("listings", listings);
         model.addAttribute("user", user);

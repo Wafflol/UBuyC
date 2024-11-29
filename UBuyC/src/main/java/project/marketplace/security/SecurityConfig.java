@@ -37,7 +37,6 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .usernameParameter("email")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/index", true)
                         .permitAll())
                 .logout(LogoutConfigurer::permitAll)
                 .csrf(form -> form.disable());
