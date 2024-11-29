@@ -31,7 +31,7 @@ public class ModelTests {
         testUser.setFirstName(testString);
         testUser.setLastName(testString);
         testUser.setId(123);
-        testUser.setPassword(testString);
+        testUser.setPasswordHash(testString);
         testUser.setValidated(true);
 
         assertEquals(testString, testUser.getEmail());

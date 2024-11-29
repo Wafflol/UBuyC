@@ -156,7 +156,7 @@ public class User {
      * @param password The plaintext password to be stored.
      */
     public void setPassword(String password) {
-        this.passwordHash = encryptPassword(password);
+        this.passwordHash = password;
     }
 
     /**
