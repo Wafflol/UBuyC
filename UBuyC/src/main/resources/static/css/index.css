@@ -16,16 +16,23 @@
     font-size: 24px;
     margin: 0;
 }
-.search-bar {
-    flex-grow: 1;
-    margin-left: 20px;
-    margin-right: 30px;
-}
+
+
 .search-bar input {
-    width: 100%;
+    width: 800px; 
     padding: 10px;
     border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.search-bar button {
+    padding: 10px 15px;
+    border-radius: 5px;
     border: none;
+    background-color: white;
+    color: #000b3f;
+    cursor: pointer;
 }
 .profile-icon {
     width: 35px;
@@ -259,14 +266,15 @@ strong {
 }
 
 .back-link {
-    position: absolute; /* Positions the element relative to the viewport */
-    right: 40px;       /* Moves it 10px away from the right edge */
-    top: 30px;         /* Moves it 10px away from the top edge */
-    text-decoration: none; /* Optional: Removes the underline from the link */
-    color: white;          /* Optional: Sets the link color */
-    font-weight: bold;     /* Optional: Makes the link text bold */
+    position: absolute; 
+    right: 50px;       
+    top: 40px;        
+    font-size: large;
+    text-decoration: none; 
+    color: white;       
+    font-weight: bold;     
 }
 
-.back-link :hover{
+.back-link:hover{
     text-decoration: underline;
 }
