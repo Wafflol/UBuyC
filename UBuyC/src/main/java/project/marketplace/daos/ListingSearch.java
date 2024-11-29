@@ -65,8 +65,8 @@ public class ListingSearch {
         String sql = """
                     SELECT id, email, title, description, price, imagepath, listingage 
                     FROM listings
-                    WHERE document_with_idx @@ to_tsquery(:query)
-                    ORDER BY ts_rank(document_with_weights, to_tsquery(:query)) DESC;
+                    WHERE document_with_idx @@ to_tsquery('english', :query)
+                    ORDER BY ts_rank(document_with_weights, to_tsquery('english', :query)) DESC;
                     """;
 
         MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("query", formattedQuery);
