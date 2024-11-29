@@ -52,7 +52,8 @@ public class Listing {
      * @param imagePath the path to the image of the listing
      * @param tags the tags of the listing
      */
-    public Listing (String email, String title, String description, double price, String imagePath, LocalDateTime listingAge) {
+    public Listing (long id, String email, String title, String description, double price, String imagePath, LocalDateTime listingAge) {
+        this.id = id;
         this.email = email;
         this.title = title;
         this.description = description;

@@ -224,7 +224,7 @@ public class UBuyCController {
 
     @GetMapping("/viewlisting/{id}")
     public String viewListing(@PathVariable Long id, Model model) {
-        Listing listing = new Listing("test@ubc.ca", "c", "c", 2, null);
+        Listing listing = this.listingSearch.getListingById(id);
         model.addAttribute("listing", listing);
         return "viewListing"; 
     }
@@ -235,9 +235,13 @@ public class UBuyCController {
     @GetMapping("/search")
     public String searchListings(@RequestParam(name = "query", required = false, defaultValue = "") String query, Model model) {
         List<Listing> listings = this.listingSearch.searchListings(query);
-
+        
         model.addAttribute("listing", new Listing());
         model.addAttribute("listings", listings);
+
+        listings.forEach(x -> System.out.println(x.getTitle()));
+        listings.forEach(x -> System.out.println(x.getDescription()));
+        listings.forEach(x -> System.out.println(x.getId()));
 
         return "index";
     }

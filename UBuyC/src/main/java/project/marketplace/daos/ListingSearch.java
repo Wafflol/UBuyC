@@ -50,7 +50,7 @@ public class ListingSearch {
     public List<Listing> searchListings(String query) {
         ensureConnectionSecure();
         String sql = """
-                     SELECT email, title, description, price, imagepath, listingage 
+                     SELECT id, email, title, description, price, imagepath, listingage 
                      FROM listings
                      WHERE document_with_idx @@ to_tsquery(:query)
                      ORDER BY ts_rank(document_with_weights, plainto_tsquery(:query)) DESC;
@@ -61,6 +61,20 @@ public class ListingSearch {
         return jdbcTemplate.query(sql, parameters, listingRowMapper());
     }
 
+    public Listing getListingById(long id) {
+        ensureConnectionSecure();
+        String sql = """
+                     SELECT id, email, title, description, price, imagepath, listingage 
+                     FROM listings
+                     WHERE id = :id
+                     """;
+    
+        MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("id", id);
+    
+        // Use queryForObject to get a single result
+        return jdbcTemplate.queryForObject(sql, parameters, listingRowMapper());
+    }
+
     /**
      * Maps each row of the result set to a {@link Listing} object.
      * 
@@ -68,6 +82,7 @@ public class ListingSearch {
      */
     private RowMapper<Listing> listingRowMapper() {
         return (rs, rowNum) -> new Listing(
+            rs.getLong("id"),
             rs.getString("email") != null ? rs.getString("email") : "",   // Default to empty string if null
             rs.getString("title") != null ? rs.getString("title") : "",   // Default to empty string if null
             rs.getString("description") != null ? rs.getString("description") : "", // Default to empty string if null
