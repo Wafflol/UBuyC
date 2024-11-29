@@ -10,7 +10,7 @@
     <div class="navbar">
         <h1>UBuyC</h1>
         <!-- Search Bar Form-->
-        <form th:action="@{/search}" method="get">
+        <form th:action="@{/index}" method="get">
             <input type="text" name="query" id="searchBar" placeholder="Search for items..." />
             <button type="submit">Search</button>
             <form action="@{/index}" method="get">
@@ -31,7 +31,7 @@
         <div th:each="listing: ${listings}">
             <a th:href="@{/viewlisting/{id}(id=${listing.getId})}" class="card-link">
                 <div class="item-card">
-                    <img src="https://via.placeholder.com/200" alt="Item">
+                    <img th:src="'data:image/png;base64,' + ${listing.base64Image}" alt="Item">
                     <div class="info">
                         <h3 th:text="${listing.getTitle}">Item</h3>
                         <p th:text="'$' + ${listing.getPrice}"> Price</p>
@@ -52,7 +52,7 @@
             <form action="#" method="post" enctype="multipart/form-data" th:object="${listing}">
                 <div class="form-group">
                     <label for="item-picture">Upload Picture</label>
-                    <input type="file" id="item-picture" name="item-picture" accept="image/*" required>
+                    <input type="file" id="image" name="image" accept="image/*" required>
                 </div>
                 <div class="form-group">
                     <label for="item-name">Item Name</label>

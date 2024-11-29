@@ -63,7 +63,7 @@ public class ListingSearch {
                                     .collect(Collectors.joining(" & "));
 
         String sql = """
-                    SELECT id, email, title, description, price, imagepath, listingage 
+                    SELECT id, email, title, description, price, image, listingage 
                     FROM listings
                     WHERE document_with_idx @@ to_tsquery('english', :query)
                     ORDER BY ts_rank(document_with_weights, to_tsquery('english', :query)) DESC;
@@ -83,7 +83,7 @@ public class ListingSearch {
     public Listing getListingById(long id) {
         ensureConnectionSecure();
         String sql = """
-                     SELECT id, email, title, description, price, imagepath, listingage 
+                     SELECT id, email, title, description, price, image, listingage 
                      FROM listings
                      WHERE id = :id
                      """;
@@ -102,7 +102,7 @@ public class ListingSearch {
     public List<Listing> getListingByUser(String email) {
         ensureConnectionSecure();
         String sql = """
-                     SELECT id, email, title, description, price, imagepath, listingage 
+                     SELECT id, email, title, description, price, image, listingage 
                      FROM listings
                      WHERE email = :email
                      """;
@@ -120,7 +120,7 @@ public class ListingSearch {
     public List<Listing> getAll() {
         ensureConnectionSecure();
         String sql = """
-                     SELECT id, email, title, description, price, imagepath, listingage 
+                     SELECT id, email, title, description, price, image, listingage 
                      FROM listings
                      """;
     
@@ -136,12 +136,12 @@ public class ListingSearch {
     private RowMapper<Listing> listingRowMapper() {
         return (rs, rowNum) -> new Listing(
             rs.getLong("id"),
-            rs.getString("email") != null ? rs.getString("email") : "",
-            rs.getString("title") != null ? rs.getString("title") : "",
-            rs.getString("description") != null ? rs.getString("description") : "",
-            rs.getDouble("price") != 0.0 ? rs.getDouble("price") : 0.0,
-            rs.getString("imagepath") != null ? rs.getString("imagepath") : "",
-            rs.getTimestamp("listingage") != null ? rs.getTimestamp("listingage").toLocalDateTime() : LocalDateTime.now()
+            rs.getString("email") != null ? rs.getString("email") : "",   // Default to empty string if null
+            rs.getString("title") != null ? rs.getString("title") : "",   // Default to empty string if null
+            rs.getString("description") != null ? rs.getString("description") : "", // Default to empty string if null
+            rs.getDouble("price") != 0.0 ? rs.getDouble("price") : 0.0,    // Default to 0.0 if null (or you can use `Double` for nullable)
+            rs.getBytes("image") != null ? rs.getBytes("image") : new byte[0], // Default to empty string if null
+            rs.getTimestamp("listingage") != null ? rs.getTimestamp("listingage").toLocalDateTime() : LocalDateTime.now() // Default to current time if null
         );
     }
 }

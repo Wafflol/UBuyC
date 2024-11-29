@@ -5,13 +5,11 @@ import java.util.Objects;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity
-public class Listing {
+public class ReducedListing {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,48 +18,9 @@ public class Listing {
     private String title;
     private String description;
     private double price;
-    private byte[] image;
+    private MultipartFile image;
     private LocalDateTime listingAge;
-
-    public Listing() {
-        //lmao
-    }
-
-    /**
-     * creates a new listing object
-     * @param owner the owner of the listing
-     * @param title the title of the listing
-     * @param description the description of the listing
-     * @param price the price of the listing
-     * @param image the path to the image of the listing
-     */
-    public Listing (String email, String title, String description, double price, byte[] image) {
-        this.email = email;
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.image = image;
-        this.listingAge = java.time.LocalDateTime.now();
-    }
-
-    /**
-     * creates a new listing object
-     * @param owner the owner of the listing
-     * @param title the title of the listing
-     * @param description the description of the listing
-     * @param price the price of the listing
-     * @param image the path to the image of the listing
-     * @param tags the tags of the listing
-     */
-    public Listing (long id, String email, String title, String description, double price, byte[] image, LocalDateTime listingAge) {
-        this.id = id;
-        this.email = email;
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.image = image;
-        this.listingAge = listingAge;
-    }
+    private String base64Image;
 
     /**
      * Returns the owner of the listing
@@ -99,7 +58,7 @@ public class Listing {
      * Returns the image path of the listing image
      * @return the image path of the listing image
      */
-    public byte[] getImage() {
+    public MultipartFile getImage() {
         return this.image;
     }
 
@@ -109,6 +68,14 @@ public class Listing {
      */
     public LocalDateTime getListingAge() {
         return this.listingAge;
+    }
+
+    /**
+     * Returns the base64 encoded version of the image
+     * @return the base64 encoded version of the image
+     */
+    public String getBase64Image() {
+        return this.base64Image;
     }
 
     /**
@@ -147,7 +114,7 @@ public class Listing {
      * Sets the image path of the listing image
      * @param imagePath the image path to set
      */
-    public void setImage(byte[] image) {
+    public void setImage(MultipartFile image) {
         this.image = image;
     }
 
@@ -159,6 +126,18 @@ public class Listing {
         this.listingAge = listingAge;
     }
 
+    /**
+     * Returns the base64 encoded version of the image
+     * @return the base64 encoded version of the image
+     */
+    public void setBase64Image(String base64Image) {
+        this.base64Image = base64Image;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public long getId() {
         return this.id;
     }
@@ -167,7 +146,7 @@ public class Listing {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Listing listing = (Listing) o;
+        ReducedListing listing = (ReducedListing) o;
         return id == listing.id;
     }
 
