@@ -185,9 +185,11 @@ public class UBuyCController {
      * @return account.html file
      */
     @GetMapping("/account")
-    public String account(@RequestParam("userId") long userId, Model model) { 
+    public String account(@RequestParam("userId") long userId, @RequestParam("userEmail") String userEmail, Model model) { 
         User user = dao.getUserById(userId);
         model.addAttribute("user", user);
+        List<Listing> listings = this.listingSearch.getListingByUser(userEmail);
+        model.addAttribute("listings", listings);
         return "account";
     }
 
