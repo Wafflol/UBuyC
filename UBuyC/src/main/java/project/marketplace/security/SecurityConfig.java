@@ -21,9 +21,11 @@ import project.marketplace.models.User;
 public class SecurityConfig {
 
     private final CustomUserDetailsService customUserDetailsService;
+    private final CustomAuthenticationSuccessHandler successHandler;
 
-    public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService, CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler) {
         this.customUserDetailsService = customUserDetailsService;
+        this.successHandler = customAuthenticationSuccessHandler;
     }
 
     @Bean
@@ -37,6 +39,7 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .usernameParameter("email")
                         .passwordParameter("password")
+                        .successHandler(successHandler)
                         .permitAll())
                 .logout(LogoutConfigurer::permitAll)
                 .csrf(form -> form.disable());
