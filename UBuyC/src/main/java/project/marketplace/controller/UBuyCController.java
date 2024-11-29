@@ -242,15 +242,6 @@ public class UBuyCController {
         // Add the listings to the model
         // model.addAttribute("listings", listings);
 
-<<<<<<< HEAD
         return "redirect:/index";
-=======
-<<<<<<< HEAD
-        return "index";  // Return the view (index.html in this case)
->>>>>>> 4842281 (rebase)
-=======
-        return "redirect:/index";
->>>>>>> 51b9e5c (search returns list of listings)
->>>>>>> 564cb7b (rebase)
     }
 }
