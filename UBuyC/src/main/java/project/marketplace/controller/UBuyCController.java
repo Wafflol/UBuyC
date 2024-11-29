@@ -2,6 +2,7 @@ package project.marketplace.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import project.marketplace.daos.AccountDao;
 import project.marketplace.daos.ListingDao;
+import project.marketplace.daos.ListingSearch;
 import project.marketplace.daos.UserAlreadyExistsException;
 import project.marketplace.models.Listing;
 import project.marketplace.models.Login;
 import project.marketplace.models.User;
 import project.marketplace.registration.OnRegistrationCompleteEvent;
+
+
 
 /**
  * Creates a class for controller of the entire website. Controls the I/O of each page.
@@ -48,10 +52,12 @@ public class UBuyCController {
 
     private final AccountDao dao;
     private final ListingDao listingDao;
+    private final ListingSearch listingSearch;
 
-    public UBuyCController(AccountDao dao, ListingDao listingDao) {
+    public UBuyCController(AccountDao dao, ListingDao listingDao, ListingSearch listingSearch) {
         this.dao = dao;
         this.listingDao = listingDao;
+        this.listingSearch = listingSearch;
     }
 
     /**
@@ -132,7 +138,9 @@ public class UBuyCController {
      * @return verification.html
      */
     @GetMapping("/verification")
-    public ModelAndView loadVerificationPage(@ModelAttribute("user") @Valid User user) { 
+    public ModelAndView loadVerificationPage(@ModelAttribute("user") @Valid User user) {
+        System.out.println("User in session: " + user);
+        System.out.println("Controller: user email is: " + user.getEmail());
         String otp = new String();
         ModelAndView model = new ModelAndView("verification");
         model.addObject("otp", otp);
@@ -191,9 +199,10 @@ public class UBuyCController {
      */
     @GetMapping("/index")
     public String index(@ModelAttribute("user") User user, Model model) { 
-        System.out.println("index: user.email = " + user.getEmail());
-        Listing listing = new Listing();
-        model.addAttribute("listing", listing);
+        System.out.println("Controller: index: user.email = " + user.getEmail());
+        List<Listing> listings = this.listingSearch.getAll();
+        model.addAttribute("listing", new Listing());
+        model.addAttribute("listings", listings);
         model.addAttribute("user", user);
         return "index";
     }
@@ -217,8 +226,25 @@ public class UBuyCController {
 
     @GetMapping("/viewlisting/{id}")
     public String viewListing(@PathVariable Long id, Model model) {
-        Listing listing = new Listing("test@ubc.ca", "c", "c", 2, null);
+        Listing listing = this.listingSearch.getListingById(id);
         model.addAttribute("listing", listing);
         return "viewListing"; 
+    }
+
+
+    //****** Listing Search *******//
+
+    @GetMapping("/search")
+    public String searchListings(@RequestParam(name = "query", required = false, defaultValue = "") String query, Model model) {
+        List<Listing> listings = this.listingSearch.searchListings(query);
+        
+        model.addAttribute("listing", new Listing());
+        model.addAttribute("listings", listings);
+
+        listings.forEach(x -> System.out.println(x.getTitle()));
+        listings.forEach(x -> System.out.println(x.getDescription()));
+        listings.forEach(x -> System.out.println(x.getId()));
+
+        return "index";
     }
 }
