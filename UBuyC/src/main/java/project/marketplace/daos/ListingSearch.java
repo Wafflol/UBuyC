@@ -109,7 +109,7 @@ public class ListingSearch {
                      SELECT id, email, title, description, price, image, imageType, listingage 
                      FROM listings
                      WHERE email = :email
-                     ORDER BY listingage;
+                     ORDER BY listingage desc;
                      """;
         
         MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("email", email);
@@ -127,7 +127,7 @@ public class ListingSearch {
         String sql = """
                      SELECT id, email, title, description, price, image, imageType, listingage 
                      FROM listings
-                     ORDER BY listingage;
+                     ORDER BY listingage desc;
                      """;
     
         List<Listing> listings = jdbcTemplate.query(sql, listingRowMapper());
