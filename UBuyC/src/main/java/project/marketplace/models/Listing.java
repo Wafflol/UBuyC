@@ -157,6 +157,10 @@ public class Listing {
         this.listingAge = listingAge;
     }
 
+    public long getId() {
+        return this.id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

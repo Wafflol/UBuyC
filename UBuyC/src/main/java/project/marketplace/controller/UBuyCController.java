@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,8 +28,6 @@ import project.marketplace.daos.UserAlreadyExistsException;
 import project.marketplace.models.Listing;
 import project.marketplace.models.Login;
 import project.marketplace.models.User;
-import project.marketplace.daos.ListingDao;
-import project.marketplace.daos.UserAlreadyExistsException;
 import project.marketplace.registration.OnRegistrationCompleteEvent;
 
 
@@ -202,6 +199,7 @@ public class UBuyCController {
     public String index(@ModelAttribute("user") User user, Model model) { 
         System.out.println("index: user.email = " + user.getEmail());
         Listing listing = new Listing();
+        model.addAttribute("listings", listing);
         model.addAttribute("listing", listing);
         model.addAttribute("user", user);
         return "index";
@@ -236,15 +234,11 @@ public class UBuyCController {
 
     @GetMapping("/search")
     public String searchListings(@RequestParam(name = "query", required = false, defaultValue = "") String query, Model model) {
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
         List<Listing> listings = this.listingSearch.searchListings(query);
-        
-        System.out.println(query);
-        System.out.println(listings);
-        // Add the listings to the model
-        // model.addAttribute("listings", listings);
 
-        return "redirect:/index";
+        model.addAttribute("listing", new Listing());
+        model.addAttribute("listings", listings);
+
+        return "index";
     }
 }
