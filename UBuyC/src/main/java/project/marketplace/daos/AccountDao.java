@@ -77,11 +77,29 @@ public class AccountDao {
        return userDTO;
    }
 
-    public User getUser(Login login) {
+    public User getUserByLogin(Login login) {
         ensureConnectionSecure();
 
         String sql = "SELECT id, fname, lname, email, password, validated FROM users WHERE email = :email";
         MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("email", login.getEmail());
+        RowMapper<User> rowMapper = (rs, rowNum) -> {
+            User user = new User();
+            user.setId(rs.getInt("id"));
+            user.setFirstName(rs.getString("fname"));
+            user.setLastName(rs.getString("lname"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+            user.setValidated(rs.getBoolean("validated"));
+            return user;
+        };
+        return jdbcTemplate.queryForObject(sql, parameters, rowMapper);
+    }
+
+    public User getUserById(long id) {
+        ensureConnectionSecure();
+
+        String sql = "SELECT id, fname, lname, email, password, validated FROM users WHERE id = :id";
+        MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("id", id);
         RowMapper<User> rowMapper = (rs, rowNum) -> {
             User user = new User();
             user.setId(rs.getInt("id"));

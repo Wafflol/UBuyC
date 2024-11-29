@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -68,9 +69,11 @@ public class UBuyCController {
     @PostMapping({"/", "/login"})
     public String login(@ModelAttribute("login") @Valid Login login, HttpServletRequest request, Model model) {
         if (dao.checkPassword(login) && dao.checkValidation(login)) {
+            User user = dao.getUserByLogin(login);
+            model.addAttribute("user", user);
             return "redirect:/index";
         } else if (dao.checkPassword(login) && !dao.checkValidation(login)) {
-            User user = dao.getUser(login);
+            User user = dao.getUserByLogin(login);
             model.addAttribute("user", user);
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, request.getLocale()));
             return "redirect:/verification";
@@ -173,11 +176,10 @@ public class UBuyCController {
      * 
      * @return account.html file
      */
-    @GetMapping("account")
-    public String account(Model model) { 
-        model.addAttribute("userFName", "Fname");
-        model.addAttribute("userLName", "Lname");
-        model.addAttribute("userEmail", "email@ubc.ca");
+    @GetMapping("/account")
+    public String account(@RequestParam("userId") long userId, Model model) { 
+        User user = dao.getUserById(userId);
+        model.addAttribute("user", user);
         return "account";
     }
 
@@ -188,9 +190,11 @@ public class UBuyCController {
      * @return index.html file
      */
     @GetMapping("/index")
-    public String index(Model model) { 
+    public String index(@ModelAttribute("user") User user, Model model) { 
+        System.out.println("index: user.email = " + user.getEmail());
         Listing listing = new Listing();
         model.addAttribute("listing", listing);
+        model.addAttribute("user", user);
         return "index";
     }
 
