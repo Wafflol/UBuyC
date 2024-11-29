@@ -66,10 +66,14 @@ public class ListingSearch {
                     SELECT id, email, title, description, price, image, listingage 
                     FROM listings
                     WHERE document_with_idx @@ to_tsquery('english', :query)
+                    OR title % :rawQuery
+                    OR description % :rawQuery
                     ORDER BY ts_rank(document_with_weights, to_tsquery('english', :query)) DESC;
                     """;
 
-        MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("query", formattedQuery);
+        MapSqlParameterSource parameters = new MapSqlParameterSource()
+            .addValue("query", formattedQuery)
+            .addValue("rawQuery", query.trim());
 
         return jdbcTemplate.query(sql, parameters, listingRowMapper());
     }
