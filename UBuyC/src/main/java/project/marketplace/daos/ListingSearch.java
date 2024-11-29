@@ -85,7 +85,7 @@ public class ListingSearch {
         String sql = """
                      SELECT id, email, title, description, price, imagepath, listingage 
                      FROM listings
-                     WHERE id = :id
+                     WHERE id = :id;
                      """;
     
         MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("id", id);
@@ -94,7 +94,7 @@ public class ListingSearch {
     }
 
     /**
-     * Retrieves a listing from the database associated with a specific user.
+     * Retrieves a listing from the database associated with a specific user. 
      * 
      * @param email the email address of the user.
      * @return a {@link Listing} object associated with the given user.
@@ -105,6 +105,7 @@ public class ListingSearch {
                      SELECT id, email, title, description, price, imagepath, listingage 
                      FROM listings
                      WHERE email = :email
+                     ORDER BY listingage;
                      """;
         
         MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("email", email);
@@ -122,6 +123,7 @@ public class ListingSearch {
         String sql = """
                      SELECT id, email, title, description, price, imagepath, listingage 
                      FROM listings
+                     ORDER BY listingage;
                      """;
     
         List<Listing> listings = jdbcTemplate.query(sql, listingRowMapper());
