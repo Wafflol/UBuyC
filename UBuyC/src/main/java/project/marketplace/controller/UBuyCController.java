@@ -193,6 +193,7 @@ public class UBuyCController {
     public String index(@ModelAttribute("user") User user, Model model) { 
         System.out.println("index: user.email = " + user.getEmail());
         Listing listing = new Listing();
+        model.addAttribute("listings", listing);
         model.addAttribute("listing", listing);
         model.addAttribute("user", user);
         return "index";
