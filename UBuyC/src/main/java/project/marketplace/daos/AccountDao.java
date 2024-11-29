@@ -113,6 +113,24 @@ public class AccountDao {
         return jdbcTemplate.queryForObject(sql, parameters, rowMapper);
     }
 
+    public User getUserByEmail(String email) {
+        ensureConnectionSecure();
+
+        String sql = "SELECT id, fname, lname, email, password, validated FROM users WHERE email = :email";
+        MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("email", email);
+        RowMapper<User> rowMapper = (rs, rowNum) -> {
+            User user = new User();
+            user.setId(rs.getInt("id"));
+            user.setFirstName(rs.getString("fname"));
+            user.setLastName(rs.getString("lname"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+            user.setValidated(rs.getBoolean("validated"));
+            return user;
+        };
+        return jdbcTemplate.queryForObject(sql, parameters, rowMapper);
+    }
+
     public int createVerificationToken(User user) {
         ensureConnectionSecure();
         VerificationToken token = new VerificationToken(user);
@@ -184,6 +202,7 @@ public class AccountDao {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("email", login.getEmail());
         List<Boolean> validated = jdbcTemplate.queryForList(sql, parameters, Boolean.class);
+        System.out.println(this.getClass().toString() + ": VALIDATED: " + validated.get(0));
         return validated.get(0);
     }
 }

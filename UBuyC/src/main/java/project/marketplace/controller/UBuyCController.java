@@ -138,7 +138,9 @@ public class UBuyCController {
      * @return verification.html
      */
     @GetMapping("/verification")
-    public ModelAndView loadVerificationPage(@ModelAttribute("user") @Valid User user) { 
+    public ModelAndView loadVerificationPage(@ModelAttribute("user") @Valid User user) {
+        System.out.println("User in session: " + user);
+        System.out.println("Controller: user email is: " + user.getEmail());
         String otp = new String();
         ModelAndView model = new ModelAndView("verification");
         model.addObject("otp", otp);
@@ -197,10 +199,8 @@ public class UBuyCController {
      */
     @GetMapping("/index")
     public String index(@ModelAttribute("user") User user, Model model) { 
-        System.out.println("index: user.email = " + user.getEmail());
-
+        System.out.println("Controller: index: user.email = " + user.getEmail());
         List<Listing> listings = this.listingSearch.getAll();
-        
         model.addAttribute("listing", new Listing());
         model.addAttribute("listings", listings);
         model.addAttribute("user", user);

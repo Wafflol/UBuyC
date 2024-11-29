@@ -1,6 +1,5 @@
 package project.marketplace.ubuyc;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public class testUser {
+public class TestUser {
 
     @Test
     public void testHash() {
