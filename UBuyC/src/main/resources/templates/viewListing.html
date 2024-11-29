@@ -13,7 +13,7 @@
             <h1 th:text="${listing.getTitle}">Listing Title</h1>
             <br>
             <p><strong>Contact:</strong> 
-                <a href="mailto:test@gmail.com">John Doe</a>
+                <a th:href="'mailto:' + ${listing.getEmail}" th:text="${listing.getEmail}">John Doe</a>
             </p>
             <br>
             <p><strong>Description:</strong> <span th:text="${listing.getDescription}">Description goes here</span></p>
