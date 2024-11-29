@@ -221,13 +221,13 @@ public class UBuyCController {
         return "index";
     }
 
-<<<<<<< HEAD
     @GetMapping("/viewlisting/{id}")
     public String viewListing(@PathVariable Long id, Model model) {
         Listing listing = new Listing("test@ubc.ca", "c", "c", 2, null);
         model.addAttribute("listing", listing);
         return "viewListing"; 
-=======
+    }
+
 
     //****** Listing Search *******//
 
@@ -242,11 +242,6 @@ public class UBuyCController {
         // Add the listings to the model
         // model.addAttribute("listings", listings);
 
-<<<<<<< HEAD
-        return "index";  // Return the view (index.html in this case)
->>>>>>> 4842281 (rebase)
-=======
         return "redirect:/index";
->>>>>>> 51b9e5c (search returns list of listings)
     }
 }
