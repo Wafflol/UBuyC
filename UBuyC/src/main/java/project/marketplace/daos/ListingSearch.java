@@ -56,7 +56,7 @@ public class ListingSearch {
                      ORDER BY ts_rank(document_with_weights, plainto_tsquery(:query)) DESC;
                      """;
 
-        MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("query", query);
+        MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("query", query + ":*");
 
         return jdbcTemplate.query(sql, parameters, listingRowMapper());
     }
