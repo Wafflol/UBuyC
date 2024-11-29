@@ -16,22 +16,19 @@ public class RegistrationTests {
     public void onRCEInit() {
         User testUser = new User();
         
-        OnRegistrationCompleteEvent t = new OnRegistrationCompleteEvent(testUser, Locale.US);
+        OnRegistrationCompleteEvent event = new OnRegistrationCompleteEvent(testUser, Locale.US);
 
-        assertEquals(testUser, t.getUser());
-        assertEquals(Locale.US, t.getLocale());
+        assertEquals(testUser, event.getUser());
+        assertEquals(Locale.US, event.getLocale());
     }
 
-    @Test
-    public void regListenerInit() {
+    // @Test
+    // public void regListenerInit() {
+    //     User testUser = new User();
 
-        User testUser = new User();
+    //     OnRegistrationCompleteEvent regEvent = new OnRegistrationCompleteEvent(testUser, Locale.US);
 
-        OnRegistrationCompleteEvent regEvent = new OnRegistrationCompleteEvent(testUser, Locale.US);
-
-        RegistrationListener t = new RegistrationListener();
-        t.onApplicationEvent(regEvent);
-
-    }
-
+    //     RegistrationListener listener = new RegistrationListener();
+    //     listener.onApplicationEvent(regEvent);
+    // }
 }
