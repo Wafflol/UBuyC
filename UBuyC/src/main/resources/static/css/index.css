@@ -17,6 +17,11 @@
     margin: 0;
 }
 
+.navbar h1:visited {
+    font-size: 24px;
+    margin: 0;
+    color: white;
+}
 
 .search-bar input {
     width: 800px; 
