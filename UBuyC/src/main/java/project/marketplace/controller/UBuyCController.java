@@ -1,5 +1,7 @@
 package project.marketplace.controller;
 
+import java.util.ArrayList;
+import java.util.Base64;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +28,7 @@ import project.marketplace.daos.AccountDao;
 import project.marketplace.daos.ListingDao;
 import project.marketplace.daos.ListingSearch;
 import project.marketplace.daos.UserAlreadyExistsException;
+import project.marketplace.models.ReducedListing;
 import project.marketplace.models.Listing;
 import project.marketplace.models.Login;
 import project.marketplace.models.User;
@@ -200,11 +204,22 @@ public class UBuyCController {
      * @return index.html file
      */
     @GetMapping("/index")
-    public String index(@ModelAttribute("user") User user, Model model) { 
+    public String index(@RequestParam(name = "query", required = false, defaultValue = "") String query, @ModelAttribute("user") User user, Model model) { 
         System.out.println("Controller: index: user.email = " + user.getEmail());
-        List<Listing> listings = this.listingSearch.getAll();
-        model.addAttribute("listing", new Listing());
-        model.addAttribute("listings", listings);
+        List<Listing> listings = this.listingSearch.searchListings(query);
+        List<ReducedListing> reducedListings = new ArrayList<>();
+        for (int i = 0; i < listings.size(); i++) {
+            reducedListings.add(new ReducedListing());
+            reducedListings.get(i).setId(listings.get(i).getId());
+            reducedListings.get(i).setEmail(listings.get(i).getEmail());
+            reducedListings.get(i).setTitle(listings.get(i).getTitle());
+            reducedListings.get(i).setDescription(listings.get(i).getDescription());
+            reducedListings.get(i).setPrice(listings.get(i).getPrice());
+            reducedListings.get(i).setBase64Image(Base64.getEncoder().encodeToString(listings.get(i).getImage()));
+            reducedListings.get(i).setListingAge(listings.get(i).getListingAge());
+        }
+        model.addAttribute("listing", new ReducedListing());
+        model.addAttribute("listings", reducedListings);
         model.addAttribute("user", user);
         return "index";
     }
@@ -217,13 +232,26 @@ public class UBuyCController {
      * @return index.html file
      */
     @PostMapping("/index")
-    public String createNewListing(@ModelAttribute("user") User user, @ModelAttribute("listing") Listing listing) {
-        System.out.println("createNewListing: listing = " + listing);
+    public String createNewListing(@ModelAttribute("user") User user, @ModelAttribute("listing") ReducedListing reducedListing) {
+        System.out.println("createNewListing: reducedListing = " + reducedListing);
         System.out.println("createNewListing: user.email = " + user.getEmail());
-        listing.setEmail(user.getEmail());
-        listing.setListingAge(LocalDateTime.now());
-        listingDao.createListing(listing);
-        return "index";
+        System.out.println("createNewListing: reducedListing.image.name = " + reducedListing.getImage().getOriginalFilename());
+        
+        try {
+            Listing listing = new Listing();
+            listing.setEmail(user.getEmail());
+            listing.setTitle(reducedListing.getTitle());
+            listing.setDescription(reducedListing.getDescription());
+            listing.setPrice(reducedListing.getPrice());
+            listing.setImage(reducedListing.getImage().getBytes());
+            System.out.println("createNewListing: image set successfully");
+            listing.setListingAge(LocalDateTime.now());
+            listingDao.createListing(listing);
+            System.out.println("createNewListing: image set successfully");
+        } catch (Exception e) {
+            System.out.println("Image could not be loaded");
+        }
+        return "redirect:/index";
     }
 
     @GetMapping("/viewlisting/{id}")
@@ -231,22 +259,5 @@ public class UBuyCController {
         Listing listing = this.listingSearch.getListingById(id);
         model.addAttribute("listing", listing);
         return "viewListing"; 
-    }
-
-
-    //****** Listing Search *******//
-
-    @GetMapping("/search")
-    public String searchListings(@RequestParam(name = "query", required = false, defaultValue = "") String query, Model model) {
-        List<Listing> listings = this.listingSearch.searchListings(query);
-        
-        model.addAttribute("listing", new Listing());
-        model.addAttribute("listings", listings);
-
-        //listings.forEach(x -> System.out.println(x.getTitle()));
-        //listings.forEach(x -> System.out.println(x.getDescription()));
-        //listings.forEach(x -> System.out.println(x.getId()));
-
-        return "index";
     }
 }
