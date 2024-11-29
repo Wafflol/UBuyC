@@ -8,7 +8,6 @@ import project.marketplace.models.User;
 import project.marketplace.registration.OnRegistrationCompleteEvent;
 import project.marketplace.registration.RegistrationListener;
 
-import org.checkerframework.common.util.count.report.qual.ReportReadWrite;
 import org.junit.jupiter.api.Test;
 
 public class RegistrationTests {
