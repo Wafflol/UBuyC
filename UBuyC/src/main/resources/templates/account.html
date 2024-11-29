@@ -10,61 +10,37 @@
     <div class="navbar">
         <h1>My Account</h1>
         <a href="/index">
-            <img src="/pictures/Logo_white.png" width = 50px>
+            <img src="/images/Logo_white.png" width = 50px>
         </a>
     </div>
     <div class="container">
         <!-- Profile Section -->
         <div class="profile-header">
-            <img src="https://via.placeholder.com/80" alt="Profile Picture">
+            <img src="/images/profile-b.png" alt="Profile Picture">
             <div class="details">
                 <h2 th:text="${user.firstName + ' ' + user.lastName}"></h2>
                 <p th:text="${user.email}"></p>
             </div>
-            <form class="settings-form">
-                <button type="submit">Edit</button> <br>
-                <button type="reset">Log Out</button>
-            </form>
+            <div class="settings-form">
+                <form th:action="@{/}" method="get">
+                    <button type="submit">Log Out</button>
+                </form>
+            </div>
         </div>        
-
-        <!-- Account Settings Section -->
-        <div class="section">
-            <h3>Account Settings</h3>
-            <form class="settings-form">
-                <label for="username">Username</label>
-                <input type="text" id="username" value="John Doe" readonly="readonly">
-                <label for="email">Email</label>
-                <input type="email" id="email" value="johndoe@example.com" readonly="readonly">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="******" readonly="readonly">
-            </form>
-        </div>
-
-        <!-- Posted Items Section -->
-        <div class="section">
-            <h3>My Posted Items</h3>
-            <div class="posted-items">
-                <div class="item-card">
-                    <img src="https://via.placeholder.com/200" alt="Item">
-                    <div class="info">
-                        <h4>Item 1</h4>
-                        <p>$100</p>
+    
+        <div class="items-grid" id="items-grid">
+            <h2>My Posted Items</h2>
+            <!-- Items will be dynamically added here from list-->
+            <div th:each="listing: ${listings}">
+                <a th:href="@{/viewlisting/{id}(id=${listing.getId})}" class="card-link">
+                    <div class="item-card">
+                        <img src="https://via.placeholder.com/200" alt="Item">
+                        <div class="info">
+                            <h3 th:text="${listing.getTitle}">Item</h3>
+                            <p th:text="'$' + ${listing.getPrice}"> Price</p>
+                        </div>
                     </div>
-                </div>
-                <div class="item-card">
-                    <img src="https://via.placeholder.com/200" alt="Item">
-                    <div class="info">
-                        <h4>Item 2</h4>
-                        <p>$200</p>
-                    </div>
-                </div>
-                <div class="item-card">
-                    <img src="https://via.placeholder.com/200" alt="Item">
-                    <div class="info">
-                        <h4>Item 3</h4>
-                        <p>$300</p>
-                    </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
