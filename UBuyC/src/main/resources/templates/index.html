@@ -9,9 +9,12 @@
 <body>
     <div class="navbar">
         <h1>UBuyC</h1>
-        <div class="search-bar">
-            <input type="text" placeholder="Search for items...">
-        </div>
+        <!-- Search Bar Form-->
+        <form th:action="@{/search}" method="get">
+            <input type="text" name="query" id="searchBar" placeholder="Search for items..." />
+            <button type="submit">Search</button>
+        </form>
+
         <!-- Profile Icon -->
         <a th:href="@{/account(userId=${user.id})}">
             <img src="/pictures/profile.png" alt="Profile" class="profile-icon">
@@ -27,7 +30,7 @@
     <div class="items-grid" id="items-grid">
         <!-- Items will be dynamically added here from list-->
         <div th:each="listing: ${listings}">
-            <a th:href="@{/viewlisting/{id}(id=${listing.hashCode})}" class="card-link">
+            <a th:href="@{/viewlisting/{id}(id=${listing.getId})}" class="card-link">
                 <div class="item-card">
                     <img src="https://via.placeholder.com/200" alt="Item">
                     <div class="info">

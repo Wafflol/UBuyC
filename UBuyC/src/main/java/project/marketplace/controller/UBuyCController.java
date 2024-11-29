@@ -2,6 +2,7 @@ package project.marketplace.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import project.marketplace.daos.AccountDao;
 import project.marketplace.daos.ListingDao;
+import project.marketplace.daos.ListingSearch;
 import project.marketplace.daos.UserAlreadyExistsException;
 import project.marketplace.models.Listing;
 import project.marketplace.models.Login;
 import project.marketplace.models.User;
 import project.marketplace.registration.OnRegistrationCompleteEvent;
+
+
 
 /**
  * Creates a class for controller of the entire website. Controls the I/O of each page.
@@ -48,10 +52,12 @@ public class UBuyCController {
 
     private final AccountDao dao;
     private final ListingDao listingDao;
+    private final ListingSearch listingSearch;
 
-    public UBuyCController(AccountDao dao, ListingDao listingDao) {
+    public UBuyCController(AccountDao dao, ListingDao listingDao, ListingSearch listingSearch) {
         this.dao = dao;
         this.listingDao = listingDao;
+        this.listingSearch = listingSearch;
     }
 
     /**
@@ -218,8 +224,25 @@ public class UBuyCController {
 
     @GetMapping("/viewlisting/{id}")
     public String viewListing(@PathVariable Long id, Model model) {
-        Listing listing = new Listing("test@ubc.ca", "c", "c", 2, null);
+        Listing listing = this.listingSearch.getListingById(id);
         model.addAttribute("listing", listing);
         return "viewListing"; 
+    }
+
+
+    //****** Listing Search *******//
+
+    @GetMapping("/search")
+    public String searchListings(@RequestParam(name = "query", required = false, defaultValue = "") String query, Model model) {
+        List<Listing> listings = this.listingSearch.searchListings(query);
+        
+        model.addAttribute("listing", new Listing());
+        model.addAttribute("listings", listings);
+
+        listings.forEach(x -> System.out.println(x.getTitle()));
+        listings.forEach(x -> System.out.println(x.getDescription()));
+        listings.forEach(x -> System.out.println(x.getId()));
+
+        return "index";
     }
 }
