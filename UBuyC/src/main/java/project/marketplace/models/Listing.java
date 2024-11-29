@@ -32,7 +32,6 @@ public class Listing {
      * @param description the description of the listing
      * @param price the price of the listing
      * @param imagePath the path to the image of the listing
-     * @param tags the tags of the listing
      */
     public Listing (String email, String title, String description, double price, String imagePath) {
         this.email = email;
@@ -50,7 +49,6 @@ public class Listing {
      * @param description the description of the listing
      * @param price the price of the listing
      * @param imagePath the path to the image of the listing
-     * @param tags the tags of the listing
      */
     public Listing (long id, String email, String title, String description, double price, String imagePath, LocalDateTime listingAge) {
         this.id = id;
