@@ -13,6 +13,9 @@
         <form th:action="@{/search}" method="get">
             <input type="text" name="query" id="searchBar" placeholder="Search for items..." />
             <button type="submit">Search</button>
+            <form action="@{/index}" method="get">
+                <button type="submit">Reset</button>
+            </form>
         </form>
 
         <!-- Profile Icon -->
