@@ -8,7 +8,7 @@
     <div class="listing-container">
         <a href="/index" class="back-link">Back</a>
         <div class="image-container">
-            <img th:src="'data:image/png;base64,' + ${listing.base64Image}" alt="Item">
+            <img th:src="'data:' + ${listing.imageType} + ';base64,' + ${listing.base64Image}" alt="Listing Image" class="listing-image">
         </div>
         <div class="details-container">
             <h1 th:text="${listing.getTitle}">Listing Title</h1>

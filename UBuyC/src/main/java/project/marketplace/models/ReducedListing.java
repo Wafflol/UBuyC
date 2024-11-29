@@ -1,6 +1,7 @@
 package project.marketplace.models;
 
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.Objects;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,24 @@ public class ReducedListing {
     private MultipartFile image;
     private LocalDateTime listingAge;
     private String base64Image;
+    private String imageType;
+
+    public ReducedListing() {
+        // initialize empty listing
+    }
+
+    // Creates new Reduced Listing object meant for display from a Listing object 
+    // by encoding the byte array represetation of the image
+    public ReducedListing(Listing listing) {
+        this.id = listing.getId();
+        this.email = listing.getEmail();
+        this.title = listing.getTitle();
+        this.description = listing.getDescription();
+        this.price = listing.getPrice();
+        this.listingAge = listing.getListingAge();
+        this.base64Image = Base64.getEncoder().encodeToString(listing.getImage());
+        this.imageType = listing.getImageType();
+    }
 
     /**
      * Returns the owner of the listing
@@ -76,6 +95,10 @@ public class ReducedListing {
      */
     public String getBase64Image() {
         return this.base64Image;
+    }
+
+    public String getImageType() {
+        return this.imageType;
     }
 
     /**

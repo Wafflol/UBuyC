@@ -34,7 +34,7 @@
         <div th:each="listing: ${listings}">
             <a th:href="@{/viewlisting/{id}(id=${listing.getId})}" class="card-link">
                 <div class="item-card">
-                    <img th:src="'data:image/png;base64,' + ${listing.base64Image}" alt="Item">
+                    <img th:src="'data:' + ${listing.imageType} + ';base64,' + ${listing.base64Image}" alt="Item">
                     <div class="info">
                         <h3 th:text="${listing.getTitle}">Item</h3>
                         <p th:text="'$' + ${listing.getPrice}"> Price</p>
