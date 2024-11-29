@@ -27,7 +27,7 @@
     <div class="items-grid" id="items-grid">
         <!-- Items will be dynamically added here from list-->
         <div th:each="listing: ${listings}">
-            <a th:href="@{/viewlisting/{id}(id=${listing.getListingId})}" class="card-link">
+            <a th:href="@{/viewlisting/{id}(id=${listing.hashCode})}" class="card-link">
                 <div class="item-card">
                     <img src="https://via.placeholder.com/200" alt="Item">
                     <div class="info">

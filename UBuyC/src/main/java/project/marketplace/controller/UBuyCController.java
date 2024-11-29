@@ -184,7 +184,7 @@ public class UBuyCController {
      */
     @GetMapping("/index")
     public String index(Model model) { 
-        Listing listing = new Listing("test@ubc.ca", "c", "c", 2, null);
+        Listing listing = new Listing();
         model.addAttribute("listing", listing);
         return "index";
     }
@@ -208,8 +208,7 @@ public class UBuyCController {
 
     @GetMapping("/viewlisting/{id}")
     public String viewListing(@PathVariable Long id, Model model) {
-        //Listing listing = find the listing by id?
-        Listing listing = new Listing(new User(), "c", "ckajasdhfkahsdfkjhasdkfjhaskjdhfksajhdfkashdkfhaskjdfhskjdfkajshdfkjagsdkfgsakdfgslkadgfksadgfkjasdgfkjsgdfkasgdfkljgsakldfgskajdgfskj adfksjgdfkjasgdfjgsadfjgsakljdfgksjadgfkjsagdfkljsadfkljhFKJHKJF DkjdgfkajgfkgdfKL askjfh askjdfhs", 2, "c", null, 2);
+        Listing listing = new Listing("test@ubc.ca", "c", "c", 2, null);
         model.addAttribute("listing", listing);
         return "viewListing"; 
     }

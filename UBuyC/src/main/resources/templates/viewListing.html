@@ -11,8 +11,8 @@
         </div>
         <div class="details-container">
             <h1 th:text="${listing.getTitle}">Listing Title</h1>
-            <p><strong>Owner:</strong> 
-                <a href="mailto:test@gmail.com" th:text="${listing.getUser.getFirstName} + ' ' + ${listing.getUser.getLastName}">John Doe</a>
+            <p><strong>Contact:</strong> 
+                <a href="mailto:test@gmail.com">John Doe</a>
             </p>
             <p><strong>Description:</strong> <span th:text="${listing.getDescription}">Description goes here</span></p>
             <p><strong>Price:</strong> <span th:text="'$' + ${listing.getPrice}">$0.00</span></p>
