@@ -20,7 +20,6 @@ CREATE TABLE listings (
     title VARCHAR(255),
     description TEXT,                        
     price NUMERIC(10, 2), 
-    imagePath VARCHAR(255),                 
-    tags TEXT[],                            
+    imagePath VARCHAR(255),                           
     listingAge TIMESTAMP     
 );
