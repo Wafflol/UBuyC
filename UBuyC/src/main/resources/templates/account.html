@@ -26,10 +26,10 @@
                     <button type="submit">Log Out</button>
                 </form>
             </div>
-        </div>        
+        </div>   
+        <h2>My Posted Items</h2>     
     
         <div class="items-grid" id="items-grid">
-            <h2>My Posted Items</h2>
             <!-- Items will be dynamically added here from list-->
             <div th:each="listing: ${listings}">
                 <a th:href="@{/viewlisting/{id}(id=${listing.getId})}" class="card-link">
