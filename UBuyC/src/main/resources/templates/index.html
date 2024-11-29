@@ -13,8 +13,8 @@
             <input type="text" placeholder="Search for items...">
         </div>
         <!-- Profile Icon -->
-        <a href="account">
-            <img src="/images/profile.png" alt="Profile" class="profile-icon">
+        <a th:href="@{/account(userId=${user.id})}">
+            <img src="/pictures/profile.png" alt="Profile" class="profile-icon">
         </a>
     </div>
     <div class="category-filters">
