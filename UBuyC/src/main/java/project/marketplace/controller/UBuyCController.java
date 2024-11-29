@@ -198,9 +198,11 @@ public class UBuyCController {
     @GetMapping("/index")
     public String index(@ModelAttribute("user") User user, Model model) { 
         System.out.println("index: user.email = " + user.getEmail());
-        Listing listing = new Listing();
-        model.addAttribute("listings", listing);
-        model.addAttribute("listing", listing);
+
+        List<Listing> listings = this.listingSearch.getAll();
+        
+        model.addAttribute("listing", new Listing());
+        model.addAttribute("listings", listings);
         model.addAttribute("user", user);
         return "index";
     }

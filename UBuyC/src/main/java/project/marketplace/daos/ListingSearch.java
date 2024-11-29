@@ -1,6 +1,7 @@
 package project.marketplace.daos;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,11 @@ public class ListingSearch {
      */
     public List<Listing> searchListings(String query) {
         ensureConnectionSecure();
+
+        if (query == null || query.trim().isEmpty()) {
+            return this.getAll();
+        }
+
         String sql = """
                      SELECT id, email, title, description, price, imagepath, listingage 
                      FROM listings
@@ -73,6 +79,17 @@ public class ListingSearch {
     
         // Use queryForObject to get a single result
         return jdbcTemplate.queryForObject(sql, parameters, listingRowMapper());
+    }
+
+    public List<Listing> getAll() {
+        ensureConnectionSecure();
+        String sql = """
+                     SELECT id, email, title, description, price, imagepath, listingage 
+                     FROM listings
+                     """;
+    
+        List<Listing> listings = jdbcTemplate.query(sql, listingRowMapper());
+        return listings.isEmpty() ? Collections.emptyList() : listings;
     }
 
     /**
