@@ -2,21 +2,17 @@ package project.marketplace.daos;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import project.marketplace.models.Listing;
-
-import org.springframework.jdbc.core.RowMapper;
-
-import project.marketplace.models.User;
     
 /**
  * Provides methods to search for listings in the marketplace database.
