@@ -21,6 +21,7 @@ public class Listing {
     private String description;
     private double price;
     private byte[] image;
+    private String imageType;
     private LocalDateTime listingAge;
 
     public Listing() {
@@ -53,14 +54,29 @@ public class Listing {
      * @param image the path to the image of the listing
      * @param tags the tags of the listing
      */
-    public Listing (long id, String email, String title, String description, double price, byte[] image, LocalDateTime listingAge) {
+    public Listing (long id, String email, String title, String description, double price, byte[] image, String imageType, LocalDateTime listingAge) {
         this.id = id;
         this.email = email;
         this.title = title;
         this.description = description;
         this.price = price;
         this.image = image;
+        this.imageType = imageType;
         this.listingAge = listingAge;
+    }
+
+    // For creating a new listing from a reducedListing object
+    public Listing (ReducedListing reducedListing) {
+        this.title = reducedListing.getTitle();
+        this.description = reducedListing.getDescription();
+        this.price = reducedListing.getPrice();
+        try {
+            this.image = reducedListing.getImage().getBytes();
+        } catch (Exception e) {
+            System.out.println("Failed to do get image bytes in Listing contructor");
+        }
+        this.imageType = reducedListing.getImage().getContentType();
+        this.listingAge = LocalDateTime.now();
     }
 
     /**
@@ -101,6 +117,11 @@ public class Listing {
      */
     public byte[] getImage() {
         return this.image;
+    }
+
+    // TODO: add comemnts
+    public String getImageType() {
+        return this.imageType;
     }
 
     /**
@@ -149,6 +170,11 @@ public class Listing {
      */
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    // TODO: add comments
+    public void setImageType(String imageType) {
+        this.imageType = imageType;
     }
 
     /**

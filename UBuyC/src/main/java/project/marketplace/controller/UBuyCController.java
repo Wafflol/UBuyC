@@ -192,7 +192,11 @@ public class UBuyCController {
         User user = dao.getUserById(userId);
         model.addAttribute("user", user);
         List<Listing> listings = this.listingSearch.getListingByUser(userEmail);
-        model.addAttribute("listings", listings);
+        List<ReducedListing> displayListings = new ArrayList<>();
+        for (Listing listing : listings) {
+            displayListings.add(new ReducedListing(listing));
+        }
+        model.addAttribute("listings", displayListings);
         return "account";
     }
 
@@ -207,15 +211,8 @@ public class UBuyCController {
         System.out.println("Controller: index: user.email = " + user.getEmail());
         List<Listing> listings = this.listingSearch.searchListings(query);
         List<ReducedListing> reducedListings = new ArrayList<>();
-        for (int i = 0; i < listings.size(); i++) {
-            reducedListings.add(new ReducedListing());
-            reducedListings.get(i).setId(listings.get(i).getId());
-            reducedListings.get(i).setEmail(listings.get(i).getEmail());
-            reducedListings.get(i).setTitle(listings.get(i).getTitle());
-            reducedListings.get(i).setDescription(listings.get(i).getDescription());
-            reducedListings.get(i).setPrice(listings.get(i).getPrice());
-            reducedListings.get(i).setBase64Image(Base64.getEncoder().encodeToString(listings.get(i).getImage()));
-            reducedListings.get(i).setListingAge(listings.get(i).getListingAge());
+        for (Listing listing : listings) {
+            reducedListings.add(new ReducedListing(listing));
         }
         model.addAttribute("listing", new ReducedListing());
         model.addAttribute("listings", reducedListings);
@@ -237,16 +234,11 @@ public class UBuyCController {
         System.out.println("createNewListing: reducedListing.image.name = " + reducedListing.getImage().getOriginalFilename());
         
         try {
-            Listing listing = new Listing();
+            Listing listing = new Listing(reducedListing);
             listing.setEmail(user.getEmail());
-            listing.setTitle(reducedListing.getTitle());
-            listing.setDescription(reducedListing.getDescription());
-            listing.setPrice(reducedListing.getPrice());
-            listing.setImage(reducedListing.getImage().getBytes());
             System.out.println("createNewListing: image set successfully");
-            listing.setListingAge(LocalDateTime.now());
             listingDao.createListing(listing);
-            System.out.println("createNewListing: image set successfully");
+            System.out.println("createNewListing: image created successfully");
         } catch (Exception e) {
             System.out.println("Image could not be loaded");
         }
@@ -256,15 +248,8 @@ public class UBuyCController {
     @GetMapping("/viewlisting/{id}")
     public String viewListing(@PathVariable Long id, Model model) {
         Listing listing = this.listingSearch.getListingById(id);
-        ReducedListing reducedListing = new ReducedListing();
-        reducedListing.setId(listing.getId());
-        reducedListing.setEmail(listing.getEmail());
-        reducedListing.setTitle(listing.getTitle());
-        reducedListing.setDescription(listing.getDescription());
-        reducedListing.setPrice(listing.getPrice());
-        reducedListing.setBase64Image(Base64.getEncoder().encodeToString(listing.getImage()));
-        reducedListing.setListingAge(listing.getListingAge());
-        model.addAttribute("listing", reducedListing);
+        ReducedListing displayListing = new ReducedListing(listing);
+        model.addAttribute("listing", displayListing);
         return "viewListing"; 
     }
 }

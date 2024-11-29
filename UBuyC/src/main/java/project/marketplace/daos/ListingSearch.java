@@ -63,7 +63,7 @@ public class ListingSearch {
                                     .collect(Collectors.joining(" & "));
 
         String sql = """
-                    SELECT id, email, title, description, price, image, listingage 
+                    SELECT id, email, title, description, price, image, imageType, listingage 
                     FROM listings
                     WHERE document_with_idx @@ to_tsquery('english', :query)
                     OR title % :rawQuery
@@ -87,7 +87,7 @@ public class ListingSearch {
     public Listing getListingById(long id) {
         ensureConnectionSecure();
         String sql = """
-                     SELECT id, email, title, description, price, image, listingage 
+                     SELECT id, email, title, description, price, image, imageType, listingage 
                      FROM listings
                      WHERE id = :id;
                      """;
@@ -106,7 +106,7 @@ public class ListingSearch {
     public List<Listing> getListingByUser(String email) {
         ensureConnectionSecure();
         String sql = """
-                     SELECT id, email, title, description, price, image, listingage 
+                     SELECT id, email, title, description, price, image, imageType, listingage 
                      FROM listings
                      WHERE email = :email
                      ORDER BY listingage;
@@ -125,7 +125,7 @@ public class ListingSearch {
     public List<Listing> getAll() {
         ensureConnectionSecure();
         String sql = """
-                     SELECT id, email, title, description, price, image, listingage 
+                     SELECT id, email, title, description, price, image, imageType, listingage 
                      FROM listings
                      ORDER BY listingage;
                      """;
@@ -147,6 +147,7 @@ public class ListingSearch {
             rs.getString("description") != null ? rs.getString("description") : "", // Default to empty string if null
             rs.getDouble("price") != 0.0 ? rs.getDouble("price") : 0.0,    // Default to 0.0 if null (or you can use `Double` for nullable)
             rs.getBytes("image") != null ? rs.getBytes("image") : new byte[0], // Default to empty string if null
+            rs.getString("imageType") != null ? rs.getString("imageType") : "",
             rs.getTimestamp("listingage") != null ? rs.getTimestamp("listingage").toLocalDateTime() : LocalDateTime.now() // Default to current time if null
         );
     }
