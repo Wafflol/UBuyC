@@ -73,19 +73,19 @@ public class UBuyCController {
     }
 
     @PostMapping({"/", "/login"})
-    public String login(@ModelAttribute("login") @Valid Login login, HttpServletRequest request, Model model) {
+    public ModelAndView login(@ModelAttribute("login") @Valid Login login, HttpServletRequest request, Model model) {
         if (dao.checkPassword(login) && dao.checkValidation(login)) {
             User user = dao.getUserByLogin(login);
             model.addAttribute("user", user);
-            return "redirect:/index";
+            return new ModelAndView("redirect:/index", "user", user);
         } else if (dao.checkPassword(login) && !dao.checkValidation(login)) {
             User user = dao.getUserByLogin(login);
             model.addAttribute("user", user);
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, request.getLocale()));
-            return "redirect:/verification";
+            return new ModelAndView("redirect:/verification", "user", user);
         } else {
             model.addAttribute("message", "Invalid email or password");
-            return "login";
+            return new ModelAndView("login");
         }
     }
 
@@ -138,7 +138,9 @@ public class UBuyCController {
      * @return verification.html
      */
     @GetMapping("/verification")
-    public ModelAndView loadVerificationPage(@ModelAttribute("user") @Valid User user) { 
+    public ModelAndView loadVerificationPage(@ModelAttribute("user") @Valid User user) {
+        System.out.println("User in session: " + user);
+        System.out.println("Controller: user email is: " + user.getEmail());
         String otp = new String();
         ModelAndView model = new ModelAndView("verification");
         model.addObject("otp", otp);

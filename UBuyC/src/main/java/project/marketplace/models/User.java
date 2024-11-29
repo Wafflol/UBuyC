@@ -107,7 +107,7 @@ public class User {
     /**
      * Sets the user's id.
      *
-     * @param fname The id to be set for the user.
+     * @param id The id to be set for the user.
      */
     public void setId(long id) {
         this.id = id;

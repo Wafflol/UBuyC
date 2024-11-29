@@ -2,6 +2,7 @@ package project.marketplace.daos;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -202,6 +203,7 @@ public class AccountDao {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("email", login.getEmail());
         List<Boolean> validated = jdbcTemplate.queryForList(sql, parameters, Boolean.class);
+        System.out.println(this.getClass().toString() + ": VALIDATED: " + validated.get(0));
         return validated.get(0);
     }
 }

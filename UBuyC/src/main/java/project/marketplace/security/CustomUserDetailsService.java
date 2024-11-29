@@ -19,10 +19,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println("CustomUserDetailsService.java: Attempting to load user: " + email);
         project.marketplace.models.User user = accountDao.getUser(email);
 
         if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException("CustomUserDetailsService.java: User not found");
         }
 
         return new User(

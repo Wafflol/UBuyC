@@ -1,5 +1,6 @@
 package project.marketplace.security;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,9 +10,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.core.userdetails.User;
+
+import project.marketplace.models.User;
 
 
 @Configuration
@@ -31,31 +34,52 @@ public class SecurityConfig {
                 .requestMatchers("/login", "/signup", "/verification").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                //.formLogin(form -> form.loginPage("/login").permitAll())
-                .logout(LogoutConfigurer::permitAll);
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .usernameParameter("email")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/index", true)
+                        .permitAll())
+                .logout(LogoutConfigurer::permitAll)
+                .csrf(form -> form.disable());
         return http.build();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("user")
-                .password("{noop}password")
-                .roles("USER")
-                .build());
-        return manager;
-    }
+   @Bean
+   public UserDetailsService userDetailsService() {
+       return customUserDetailsService;
+   }
 
-    @Bean
-    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder =
-                http.getSharedObject(AuthenticationManagerBuilder.class);
-        return authenticationManagerBuilder.build();
-    }
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(customUserDetailsService);
-        return authenticationProvider;
-    }
+   @Bean
+   public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+       AuthenticationManagerBuilder authenticationManagerBuilder =
+               http.getSharedObject(AuthenticationManagerBuilder.class);
+       authenticationManagerBuilder.authenticationProvider(authenticationProvider());
+       return authenticationManagerBuilder.build();
+   }
+
+   @Bean
+   public DaoAuthenticationProvider authenticationProvider() {
+       DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+       authenticationProvider.setUserDetailsService(customUserDetailsService);
+       authenticationProvider.setPasswordEncoder(new PasswordEncoder() {
+           @Override
+           public String encode(CharSequence rawPassword) {
+               String rawPass = rawPassword.toString();
+               System.out.println("SecurityConfig.java: PASSWORD RAW: " + rawPass);
+               return User.encryptPassword(rawPass);
+           }
+
+           @Override
+           public boolean matches(CharSequence rawPassword, String encodedPassword) {
+               System.out.println("SecurityConfig.java: RAWPASSWORD: " + rawPassword);
+               System.out.println("SecurityConfig.java: ENCODED PASS: " + encodedPassword);
+               System.out.println("SecurityConfig.java: BCRYPT CHECK: " + BCrypt.checkpw(rawPassword.toString(), encodedPassword));
+               boolean success = BCrypt.checkpw(rawPassword.toString(), encodedPassword);
+               System.out.println("SecurityConfig.java: rawPass match encoded?: " + success);
+               return success;
+           }
+       });
+       return authenticationProvider;
+   }
 }
