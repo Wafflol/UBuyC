@@ -6,8 +6,9 @@
 </head>
 <body>
     <div class="listing-container">
+        <a href="/index" class="back-link">Back</a>
         <div class="image-container">
-            <img src="https://via.placeholder.com/200" alt="Listing Image" class="listing-image">
+            <img th:src="'data:image/png;base64,' + ${listing.base64Image}" alt="Item">
         </div>
         <div class="details-container">
             <h1 th:text="${listing.getTitle}">Listing Title</h1>

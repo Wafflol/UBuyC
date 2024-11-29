@@ -16,16 +16,28 @@
     font-size: 24px;
     margin: 0;
 }
-.search-bar {
-    flex-grow: 1;
-    margin-left: 20px;
-    margin-right: 30px;
+
+.navbar h1:visited {
+    font-size: 24px;
+    margin: 0;
+    color: white;
 }
+
 .search-bar input {
-    width: 100%;
+    width: 800px; 
     padding: 10px;
     border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.search-bar button {
+    padding: 10px 15px;
+    border-radius: 5px;
     border: none;
+    background-color: white;
+    color: #000b3f;
+    cursor: pointer;
 }
 .profile-icon {
     width: 35px;
@@ -51,14 +63,13 @@
     background-color: #e4e6eb;
 }
 
-
+/* Listing Cards */
 .items-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 15px; 
     padding: 10px; 
 }
-/* Listing Cards */
 .item-card {
     background-color: white;
     border: 1px solid #ccc;
@@ -104,13 +115,13 @@
 }
 
 .listing-image {
-    max-width: 90%;
+    max-width: 100%;
     max-height: 90%;
     border-radius: 10px;
 }
 
 .details-container {
-    flex: 2; 
+    flex: 1; 
     background-color: #000b3f; 
     border-radius: 15px; 
     margin: 10px; 
@@ -259,68 +270,16 @@ strong {
     background-color: #333a6b;
 }
 
-.tags-container {
-    margin-top: 20px;
-    text-align: center;
-    margin-bottom: 20px;
+.back-link {
+    position: absolute; 
+    right: 50px;       
+    top: 40px;        
+    font-size: large;
+    text-decoration: none; 
+    color: white;       
+    font-weight: bold;     
 }
 
-/* Heading */
-.tags-container label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 10px;
-}
-
-.tags-container p {
-    font-size: 14px;
-    color: #666;
-}
-
-/* Tags container (flex layout) */
-.tags {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #ffffff;
-}
-
-/* Tag styles */
-.tag {
-    background-color: #f9f9f9;
-    color: #bb9610;
-    padding: 8px 15px;
-    border-radius: 15px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    user-select: none;
-}
-
-/* Highlight selected tags */
-.tag.selected {
-    background-color: #333a6b;
-    color: #bb9610;
-}
-
-/* Tag count and button styles */
-#tag-count {
-    margin: 15px 0;
-}
-
-#remove-all {
-    background-color: #000b3f;
-    color: white;
-    padding: 8px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#remove-all:hover {
-    background-color: #333a6b;
+.back-link:hover{
+    text-decoration: underline;
 }

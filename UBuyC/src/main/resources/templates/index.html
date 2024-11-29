@@ -9,14 +9,17 @@
 <body>
     <div class="navbar">
         <h1>UBuyC</h1>
+      
         <!-- Search Bar Form-->
-        <form th:action="@{/index}" method="get">
-            <input type="text" name="query" id="searchBar" placeholder="Search for items..." />
-            <button type="submit">Search</button>
-            <form action="@{/index}" method="get">
-                <button type="submit">Reset</button>
+        <div class="search-bar">
+            <form th:action="@{/index}" method="get">
+                <input type="text" name="query" id="searchBar" placeholder="Search for items..." />
+                <button type="submit">Search</button>
+                <form action="@{/index}" method="get">
+                    <button type="submit">Reset</button>
+                </form>
             </form>
-        </form>
+        </div>
 
         <!-- Profile Icon -->
         <a th:href="@{/account(userId=${user.id}, userEmail=${user.getEmail})}">
@@ -60,7 +63,7 @@
                 </div>
                 <div class="form-group">
                     <label for="item-price">Price</label>
-                    <input type="number" min="0" th:field="*{price}" placeholder="Enter price" step="0.01" required>
+                    <input type="number" min="0" th:field="*{price}" placeholder="Enter price" step="0.01" max="99999999.99">
                 </div>
                 <div class="form-group">
                     <label for="item-description">Description</label>
