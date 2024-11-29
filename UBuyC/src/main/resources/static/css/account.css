@@ -80,7 +80,7 @@
 }
 .posted-items {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 15px;
 }
 .item-card {
@@ -89,6 +89,7 @@
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 100px;
 }
 .item-card img {
     width: 100%;

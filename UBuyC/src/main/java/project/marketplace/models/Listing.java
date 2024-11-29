@@ -1,16 +1,12 @@
 package project.marketplace.models;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-
-import java.util.HashSet;
-import java.time.LocalDateTime;
-
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class Listing {

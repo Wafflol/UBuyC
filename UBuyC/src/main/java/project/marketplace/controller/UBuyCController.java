@@ -11,14 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import jakarta.validation.Valid;
 import jakarta.servlet.http.HttpServletRequest;
-
+import jakarta.validation.Valid;
 import project.marketplace.daos.AccountDao;
 import project.marketplace.daos.ListingDao;
 import project.marketplace.daos.UserAlreadyExistsException;
@@ -169,9 +169,13 @@ public class UBuyCController {
      * @return account.html file
      */
     @GetMapping("account")
-    public String account() { 
+    public String account(Model model) { 
+        model.addAttribute("userFName", "Fname");
+        model.addAttribute("userLName", "Lname");
+        model.addAttribute("userEmail", "email@ubc.ca");
         return "account";
     }
+
 
     /**
      * Displays the home page
@@ -200,5 +204,12 @@ public class UBuyCController {
         listing.setListingAge(LocalDateTime.now());
         listingDao.createListing(listing);
         return "index";
+    }
+
+    @GetMapping("/viewlisting/{id}")
+    public String viewListing(@PathVariable Long id, Model model) {
+        Listing listing = new Listing("test@ubc.ca", "c", "c", 2, null);
+        model.addAttribute("listing", listing);
+        return "viewListing"; 
     }
 }
