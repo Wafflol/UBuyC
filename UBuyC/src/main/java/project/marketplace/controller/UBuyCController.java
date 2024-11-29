@@ -22,15 +22,13 @@ import org.springframework.web.servlet.ModelAndView;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import project.marketplace.daos.AccountDao;
+import project.marketplace.daos.ListingDao;
+import project.marketplace.daos.ListingSearch;
+import project.marketplace.daos.UserAlreadyExistsException;
 import project.marketplace.models.Listing;
 import project.marketplace.models.Login;
 import project.marketplace.models.User;
-import project.marketplace.daos.ListingDao;
-
-import project.marketplace.daos.ListingSearch;
-import project.marketplace.daos.UserAlreadyExistsException;
 import project.marketplace.registration.OnRegistrationCompleteEvent;
-import project.marketplace.models.Listing;
 
 
 
@@ -244,7 +242,11 @@ public class UBuyCController {
         // Add the listings to the model
         // model.addAttribute("listings", listings);
 
+<<<<<<< HEAD
         return "index";  // Return the view (index.html in this case)
 >>>>>>> 4842281 (rebase)
+=======
+        return "redirect:/index";
+>>>>>>> 51b9e5c (search returns list of listings)
     }
 }
