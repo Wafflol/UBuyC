@@ -41,7 +41,15 @@ public class SecurityConfig {
                         .passwordParameter("password")
                         .successHandler(successHandler)
                         .permitAll())
-                .logout(LogoutConfigurer::permitAll)
+                .logout(form -> form
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/account")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
+                        )
+
                 .csrf(form -> form.disable());
         return http.build();
     }
