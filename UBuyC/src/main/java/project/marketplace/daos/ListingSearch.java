@@ -99,17 +99,17 @@ public class ListingSearch {
      * @param email the email address of the user.
      * @return a {@link Listing} object associated with the given user.
      */
-    public Listing getListingByUser(String email) {
+    public List<Listing> getListingByUser(String email) {
         ensureConnectionSecure();
         String sql = """
                      SELECT id, email, title, description, price, imagepath, listingage 
                      FROM listings
                      WHERE email = :email
                      """;
-    
+        
         MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("email", email);
-    
-        return jdbcTemplate.queryForObject(sql, parameters, listingRowMapper());
+        
+        return jdbcTemplate.query(sql, parameters, listingRowMapper());
     }
 
     /**
