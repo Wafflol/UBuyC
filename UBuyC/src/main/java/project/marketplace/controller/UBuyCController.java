@@ -241,9 +241,9 @@ public class UBuyCController {
         model.addAttribute("listing", new Listing());
         model.addAttribute("listings", listings);
 
-        listings.forEach(x -> System.out.println(x.getTitle()));
-        listings.forEach(x -> System.out.println(x.getDescription()));
-        listings.forEach(x -> System.out.println(x.getId()));
+        //listings.forEach(x -> System.out.println(x.getTitle()));
+        //listings.forEach(x -> System.out.println(x.getDescription()));
+        //listings.forEach(x -> System.out.println(x.getId()));
 
         return "index";
     }

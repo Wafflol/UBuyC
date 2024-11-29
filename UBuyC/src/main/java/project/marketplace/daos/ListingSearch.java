@@ -1,8 +1,10 @@
 package project.marketplace.daos;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -55,18 +57,29 @@ public class ListingSearch {
             return this.getAll();
         }
 
-        String sql = """
-                     SELECT id, email, title, description, price, imagepath, listingage 
-                     FROM listings
-                     WHERE document_with_idx @@ to_tsquery(:query)
-                     ORDER BY ts_rank(document_with_weights, plainto_tsquery(:query)) DESC;
-                     """;
+        String[] words = query.trim().split("\\s+");
+        String formattedQuery = Arrays.stream(words)
+                                    .map(word -> word + ":*")
+                                    .collect(Collectors.joining(" & "));
 
-        MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("query", query + ":*");
+        String sql = """
+                    SELECT id, email, title, description, price, imagepath, listingage 
+                    FROM listings
+                    WHERE document_with_idx @@ to_tsquery(:query)
+                    ORDER BY ts_rank(document_with_weights, to_tsquery(:query)) DESC;
+                    """;
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("query", formattedQuery);
 
         return jdbcTemplate.query(sql, parameters, listingRowMapper());
     }
 
+    /**
+     * Retrieves a listing from the database based on its unique ID.
+     * 
+     * @param id the unique identifier of the listing.
+     * @return a {@link Listing} object corresponding to the given ID.
+     */
     public Listing getListingById(long id) {
         ensureConnectionSecure();
         String sql = """
@@ -77,10 +90,33 @@ public class ListingSearch {
     
         MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("id", id);
     
-        // Use queryForObject to get a single result
         return jdbcTemplate.queryForObject(sql, parameters, listingRowMapper());
     }
 
+    /**
+     * Retrieves a listing from the database associated with a specific user.
+     * 
+     * @param email the email address of the user.
+     * @return a {@link Listing} object associated with the given user.
+     */
+    public Listing getListingByUser(String email) {
+        ensureConnectionSecure();
+        String sql = """
+                     SELECT id, email, title, description, price, imagepath, listingage 
+                     FROM listings
+                     WHERE email = :email
+                     """;
+    
+        MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("email", email);
+    
+        return jdbcTemplate.queryForObject(sql, parameters, listingRowMapper());
+    }
+
+    /**
+     * Retrieves all listings from the database.
+     * 
+     * @return a list of all {@link Listing} objects in the database.
+     */
     public List<Listing> getAll() {
         ensureConnectionSecure();
         String sql = """
@@ -100,12 +136,12 @@ public class ListingSearch {
     private RowMapper<Listing> listingRowMapper() {
         return (rs, rowNum) -> new Listing(
             rs.getLong("id"),
-            rs.getString("email") != null ? rs.getString("email") : "",   // Default to empty string if null
-            rs.getString("title") != null ? rs.getString("title") : "",   // Default to empty string if null
-            rs.getString("description") != null ? rs.getString("description") : "", // Default to empty string if null
-            rs.getDouble("price") != 0.0 ? rs.getDouble("price") : 0.0,    // Default to 0.0 if null (or you can use `Double` for nullable)
-            rs.getString("imagepath") != null ? rs.getString("imagepath") : "", // Default to empty string if null
-            rs.getTimestamp("listingage") != null ? rs.getTimestamp("listingage").toLocalDateTime() : LocalDateTime.now() // Default to current time if null
+            rs.getString("email") != null ? rs.getString("email") : "",
+            rs.getString("title") != null ? rs.getString("title") : "",
+            rs.getString("description") != null ? rs.getString("description") : "",
+            rs.getDouble("price") != 0.0 ? rs.getDouble("price") : 0.0,
+            rs.getString("imagepath") != null ? rs.getString("imagepath") : "",
+            rs.getTimestamp("listingage") != null ? rs.getTimestamp("listingage").toLocalDateTime() : LocalDateTime.now()
         );
     }
 }
