@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -76,6 +77,24 @@ public class AccountDao {
        return userDTO;
    }
 
+    public User getUser(Login login) {
+        ensureConnectionSecure();
+
+        String sql = "SELECT id, fname, lname, email, password, validated FROM users WHERE email = :email";
+        MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("email", login.getEmail());
+        RowMapper<User> rowMapper = (rs, rowNum) -> {
+            User user = new User();
+            user.setId(rs.getInt("id"));
+            user.setFirstName(rs.getString("fname"));
+            user.setLastName(rs.getString("lname"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+            user.setValidated(rs.getBoolean("validated"));
+            return user;
+        };
+        return jdbcTemplate.queryForObject(sql, parameters, rowMapper);
+    }
+
     public int createVerificationToken(User user) {
         ensureConnectionSecure();
         VerificationToken token = new VerificationToken(user);
@@ -128,23 +147,25 @@ public class AccountDao {
         jdbcTemplate.update(sql, parameters);
     }
 
-    public boolean checkLoginInfo(Login login) {
+    public boolean checkPassword(Login login) {
         ensureConnectionSecure();
-        String sql = "SELECT password, validated FROM users WHERE email = :email";
+        String sql = "SELECT password FROM users WHERE email = :email";
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("email", login.getEmail());
 
-        try {
-            return jdbcTemplate.queryForObject(sql, parameters, (rs, rowNum) -> {
-                String storedPassword = rs.getString("password");
-                boolean isValidated = rs.getBoolean("validated");
-                System.out.println("checkLoginInfo: storedPassword = " + storedPassword);
-                System.out.println("checkLoginInfo: login.password = " + login.getPassword());
-                System.out.println("checkLoginInfo: hashed login.password = " + User.encryptPassword(login.getPassword()));
-                return isValidated && BCrypt.checkpw(login.getPassword(), storedPassword);
-            });
-        } catch (Exception e) {
-            return false;
-        }
+        List<String> password = jdbcTemplate.queryForList(sql, parameters, String.class);
+        System.out.println("checkLoginInfo: storedPassword = " + password);
+        System.out.println("checkLoginInfo: login.password = " + login.getPassword());
+        System.out.println("checkLoginInfo: hashed login.password = " + User.encryptPassword(login.getPassword()));
+        return BCrypt.checkpw(login.getPassword(), password.get(0));
+    }
+
+    public boolean checkValidation(Login login) {
+        ensureConnectionSecure();
+        String sql = "SELECT validated FROM users WHERE email = :email";
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("email", login.getEmail());
+        List<Boolean> validated = jdbcTemplate.queryForList(sql, parameters, Boolean.class);
+        return validated.get(0);
     }
 }

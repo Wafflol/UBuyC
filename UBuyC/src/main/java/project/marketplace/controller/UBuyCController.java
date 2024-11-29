@@ -66,11 +66,16 @@ public class UBuyCController {
     }
 
     @PostMapping({"/", "/login"})
-    public String login(@ModelAttribute("login") @Valid Login login, Model model) {
-        if (dao.checkLoginInfo(login)) {
+    public String login(@ModelAttribute("login") @Valid Login login, HttpServletRequest request, Model model) {
+        if (dao.checkPassword(login) && dao.checkValidation(login)) {
             return "redirect:/index";
+        } else if (dao.checkPassword(login) && !dao.checkValidation(login)) {
+            User user = dao.getUser(login);
+            model.addAttribute("user", user);
+            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, request.getLocale()));
+            return "redirect:/verification";
         } else {
-            model.addAttribute("message", "Invalid email/password!");
+            model.addAttribute("message", "Invalid email or password");
             return "login";
         }
     }
