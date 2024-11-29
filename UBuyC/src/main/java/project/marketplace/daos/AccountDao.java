@@ -113,7 +113,7 @@ public class AccountDao {
         return jdbcTemplate.queryForObject(sql, parameters, rowMapper);
     }
 
-    public User getUser(String email) {
+    public User getUserByEmail(String email) {
         ensureConnectionSecure();
 
         String sql = "SELECT id, fname, lname, email, password, validated FROM users WHERE email = :email";
