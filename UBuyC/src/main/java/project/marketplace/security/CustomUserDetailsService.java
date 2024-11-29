@@ -1,6 +1,5 @@
 package project.marketplace.security;
 
-import project.marketplace.models.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
