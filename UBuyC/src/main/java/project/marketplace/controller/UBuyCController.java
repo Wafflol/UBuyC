@@ -33,6 +33,8 @@ import project.marketplace.daos.ListingDao;
 import project.marketplace.daos.UserAlreadyExistsException;
 import project.marketplace.registration.OnRegistrationCompleteEvent;
 
+
+
 /**
  * Creates a class for controller of the entire website. Controls the I/O of each page.
  */
@@ -58,6 +60,7 @@ public class UBuyCController {
     public UBuyCController(AccountDao dao, ListingDao listingDao, ListingSearch listingSearch) {
         this.dao = dao;
         this.listingDao = listingDao;
+        this.listingSearch = listingSearch;
     }
 
     /**
