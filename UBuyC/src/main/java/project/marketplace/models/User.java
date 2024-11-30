@@ -1,7 +1,5 @@
 package project.marketplace.models;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -15,6 +13,10 @@ import jakarta.validation.constraints.NotNull;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+/**
+ * The basic user model. It is annotated with @Entity as it is the User class that 
+ * will be used as a DTO (data-transfer object). It uses Bcrypt to encrypt the user's password
+ */
 @Entity
 @Table(name = "users")
 public class User {
@@ -170,15 +172,19 @@ public class User {
     
     /**
      * Hashes a given string and returns it
-     * @param password the to hash password
-     * @precondition - password not null
-     * @postcondition - sets passwordHash
+     * 
+     * @param password the password to hash - must not be null 
      */
     public static String encryptPassword(String password) {
         int wFactor = 12;
         return BCrypt.hashpw(password, BCrypt.gensalt(wFactor));
     }
 
+    /**
+     * Compares the given password with this password. Returns true is if passwords match, false otherwise
+     * 
+     * @returns true if passwords match, false otherwise
+     */
     public Boolean compare(String password) {
         return BCrypt.checkpw(password, this.getPasswordHash());
     } 

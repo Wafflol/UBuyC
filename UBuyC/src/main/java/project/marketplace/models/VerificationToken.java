@@ -1,5 +1,6 @@
 package project.marketplace.models;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Random;
 
@@ -11,6 +12,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
+/**
+ * The basic verification token model. It is annotated with @Entity as it is the VerificationToken class that 
+ * will be used as a DTO (data-transfer object). 
+ */
 @Entity
 public class VerificationToken {
     private static final int EXPIRATION = 10; // 24 hours

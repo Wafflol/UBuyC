@@ -4,19 +4,17 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * The User information class with reduced information meant to be binded to the login form.
+ * It contains just the email and password of a User.
+ */
 public class Login {
 
-    /**
-     * email of login instance, cannot be blank or null
-     */
     @NotBlank
     @NotNull
     @Email
     private String email;
 
-    /**
-     * password of login instance, cannot be blank or null
-     */
     @NotBlank
     @NotNull
     private String password;
