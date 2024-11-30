@@ -2,6 +2,7 @@ package project.marketplace.daos;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -74,8 +75,13 @@ public class ListingSearch {
         MapSqlParameterSource parameters = new MapSqlParameterSource()
             .addValue("query", formattedQuery)
             .addValue("rawQuery", query.trim());
+        
+        try {
+            return jdbcTemplate.query(sql, parameters, listingRowMapper());
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
 
-        return jdbcTemplate.query(sql, parameters, listingRowMapper());
     }
 
     /**
