@@ -157,14 +157,25 @@ public class ReducedListing {
         this.base64Image = base64Image;
     }
 
+    /**
+     * Sets the id of the listing
+     * @param id id to set
+     */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+     * Gets the unique id of the listing
+     * @return id of listing
+     */
     public long getId() {
         return this.id;
     }
 
+    /**
+     * Overrides equal method for this ReducedListing object
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -173,6 +184,9 @@ public class ReducedListing {
         return id == listing.id;
     }
 
+    /**
+     * Overrides the hashcode method for this ReducedListing object
+     */
     @Override
     public int hashCode() {
         return Objects.hashCode(id);

@@ -78,6 +78,11 @@ public class AccountDao {
        return userDTO;
    }
 
+   /**
+    * Gets a User object from user database upon login
+    * @param login login instance
+    * @return User object from this login
+    */
     public User getUserByLogin(Login login) {
         ensureConnectionSecure();
 
@@ -96,6 +101,11 @@ public class AccountDao {
         return jdbcTemplate.queryForObject(sql, parameters, rowMapper);
     }
 
+    /**
+     * Gets a User object from its unique id
+     * @param id id of user
+     * @return User object from id
+     */
     public User getUserById(long id) {
         ensureConnectionSecure();
 
@@ -114,6 +124,11 @@ public class AccountDao {
         return jdbcTemplate.queryForObject(sql, parameters, rowMapper);
     }
 
+    /**
+     * Gets a User object from its unique ubc email
+     * @param email email of user
+     * @return User object from email
+     */
     public User getUserByEmail(String email) {
         ensureConnectionSecure();
 
@@ -132,6 +147,11 @@ public class AccountDao {
         return jdbcTemplate.queryForObject(sql, parameters, rowMapper);
     }
 
+    /**
+     * Gets a verification token for a user
+     * @param user user object to obtain verification token
+     * @return verification token
+     */
     public int createVerificationToken(User user) {
         ensureConnectionSecure();
         VerificationToken token = new VerificationToken(user);
@@ -184,6 +204,11 @@ public class AccountDao {
         jdbcTemplate.update(sql, parameters);
     }
 
+    /**
+     * Checks if the password matches database (encrypted)
+     * @param login the login instance
+     * @return true if pasword matches, false otherwise
+     */
     public boolean checkPassword(Login login) {
         ensureConnectionSecure();
         String sql = "SELECT password FROM users WHERE email = :email";
@@ -197,6 +222,11 @@ public class AccountDao {
         return BCrypt.checkpw(login.getPassword(), password.get(0));
     }
 
+    /**
+     * Checks if user from this login instance is validated in database
+     * @param login the login instance
+     * @return true if validated, false otherwise
+     */
     public boolean checkValidation(Login login) {
         ensureConnectionSecure();
         String sql = "SELECT validated FROM users WHERE email = :email";
