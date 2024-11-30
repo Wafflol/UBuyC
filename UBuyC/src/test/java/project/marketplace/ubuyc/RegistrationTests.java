@@ -22,13 +22,4 @@ public class RegistrationTests {
         assertEquals(Locale.US, event.getLocale());
     }
 
-    // @Test
-    // public void regListenerInit() {
-    //     User testUser = new User();
-
-    //     OnRegistrationCompleteEvent regEvent = new OnRegistrationCompleteEvent(testUser, Locale.US);
-
-    //     RegistrationListener listener = new RegistrationListener();
-    //     listener.onApplicationEvent(regEvent);
-    // }
 }

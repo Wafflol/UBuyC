@@ -91,48 +91,46 @@ public class ModelTests {
 
     }
 
-    // @Test
-    // public void listingInit() {
+     @Test
+    public void listingInit() {
 
-    //     String ts = "test";
-    //     LocalDateTime time = LocalDateTime.of(1,1,1,1,1);
+        String ts = "test";
+        byte[] image = {1};
         
-    //     Listing testListing = new Listing(ts, ts, ts, 1, ts);
+        Listing testListing = new Listing(ts, ts, ts, 1, image);
 
-    //     assertEquals(ts, testListing.getEmail());
-    //     assertEquals(ts, testListing.getTitle());
-    //     assertEquals(ts, testListing.getDescription());
-    //     assertEquals(1, testListing.getPrice());
-    //     assertEquals(ts, testListing.getImage());
+        assertEquals(ts, testListing.getEmail());
+        assertEquals(ts, testListing.getTitle());
+        assertEquals(ts, testListing.getDescription());
+        assertEquals(1, testListing.getPrice());
+        assertEquals(image, testListing.getImage());
 
-    //     Listing testListing2 = new Listing(1, ts, ts, ts,1, ts,  time);
-    //     assertEquals(time, testListing2.getListingAge());
+    }
 
-    // }
+    @Test
+    public void listingSetters() {
 
-    // @Test
-    // public void listingSetters() {
+        Listing testListing = new Listing();
 
-    //     Listing testListing = new Listing();
+        byte[] image = {1};
+        String ts = "Test";
+        LocalDateTime time = LocalDateTime.of(1,1,1,1,1);
+        testListing.setDescription(ts);
+        testListing.setEmail(ts);
+        testListing.setImage(image);
+        testListing.setListingAge(time);
+        testListing.setPrice(1);
+        testListing.setTitle(ts);
 
-    //     String ts = "Test";
-    //     LocalDateTime time = LocalDateTime.of(1,1,1,1,1);
-    //     testListing.setDescription(ts);
-    //     testListing.setEmail(ts);
-    //     testListing.setImage(ts);
-    //     testListing.setListingAge(time);
-    //     testListing.setPrice(1);
-    //     testListing.setTitle(ts);
-
-    //     assertEquals(ts, testListing.getEmail());
-    //     assertEquals(ts, testListing.getTitle());
-    //     assertEquals(ts, testListing.getDescription());
-    //     assertEquals(1, testListing.getPrice());
-    //     assertEquals(ts, testListing.getDescription());
-    //     assertEquals(time, testListing.getListingAge());
-    //     assertEquals(ts, testListing.getImage());
-    //     assertNotNull(testListing.getId());
-    // }
+        assertEquals(ts, testListing.getEmail());
+        assertEquals(ts, testListing.getTitle());
+        assertEquals(ts, testListing.getDescription());
+        assertEquals(1, testListing.getPrice());
+        assertEquals(ts, testListing.getDescription());
+        assertEquals(time, testListing.getListingAge());
+        assertEquals(image, testListing.getImage());
+        assertNotNull(testListing.getId());
+    }
 
     @Test
     public void vTokenInit() {
