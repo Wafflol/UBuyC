@@ -10,12 +10,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -187,7 +182,7 @@ public class UBuyCController {
      * @return account.html file
      */
     @GetMapping("/account")
-    public String account(@RequestParam("userId") long userId, @RequestParam("userEmail") String userEmail, Model model) { 
+    public String account(@RequestParam("userId") long userId, @RequestParam("userEmail") String userEmail, Model model) {
         User user = dao.getUserById(userId);
         model.addAttribute("user", user);
         List<Listing> listings = this.listingSearch.getListingByUser(userEmail);
@@ -206,7 +201,10 @@ public class UBuyCController {
      * @return index.html file
      */
     @GetMapping("/index")
-    public String index(@RequestParam(name = "query", required = false, defaultValue = "") String query, @ModelAttribute("user") User user, Model model) { 
+    public String index(@SessionAttribute("verified") boolean verified, @RequestParam(name = "query", required = false, defaultValue = "") String query, @ModelAttribute("user") User user, Model model) {
+        if (!verified) {
+            return "redirect:/verification";
+        }
         System.out.println("Controller: index: user.email = " + user.getEmail());
         List<Listing> listings = this.listingSearch.searchListings(query);
         List<ReducedListing> reducedListings = new ArrayList<>();

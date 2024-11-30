@@ -29,7 +29,13 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         request.getSession().setAttribute("user", user);
 
-        // Redirect to the index page
+        if (!user.getValidation()) {
+            request.getSession().setAttribute("verified", false);
+            response.sendRedirect("/verification");
+            return;
+        }
+
+        request.getSession().setAttribute("verified", true);
         response.sendRedirect("/index");
     }
 }

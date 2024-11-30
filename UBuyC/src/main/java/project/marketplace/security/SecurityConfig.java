@@ -49,7 +49,6 @@ public class SecurityConfig {
                         .deleteCookies("JSESSIONID")
                         .permitAll()
                         )
-
                 .csrf(form -> form.disable());
         return http.build();
     }
