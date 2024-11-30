@@ -61,4 +61,5 @@ Various JavaDoc comments
 Implemented password encryption
   * Encryption using bcrypt
   * Salting
+    
 Created Unit Tests for method testing
