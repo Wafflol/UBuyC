@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -151,7 +151,7 @@ public class ModelTests {
 
         assertEquals(testUser, t.getUser());
         assertNotNull(t.getOtp());
-        assertEquals(LocalDate.now().plusDays(1), t.getExpiryDate());
+        assertTrue(Duration.between(LocalDateTime.now().plusMinutes(10), t.getExpiryDate()).toMillis() < 1000);
 
     }
 }
