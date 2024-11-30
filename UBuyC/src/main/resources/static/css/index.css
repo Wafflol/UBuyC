@@ -12,15 +12,15 @@
     justify-content: space-between;
     align-items: center;
 }
-.navbar h1 {
-    font-size: 24px;
-    margin: 0;
+.logo-container {
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
 }
-
-.navbar h1:visited {
-    font-size: 24px;
-    margin: 0;
-    color: white;
+.logo-container h1 {
+    margin: 0; 
+    font-size: 30px; 
+    color: white; 
 }
 
 .search-bar input {
@@ -29,6 +29,7 @@
     border-radius: 5px;
     border: 1px solid #ccc;
     box-sizing: border-box;
+    align-items: center;
 }
 
 .search-bar button {
