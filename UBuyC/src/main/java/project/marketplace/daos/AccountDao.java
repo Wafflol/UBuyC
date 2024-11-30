@@ -80,8 +80,8 @@ public class AccountDao {
 
    /**
     * Gets a User object from user database upon login
-    * @param login
-    * @return
+    * @param login login instance
+    * @return User object from this login
     */
     public User getUserByLogin(Login login) {
         ensureConnectionSecure();
@@ -104,7 +104,7 @@ public class AccountDao {
     /**
      * Gets a User object from its unique id
      * @param id id of user
-     * @return User object
+     * @return User object from id
      */
     public User getUserById(long id) {
         ensureConnectionSecure();
@@ -127,7 +127,7 @@ public class AccountDao {
     /**
      * Gets a User object from its unique ubc email
      * @param email email of user
-     * @return User object
+     * @return User object from email
      */
     public User getUserByEmail(String email) {
         ensureConnectionSecure();
