@@ -22,11 +22,25 @@ public class SecurityConfig {
     private final CustomUserDetailsService customUserDetailsService;
     private final CustomAuthenticationSuccessHandler successHandler;
 
+    /**
+     * Sets the custom user details service and custom auth handler objects
+     *
+     * @param customUserDetailsService
+     * @param customAuthenticationSuccessHandler
+     */
     public SecurityConfig(CustomUserDetailsService customUserDetailsService, CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler) {
         this.customUserDetailsService = customUserDetailsService;
         this.successHandler = customAuthenticationSuccessHandler;
     }
 
+    /**
+     * Creates the security chain
+     * Makes it so that only login, signup, and verification are accessible by anyone
+     *
+     * @param http the security object to create the chain on
+     * @return a security chain indicating what pages are accessible
+     * @throws Exception for invalid inupts
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -47,46 +61,76 @@ public class SecurityConfig {
                         .clearAuthentication(true)
                         .deleteCookies("JSESSIONID")
                         .permitAll()
-                        )
+                )
                 .csrf(form -> form.disable());
         return http.build();
     }
 
-   @Bean
-   public UserDetailsService userDetailsService() {
-       return customUserDetailsService;
-   }
+    /**
+     * Creates and returns a custom UserDetailsService
+     *
+     * @return the UserDetailsService implementation used for loading user-specific data.
+     */
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return customUserDetailsService;
+    }
 
-   @Bean
-   public AuthenticationManager authManager(HttpSecurity http) throws Exception {
-       AuthenticationManagerBuilder authenticationManagerBuilder =
-               http.getSharedObject(AuthenticationManagerBuilder.class);
-       authenticationManagerBuilder.authenticationProvider(authenticationProvider());
-       return authenticationManagerBuilder.build();
-   }
+    /**
+     * Creates and returns an AuthenticationManager bean that is configured
+     *
+     * @param http theHttpSecurity object used for configuring security settings.
+     * @return the configured AuthenticationManager bean.
+     * @throws Exception if there is a problem with building the AuthenticationManager
+     */
+    @Bean
+    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder =
+                http.getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.authenticationProvider(authenticationProvider());
+        return authenticationManagerBuilder.build();
+    }
 
-   @Bean
-   public DaoAuthenticationProvider authenticationProvider() {
-       DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-       authenticationProvider.setUserDetailsService(customUserDetailsService);
-       authenticationProvider.setPasswordEncoder(new PasswordEncoder() {
-           @Override
-           public String encode(CharSequence rawPassword) {
-               String rawPass = rawPassword.toString();
-               System.out.println("SecurityConfig.java: PASSWORD RAW: " + rawPass);
-               return User.encryptPassword(rawPass);
-           }
+    /**
+     * Creates and returns a DaoAuthenticationProvider bean, which is used
+     * for authentication with user details loaded from a database. It also sets
+     * a custom password encoder that encrypts and verifies passwords using BCrypt.
+     *
+     * @return the configured DaoAuthenticationProvider bean.
+     */
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(customUserDetailsService);
+        authenticationProvider.setPasswordEncoder(new PasswordEncoder() {
+            /**
+             * Encodes a raw text password
+             * @param rawPassword the password to encode
+             * @return the encoded password
+             */
+            @Override
+            public String encode(CharSequence rawPassword) {
+                String rawPass = rawPassword.toString();
+                System.out.println("SecurityConfig.java: PASSWORD RAW: " + rawPass);
+                return User.encryptPassword(rawPass);
+            }
 
-           @Override
-           public boolean matches(CharSequence rawPassword, String encodedPassword) {
-               System.out.println("SecurityConfig.java: RAWPASSWORD: " + rawPassword);
-               System.out.println("SecurityConfig.java: ENCODED PASS: " + encodedPassword);
-               System.out.println("SecurityConfig.java: BCRYPT CHECK: " + BCrypt.checkpw(rawPassword.toString(), encodedPassword));
-               boolean success = BCrypt.checkpw(rawPassword.toString(), encodedPassword);
-               System.out.println("SecurityConfig.java: rawPass match encoded?: " + success);
-               return success;
-           }
-       });
-       return authenticationProvider;
-   }
+            /**
+             * Checks if a raw password matches and encoded one
+             * @param rawPassword the raw password
+             * @param encodedPassword the encoded password
+             * @return true if matches
+             */
+            @Override
+            public boolean matches(CharSequence rawPassword, String encodedPassword) {
+                System.out.println("SecurityConfig.java: RAWPASSWORD: " + rawPassword);
+                System.out.println("SecurityConfig.java: ENCODED PASS: " + encodedPassword);
+                System.out.println("SecurityConfig.java: BCRYPT CHECK: " + BCrypt.checkpw(rawPassword.toString(), encodedPassword));
+                boolean success = BCrypt.checkpw(rawPassword.toString(), encodedPassword);
+                System.out.println("SecurityConfig.java: rawPass match encoded?: " + success);
+                return success;
+            }
+        });
+        return authenticationProvider;
+    }
 }

@@ -27,12 +27,12 @@ public class Listing {
     }
 
     /**
-     * creates a new listing object
-     * @param owner the owner of the listing
+     * Creates a new listing object
+     * @param email the email of the owner of the listing
      * @param title the title of the listing
      * @param description the description of the listing
      * @param price the price of the listing
-     * @param image the path to the image of the listing
+     * @param image the image of the listing
      */
     public Listing (String email, String title, String description, double price, byte[] image) {
         this.email = email;
@@ -40,17 +40,18 @@ public class Listing {
         this.description = description;
         this.price = price;
         this.image = image;
-        this.listingAge = java.time.LocalDateTime.now();
+        this.listingAge = LocalDateTime.now();
     }
 
     /**
      * creates a new listing object
-     * @param owner the owner of the listing
+     * @param id the owner of the listing
      * @param title the title of the listing
      * @param description the description of the listing
      * @param price the price of the listing
-     * @param image the path to the image of the listing
-     * @param tags the tags of the listing
+     * @param image the image
+     * @param imageType the image type
+     * @param listingAge the age of the listing
      */
     public Listing (long id, String email, String title, String description, double price, byte[] image, String imageType, LocalDateTime listingAge) {
         this.id = id;
