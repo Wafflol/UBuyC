@@ -77,7 +77,7 @@
             <label for="confirm-password">Retype Password</label>
             <input type="password" id="confirm-password" name="confirm-password" placeholder="Re-enter your password" required>
             <p id="password-error" style="color: red; display: none;">Passwords do not match</p>
-            <button id="signup" type="submit">Sign Up</button>
+            <button id="signup-btn" type="submit">Sign Up</button>
         </form>
         <br>
         <a th:href="@{/login}">Back to login</a>
@@ -90,12 +90,18 @@
         confirmPasswordInput.onfocus = function() {
             if (passwordInput.value !== confirmPasswordInput.value) {
                 document.getElementById("password-error").style.display = "block";
+                document.getElementById('signup-btn').disabled = true;
             } else {
                 document.getElementById("password-error").style.display = "none";
             }
         }
         confirmPasswordInput.onblur = function() {
-            document.getElementById("password-error").style.display = "none";
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                document.getElementById("password-error").style.display = "block";
+                document.getElementById('signup-btn').disabled = true;
+            } else {
+                document.getElementById("password-error").style.display = "none";
+            }
         }
 
         // Function to validate passwords
