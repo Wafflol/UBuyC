@@ -4,6 +4,10 @@
     padding: 0;
     background-color: #f0f2f5;
 }
+
+.description p {
+    white-space: pre-wrap;
+}
 .navbar {
     background-color: #000b3f;
     color: white;

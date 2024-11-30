@@ -17,10 +17,11 @@
                 <a th:href="'mailto:' + ${listing.getEmail}" th:text="${listing.getEmail}">John Doe</a>
             </p>
             <br>
-            <p><strong>Description:</strong> <span th:text="${listing.getDescription}">Description goes here</span></p>
-            <br>
             <p><strong>Price:</strong> <span th:text="'$' + ${listing.getPrice}">$0.00</span></p> <br>
-            <p><strong>Date Posted:</strong> <span th:text="${#temporals.format(listing.getListingAge, 'yyyy-MM-dd, HH:mm')}">DD</span></p>
+            <p><strong>Posted:</strong> <span th:text="${#temporals.format(listing.getListingAge, 'yyyy-MM-dd, HH:mm')}">DD</span></p><br>
+            <div class="description">
+                <p><strong>Description:</strong> <br><span th:text="${listing.getDescription}">Description goes here</span></p> <br>
+            </div>
 
         
         </div>
