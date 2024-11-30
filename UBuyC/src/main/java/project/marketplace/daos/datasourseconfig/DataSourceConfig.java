@@ -14,15 +14,15 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
  */
 @Configuration
 public class DataSourceConfig {
-    
+
     @ConfigurationProperties(prefix = "spring.datasource")
     @Bean
-    public DataSourceProperties getDataSourceProperties(){
+    public DataSourceProperties getDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
-    public DataSource getDataSource(){
+    public DataSource getDataSource() {
         return getDataSourceProperties().initializeDataSourceBuilder().build();
     }
 
@@ -32,7 +32,7 @@ public class DataSourceConfig {
     }
 
     @Bean
-    public NamedParameterJdbcTemplate getNamedJdbcTemplate(DataSource dataSource){
+    public NamedParameterJdbcTemplate getNamedJdbcTemplate(DataSource dataSource) {
         return new NamedParameterJdbcTemplate(dataSource);
     }
 }

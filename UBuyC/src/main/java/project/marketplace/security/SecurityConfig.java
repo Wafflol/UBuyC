@@ -25,10 +25,11 @@ public class SecurityConfig {
     /**
      * Sets the custom user details service and custom auth handler objects
      *
-     * @param customUserDetailsService
-     * @param customAuthenticationSuccessHandler
+     * @param customUserDetailsService the custom user details service
+     * @param customAuthenticationSuccessHandler the auth handler
      */
-    public SecurityConfig(CustomUserDetailsService customUserDetailsService, CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler) {
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService,
+                          CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler) {
         this.customUserDetailsService = customUserDetailsService;
         this.successHandler = customAuthenticationSuccessHandler;
     }
@@ -43,26 +44,26 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .requestMatchers("/login", "/signup", "/verification").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .usernameParameter("email")
-                        .passwordParameter("password")
-                        .successHandler(successHandler)
-                        .permitAll())
-                .logout(form -> form
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/account")
-                        .invalidateHttpSession(true)
-                        .clearAuthentication(true)
-                        .deleteCookies("JSESSIONID")
-                        .permitAll()
-                )
-                .csrf(form -> form.disable());
+        http.
+                authorizeRequests().
+                requestMatchers("/login", "/signup", "/verification").permitAll().
+                anyRequest().authenticated().
+                and().
+                formLogin(form -> form.
+                        loginPage("/login").
+                        usernameParameter("email").
+                        passwordParameter("password").
+                        successHandler(successHandler).
+                        permitAll()).
+                logout(form -> form.
+                        logoutUrl("/logout").
+                        logoutSuccessUrl("/account").
+                        invalidateHttpSession(true).
+                        clearAuthentication(true).
+                        deleteCookies("JSESSIONID").
+                        permitAll()
+                ).
+                csrf(form -> form.disable());
         return http.build();
     }
 
@@ -125,7 +126,8 @@ public class SecurityConfig {
             public boolean matches(CharSequence rawPassword, String encodedPassword) {
                 System.out.println("SecurityConfig.java: RAWPASSWORD: " + rawPassword);
                 System.out.println("SecurityConfig.java: ENCODED PASS: " + encodedPassword);
-                System.out.println("SecurityConfig.java: BCRYPT CHECK: " + BCrypt.checkpw(rawPassword.toString(), encodedPassword));
+                System.out.println("SecurityConfig.java: BCRYPT CHECK: "
+                        + BCrypt.checkpw(rawPassword.toString(), encodedPassword));
                 boolean success = BCrypt.checkpw(rawPassword.toString(), encodedPassword);
                 System.out.println("SecurityConfig.java: rawPass match encoded?: " + success);
                 return success;

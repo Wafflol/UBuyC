@@ -33,7 +33,6 @@ import project.marketplace.models.User;
 import project.marketplace.registration.OnRegistrationCompleteEvent;
 
 
-
 /**
  * Creates a class for controller of the entire website. Controls the I/O of each page.
  */
@@ -59,8 +58,8 @@ public class UBuyCController {
     /**
      * Constructor to initialize DAOs for user accounts and listings.
      *
-     * @param dao Account Data Access Object.
-     * @param listingDao Listing Data Access Object.
+     * @param dao           Account Data Access Object.
+     * @param listingDao    Listing Data Access Object.
      * @param listingSearch search utility for listings.
      */
     public UBuyCController(AccountDao dao, ListingDao listingDao, ListingSearch listingSearch) {
@@ -71,11 +70,11 @@ public class UBuyCController {
 
     /**
      * Displays the login screen
-     * 
+     *
      * @return login.html file
      */
     @GetMapping({"/", "/login"})
-    public String loadLoginPage(Model model) { 
+    public String loadLoginPage(Model model) {
         Login login = new Login();
         model.addAttribute("login", login);
         return "login";
@@ -84,9 +83,9 @@ public class UBuyCController {
     /**
      * Handles login and validates user credentials.
      *
-     * @param login login details provided by the user.
+     * @param login   login details provided by the user.
      * @param request HTTP servlet request.
-     * @param model model to store attributes.
+     * @param model   model to store attributes.
      * @return Redirects to the appropriate page based on login validation.
      */
     @PostMapping({"/", "/login"})
@@ -108,6 +107,7 @@ public class UBuyCController {
 
     /**
      * Displays the signup screen and binds the User object to the form
+     *
      * @return signup.html file
      */
     @GetMapping("/signup")
@@ -119,15 +119,15 @@ public class UBuyCController {
 
     /**
      * Posts a request to the accounts database to try and add a new user.
-     * 
+     * <p>
      * Redirects to verification page if successful and sends an OTP email
      * to user on successful account creation.
-     *
+     * <p>
      * Redirects to emailError page if email cannot be sent
-     * 
-     * @param user the user DTO being sent to the database
+     *
+     * @param user    the user DTO being sent to the database
      * @param request server request
-     * @param errors thrown errors
+     * @param errors  thrown errors
      * @return verification.html on success or emailError.html otherwise
      */
     @PostMapping("/signup")
@@ -145,14 +145,15 @@ public class UBuyCController {
             return new ModelAndView().addObject("message", "An account for that email already exists.");
         } catch (RuntimeException e) {
             System.out.println(e);
-            return new ModelAndView("emailError", "user", user); 
+            return new ModelAndView("emailError", "user", user);
         }
         return new ModelAndView("redirect:/verification", "user", user);
-        
+
     }
 
-    /** Displays the verification screen
-     * 
+    /**
+     * Displays the verification screen
+     *
      * @return verification.html
      */
     @GetMapping("/verification")
@@ -170,7 +171,8 @@ public class UBuyCController {
      * Checks if the OTP entered by the user matches any token in the database that is linked to their email
      */
     @PostMapping("/verification")
-    public ModelAndView verifyOtp(@ModelAttribute("otp") @Valid String otp, @ModelAttribute("user") @Valid User user, WebRequest request) {
+    public ModelAndView verifyOtp(@ModelAttribute("otp") @Valid String otp,
+                                  @ModelAttribute("user") @Valid User user, WebRequest request) {
         Locale locale = request.getLocale();
         int otpToken = dao.getOtpByUser(user);
         LocalDateTime expiryDate = dao.getTokenExpiryDateByUser(user);
@@ -190,7 +192,7 @@ public class UBuyCController {
             //String expiryMessage = messages.getMessage("auth.message.expired", null, locale);
             return new ModelAndView("badUser", "message", "OTP is expired!");
         }
-        
+
         user.setValidated(true);
         System.out.println("verifyOTP: user.validated (after) = " + user.getValidation());
         dao.updateValidatedUser(user);
@@ -199,11 +201,12 @@ public class UBuyCController {
 
     /**
      * Displays the account screen
-     * 
+     *
      * @return account.html file
      */
     @GetMapping("/account")
-    public String account(@RequestParam("userId") long userId, @RequestParam("userEmail") String userEmail, Model model) {
+    public String account(@RequestParam("userId") long userId,
+                          @RequestParam("userEmail") String userEmail, Model model) {
         User user = dao.getUserById(userId);
         model.addAttribute("user", user);
         List<Listing> listings = this.listingSearch.getListingByUser(userEmail);
@@ -218,11 +221,13 @@ public class UBuyCController {
 
     /**
      * Displays the home page
-     * 
+     *
      * @return index.html file
      */
     @GetMapping("/index")
-    public String index(@SessionAttribute("verified") boolean verified, @RequestParam(name = "query", required = false, defaultValue = "") String query, @ModelAttribute("user") User user, Model model) {
+    public String index(@SessionAttribute("verified") boolean verified,
+                        @RequestParam(name = "query", required = false, defaultValue = "") String query,
+                        @ModelAttribute("user") User user, Model model) {
         if (!verified) {
             return "redirect:/verification";
         }
@@ -240,31 +245,30 @@ public class UBuyCController {
 
     /**
      * Posts a request to the database upon valid listing form completion.
-     * 
-     * @param user The user currently in session
+     *
+     * @param user           The user currently in session
      * @param reducedListing The listing to be added
      * @return index.html file
      */
     @PostMapping("/index")
-    public String createNewListing(@ModelAttribute("user") User user, @ModelAttribute("listing") ReducedListing reducedListing) {
+    public String createNewListing(@ModelAttribute("user") User user,
+                                   @ModelAttribute("listing") ReducedListing reducedListing) {
         System.out.println("createNewListing: reducedListing = " + reducedListing);
         System.out.println("createNewListing: user.email = " + user.getEmail());
-        System.out.println("createNewListing: reducedListing.image.name = " + reducedListing.getImage().getOriginalFilename());
-        
-        try {
-            Listing listing = new Listing(reducedListing);
-            listing.setEmail(user.getEmail());
-            System.out.println("createNewListing: image set successfully");
-            listingDao.createListing(listing);
-            System.out.println("createNewListing: image created successfully");
-        } catch (Exception e) {
-            System.out.println("Image could not be loaded");
-        }
+        System.out.println("createNewListing: reducedListing.image.name = "
+                + reducedListing.getImage().getOriginalFilename());
+
+        Listing listing = new Listing(reducedListing);
+        listing.setEmail(user.getEmail());
+        System.out.println("createNewListing: image set successfully");
+        listingDao.createListing(listing);
+        System.out.println("createNewListing: image created successfully");
         return "redirect:/index";
     }
 
     /**
-     * Displays view of single listing given listing 
+     * Displays view of single listing given listing
+     *
      * @return viewListing.html file
      */
     @GetMapping("/viewlisting/{id}")
@@ -272,6 +276,6 @@ public class UBuyCController {
         Listing listing = this.listingSearch.getListingById(id);
         ReducedListing displayListing = new ReducedListing(listing);
         model.addAttribute("listing", displayListing);
-        return "viewListing"; 
+        return "viewListing";
     }
 }

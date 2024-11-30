@@ -1,30 +1,23 @@
 package project.marketplace.ubuyc;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.time.LocalDateTime;
-import java.time.Duration;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
-import project.marketplace.models.User;
-import project.marketplace.models.VerificationToken;
+import org.junit.jupiter.api.Test;
+import org.mindrot.jbcrypt.BCrypt;
 import project.marketplace.models.Listing;
 import project.marketplace.models.Login;
+import project.marketplace.models.User;
+import project.marketplace.models.VerificationToken;
 
-import org.junit.jupiter.api.Test;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
-import org.mindrot.jbcrypt.BCrypt;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ModelTests {
 
     @Test
     public void UserInitialize() {
         User testUser = new User();
-        
+
         String testString = "Test";
 
         testUser.setEmail(testString);
@@ -71,10 +64,10 @@ public class ModelTests {
 
         assertEquals("Test", testLogin.getEmail());
         assertEquals("Test", testLogin.getPassword());
-        
+
     }
 
-    @Test 
+    @Test
     public void testLogin() {
         User u1 = new User();
 
@@ -83,7 +76,7 @@ public class ModelTests {
 
         Login login = new Login();
         login.setPassword("ABC");
-        
+
         String password = login.getPassword();
 
         assertTrue(BCrypt.checkpw(password, savedHash));
@@ -93,12 +86,10 @@ public class ModelTests {
 
      @Test
     public void listingInit() {
-
         String ts = "test";
         byte[] image = {1};
         
         Listing testListing = new Listing(ts, ts, ts, 1, image);
-
         assertEquals(ts, testListing.getEmail());
         assertEquals(ts, testListing.getTitle());
         assertEquals(ts, testListing.getDescription());
@@ -135,7 +126,7 @@ public class ModelTests {
     @Test
     public void vTokenInit() {
         User testUser = new User();
-        
+
         String testString = "Test";
 
         testUser.setEmail(testString);

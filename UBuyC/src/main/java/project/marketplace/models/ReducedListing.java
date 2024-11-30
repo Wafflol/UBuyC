@@ -1,14 +1,13 @@
 package project.marketplace.models;
 
-import java.time.LocalDateTime;
-import java.util.Base64;
-import java.util.Objects;
-
-import org.springframework.web.multipart.MultipartFile;
-
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.time.LocalDateTime;
+import java.util.Base64;
+import java.util.Objects;
 
 /**
  * A non-Entity version of the Listing class. This is required to get image information as Listing can only store 
@@ -33,13 +32,14 @@ public class ReducedListing {
      * Creates a ReducedListing object meant to form binding
      */
     public ReducedListing() {
-        // initialize empty listing
     }
 
     /**
      * Creates new Reduced Listing object meant for display from a Listing object by encoding 
      * the byte array represetation of the image in Base64.
-     */ 
+     *
+     * @param listing the listing to show
+     */
     public ReducedListing(Listing listing) {
         this.id = listing.getId();
         this.email = listing.getEmail();
@@ -180,7 +180,7 @@ public class ReducedListing {
     /**
      * Sets the image of the listing
      * 
-     * @param imagePath the image path to set
+     * @param image the image to set
      */
     public void setImage(MultipartFile image) {
         this.image = image;
@@ -209,8 +209,12 @@ public class ReducedListing {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ReducedListing listing = (ReducedListing) o;
         return id == listing.id;
     }
