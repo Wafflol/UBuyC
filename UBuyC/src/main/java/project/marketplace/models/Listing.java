@@ -3,8 +3,6 @@ package project.marketplace.models;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,7 +23,7 @@ public class Listing {
     private LocalDateTime listingAge;
 
     public Listing() {
-        //lmao
+        //empty listing
     }
 
     /**
@@ -119,7 +117,10 @@ public class Listing {
         return this.image;
     }
 
-    // TODO: add comemnts
+    /**
+     * Returns the image type of the image stored
+     * @return image type
+     */
     public String getImageType() {
         return this.imageType;
     }
@@ -172,7 +173,10 @@ public class Listing {
         this.image = image;
     }
 
-    // TODO: add comments
+    /**
+     * Sets the image type of the listing image
+     * @param imageType image type to set
+     */
     public void setImageType(String imageType) {
         this.imageType = imageType;
     }
@@ -185,10 +189,17 @@ public class Listing {
         this.listingAge = listingAge;
     }
 
+    /**
+     * Gets the unique id of this listing object
+     * @return id of listing
+     */
     public long getId() {
         return this.id;
     }
 
+    /**
+     * Overrides the equal method for listing objects
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -196,7 +207,10 @@ public class Listing {
         Listing listing = (Listing) o;
         return id == listing.id;
     }
-
+ 
+    /**
+     * Overrides the hashcode method for listing objects
+     */
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
