@@ -50,6 +50,13 @@ public class UBuyCController {
     private final ListingDao listingDao;
     private final ListingSearch listingSearch;
 
+    /**
+     * Constructor to initialize DAOs for user accounts and listings.
+     *
+     * @param dao Account Data Access Object.
+     * @param listingDao Listing Data Access Object.
+     * @param listingSearch search utility for listings.
+     */
     public UBuyCController(AccountDao dao, ListingDao listingDao, ListingSearch listingSearch) {
         this.dao = dao;
         this.listingDao = listingDao;
@@ -68,6 +75,14 @@ public class UBuyCController {
         return "login";
     }
 
+    /**
+     * Handles login and validates user credentials.
+     *
+     * @param login login details provided by the user.
+     * @param request HTTP servlet request.
+     * @param model model to store attributes.
+     * @return Redirects to the appropriate page based on login validation.
+     */
     @PostMapping({"/", "/login"})
     public String login(@ModelAttribute("login") @Valid Login login, HttpServletRequest request, Model model) {
         if (dao.checkPassword(login) && dao.checkValidation(login)) {
@@ -242,6 +257,13 @@ public class UBuyCController {
         return "redirect:/index";
     }
 
+    /**
+     * Displays a specific listing based on its ID.
+     *
+     * @param id unique ID of the listing to view.
+     * @param model model to store attributes.
+     * @return The view listing page.
+     */
     @GetMapping("/viewlisting/{id}")
     public String viewListing(@PathVariable Long id, Model model) {
         Listing listing = this.listingSearch.getListingById(id);

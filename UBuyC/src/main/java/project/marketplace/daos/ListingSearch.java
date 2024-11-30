@@ -46,7 +46,7 @@ public class ListingSearch {
 
     /**
      * Searches the database for listings that match the given query.
-     * The search utilizes full-text search with ranking based on relevance.
+     * The search utilizes postgresql full-text search.
      * 
      * @param query the search query string provided by the user.
      * @return a list of {@link Listing} objects that match the search criteria.
