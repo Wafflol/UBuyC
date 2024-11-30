@@ -54,7 +54,7 @@ Created html, css, javascript files for all web pages
   * populated dynamic listing views on index and account pages
 
 Configured basic nagivation between html pages\
-Various JavaDoc comments\
+Various JavaDoc comments
 
 
 ##### Ethan
