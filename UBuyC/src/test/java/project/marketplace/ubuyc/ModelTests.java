@@ -2,6 +2,7 @@ package project.marketplace.ubuyc;
 
 import org.junit.jupiter.api.Test;
 import org.mindrot.jbcrypt.BCrypt;
+import project.marketplace.models.Listing;
 import project.marketplace.models.Login;
 import project.marketplace.models.User;
 import project.marketplace.models.VerificationToken;
