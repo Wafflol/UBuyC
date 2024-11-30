@@ -1,6 +1,5 @@
 package project.marketplace.models;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Random;
 
@@ -19,6 +18,9 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class VerificationToken {
     private static final int EXPIRATION = 10; // 24 hours
+    private static final int BOUND = 900000;
+    private static final int LINEAR = 100000;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,18 +36,18 @@ public class VerificationToken {
 
     /**
      * Creates a new verification token for the given user
-     * 
+     *
      * @param user the user that the token is being created for
      */
     public VerificationToken(User user) {
         this.user = user;
-        this.otp = new Random().nextInt(900000) + 100000; // random 6-digit int
+        this.otp = new Random().nextInt(BOUND) + LINEAR; // random 6-digit int
         this.expiryDate = calculateExpiryDate(EXPIRATION);
     }
 
     /**
      * Retrieves the user associated with this OTP.
-     * 
+     *
      * @return The user object representing the user linked to this OTP.
      */
     public User getUser() {
@@ -54,7 +56,7 @@ public class VerificationToken {
 
     /**
      * Retrieves the OTP value.
-     * 
+     *
      * @return The OTP code as an {@code int}.
      */
     public int getOtp() {
@@ -63,8 +65,8 @@ public class VerificationToken {
 
     /**
      * Retrieves the expiry date of the OTP.
-     * 
-     * @return The expiry date of the OTP as a {@link LocalDate}.
+     *
+     * @return The expiry date of the OTP as a LocalDateTime.
      */
     public LocalDateTime getExpiryDate() {
         return this.expiryDate;
@@ -72,9 +74,9 @@ public class VerificationToken {
 
     /**
      * Calculates the expiry date based on the provided expiry time in minutes.
-     * 
+     *
      * @param expiryTimeInMinutes The number of minutes after which the OTP expires.
-     * @return A {@link LocalDate} representing the calculated expiry date.
+     * @return A LocalDateTime representing the calculated expiry date.
      */
     private LocalDateTime calculateExpiryDate(int expiryTimeInMinutes) {
         return LocalDateTime.now().plusMinutes(expiryTimeInMinutes);

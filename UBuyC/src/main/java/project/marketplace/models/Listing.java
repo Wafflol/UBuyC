@@ -1,12 +1,13 @@
 package project.marketplace.models;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * The basic listing model. It is annotated with @Entity as it is the Listing class that 
@@ -36,13 +37,14 @@ public class Listing {
 
     /**
      * Creates a new listing object for test cases
-     * @param email the email of the owner of the listing
-     * @param title the title of the listing
+     *
+     * @param email       the email of the owner of the listing
+     * @param title       the title of the listing
      * @param description the description of the listing
-     * @param price the price of the listing
-     * @param image the image of the listing
+     * @param price       the price of the listing
+     * @param image       the image of the listing
      */
-    public Listing (String email, String title, String description, double price, byte[] image) {
+    public Listing(String email, String title, String description, double price, byte[] image) {
         this.email = email;
         this.title = title;
         this.description = description;
@@ -53,15 +55,17 @@ public class Listing {
 
     /**
      * Creates a new Listing object used as a DAO (data access object) to retrieve data from the database
-     * @param id the owner of the listing
-     * @param title the title of the listing
+     *
+     * @param id          the owner of the listing
+     * @param title       the title of the listing
      * @param description the description of the listing
-     * @param price the price of the listing
-     * @param image the image
-     * @param imageType the image type
-     * @param listingAge the age of the listing
+     * @param price       the price of the listing
+     * @param image       the image
+     * @param imageType   the image type
+     * @param listingAge  the age of the listing
      */
-    public Listing (long id, String email, String title, String description, double price, byte[] image, String imageType, LocalDateTime listingAge) {
+    public Listing(long id, String email, String title, String description,
+                   double price, byte[] image, String imageType, LocalDateTime listingAge) {
         this.id = id;
         this.email = email;
         this.title = title;
@@ -83,7 +87,7 @@ public class Listing {
         this.price = reducedListing.getPrice();
         try {
             this.image = reducedListing.getImage().getBytes();
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Failed to do get image bytes in Listing contructor");
         }
         this.imageType = reducedListing.getImage().getContentType();
@@ -173,7 +177,7 @@ public class Listing {
 
     /**
      * Sets the title of the listing
-     * 
+     *
      * @param title the title to set
      */
     public void setTitle(String title) {
@@ -182,7 +186,7 @@ public class Listing {
 
     /**
      * Sets the description of the listing
-     * 
+     *
      * @param description the description to set
      */
     public void setDescription(String description) {
@@ -191,7 +195,7 @@ public class Listing {
 
     /**
      * Sets the price of the listing
-     * 
+     *
      * @param price the price to set
      */
     public void setPrice(double price) {
@@ -209,7 +213,7 @@ public class Listing {
 
     /**
      * Sets the image type of the listing image
-     * 
+     *
      * @param imageType image type to set
      */
     public void setImageType(String imageType) {
@@ -230,12 +234,16 @@ public class Listing {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Listing listing = (Listing) o;
         return id == listing.id;
     }
- 
+
     /**
      * Overrides the hashcode method for listing objects
      */

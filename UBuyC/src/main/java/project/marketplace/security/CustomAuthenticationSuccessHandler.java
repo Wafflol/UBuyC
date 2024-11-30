@@ -21,6 +21,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     /**
      * Sets the accountdao to allow access to users from the database
+     *
      * @param dao the accountdao
      */
     public CustomAuthenticationSuccessHandler(AccountDao dao) {
@@ -30,13 +31,15 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     /**
      * Runs after user logs in with correct credential
      * Checks if user is authenticated, and sends them back to verification or to index
-     * @param request the request the client made
-     * @param response the response the server sends
+     *
+     * @param request        the request the client made
+     * @param response       the response the server sends
      * @param authentication auth info from the client
      * @throws IOException if the input is bad
      */
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                        Authentication authentication)
             throws IOException {
         String email = authentication.getName();
         System.out.println("CustomAuthHandler.java: EMAIL IS: " + email);

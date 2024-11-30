@@ -21,6 +21,7 @@ public class Login {
 
     /**
      * Gets the email of this login instance
+     *
      * @return email of the user logging in
      */
     public String getEmail() {
@@ -29,6 +30,7 @@ public class Login {
 
     /**
      * Gets the password (encrypted) of this login instance
+     *
      * @return password of user logging in
      */
     public String getPassword() {
@@ -36,7 +38,8 @@ public class Login {
     }
 
     /**
-     * Sets the email of this login instance 
+     * Sets the email of this login instance
+     *
      * @param email email of user logging in
      */
     public void setEmail(String email) {
@@ -45,7 +48,8 @@ public class Login {
 
     /**
      * Sets the password (encrypted) of this login instance
-     * @param password passowrd of user logging in
+     *
+     * @param password password of user logging in
      */
     public void setPassword(String password) {
         this.password = password;

@@ -1,10 +1,9 @@
 package project.marketplace.registration;
 
-import java.util.Locale;
-
 import org.springframework.context.ApplicationEvent;
-
 import project.marketplace.models.User;
+
+import java.util.Locale;
 
 /**
  * Creates a registration event object that is listened to by the Registration Listener
@@ -15,8 +14,8 @@ public class OnRegistrationCompleteEvent extends ApplicationEvent {
 
     /**
      * Creates the registration complete event instance
-     * 
-     * @param user The user linked to the registration event
+     *
+     * @param user   The user linked to the registration event
      * @param locale The locale of the user
      */
     public OnRegistrationCompleteEvent(User user, Locale locale) {
@@ -24,10 +23,10 @@ public class OnRegistrationCompleteEvent extends ApplicationEvent {
         this.user = user;
         this.locale = locale;
     }
-    
+
     /**
      * Returns the locale of this event
-     * 
+     *
      * @return the locale of this event
      */
     public Locale getLocale() {
@@ -36,7 +35,7 @@ public class OnRegistrationCompleteEvent extends ApplicationEvent {
 
     /**
      * Returns the user linked to this event
-     * 
+     *
      * @return the user linked to this event
      */
     public User getUser() {
