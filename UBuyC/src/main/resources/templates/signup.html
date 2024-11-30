@@ -71,17 +71,45 @@
             <p th:each="error: ${#fields.errors('email')}" th:text ="$error">Validation Error</p>
 
             <label for="password">Password</label>
-            <input type="password" th:field="*{passwordHash}" placeholder="Enter a password" required>
+            <input type="password" id="password" :field="*{passwordHash}" placeholder="Enter a password" required>
             <p th:each="error: ${#fields.errors('passwordHash')}" th:text ="$error">Validation Error</p>
 
             <label for="confirm-password">Retype Password</label>
             <input type="password" id="confirm-password" name="confirm-password" placeholder="Re-enter your password" required>
-
-            <button type="submit">Sign Up</button>
+            <p id="password-error" style="color: red; display: none;">Passwords do not match</p>
+            <button id="signup" type="submit">Sign Up</button>
         </form>
         <br>
         <a th:href="@{/login}">Back to login</a>
     </div>
+    <script>
+        // Get references to input fields and error message
+        var passwordInput = document.getElementById('password');
+        var confirmPasswordInput = document.getElementById('confirm-password');
     
+        confirmPasswordInput.onfocus = function() {
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                document.getElementById("password-error").style.display = "block";
+            } else {
+                document.getElementById("password-error").style.display = "none";
+            }
+        }
+        confirmPasswordInput.onblur = function() {
+            document.getElementById("password-error").style.display = "none";
+        }
+
+        // Function to validate passwords
+        confirmPasswordInput.onkeyup = function() {
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                document.getElementById("password-error").style.display = "block";
+            } else {
+                document.getElementById("password-error").style.display = "none";
+            }
+        }
+    
+        // Attach event listeners for real-time validation
+        passwordInput.addEventListener('input', validatePasswords);
+        confirmPasswordInput.addEventListener('input', validatePasswords);
+    </script>
 </body>
 </html>
