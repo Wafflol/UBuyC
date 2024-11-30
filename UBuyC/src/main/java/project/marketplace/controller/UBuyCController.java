@@ -221,7 +221,7 @@ public class UBuyCController {
      * Posts a request to the database upon valid listing form completion.
      * 
      * @param user The user currently in session
-     * @param listing The listing to be added
+     * @param reducedListing The listing to be added
      * @return index.html file
      */
     @PostMapping("/index")
