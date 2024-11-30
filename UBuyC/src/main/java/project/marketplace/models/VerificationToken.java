@@ -1,9 +1,7 @@
 package project.marketplace.models;
 
-import java.time.LocalDate;
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.Random;
-import java.sql.Timestamp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -15,7 +13,7 @@ import jakarta.persistence.OneToOne;
 
 @Entity
 public class VerificationToken {
-    private static final int EXPIRATION = 1; // 24 hours
+    private static final int EXPIRATION = 10; // 24 hours
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,11 +21,11 @@ public class VerificationToken {
 
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_id")
-    private User user;
+    private final User user;
 
-    private int otp;
+    private final int otp;
 
-    private LocalDate expiryDate;
+    private final LocalDateTime expiryDate;
 
     /**
      * Creates a new verification token for the given user
@@ -63,7 +61,7 @@ public class VerificationToken {
      * 
      * @return The expiry date of the OTP as a {@link LocalDate}.
      */
-    public LocalDate getExpiryDate() {
+    public LocalDateTime getExpiryDate() {
         return this.expiryDate;
     }
 
@@ -73,7 +71,7 @@ public class VerificationToken {
      * @param expiryTimeInMinutes The number of minutes after which the OTP expires.
      * @return A {@link LocalDate} representing the calculated expiry date.
      */
-    private LocalDate calculateExpiryDate(int expiryTimeInMinutes) {
-        return LocalDate.now().plusDays(expiryTimeInMinutes);
+    private LocalDateTime calculateExpiryDate(int expiryTimeInMinutes) {
+        return LocalDateTime.now().plusMinutes(expiryTimeInMinutes);
     }
 }

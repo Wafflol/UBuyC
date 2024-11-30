@@ -1,9 +1,7 @@
 package project.marketplace.controller;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Locale;
 
@@ -124,8 +122,9 @@ public class UBuyCController {
             return new ModelAndView().addObject("message", "Email does not match @_.ubc.ca");
         }
         try {
-            User registeredUser = dao.createUser(user);
-            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registeredUser, request.getLocale()));
+            user.setValidated(false);
+            dao.createUser(user);
+            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, request.getLocale()));
         } catch (UserAlreadyExistsException e) {
             return new ModelAndView().addObject("message", "An account for that email already exists.");
         } catch (RuntimeException e) {
@@ -158,11 +157,11 @@ public class UBuyCController {
     public ModelAndView verifyOtp(@ModelAttribute("otp") @Valid String otp, @ModelAttribute("user") @Valid User user, WebRequest request) {
         Locale locale = request.getLocale();
         int otpToken = dao.getOtpByUser(user);
-        LocalDate expiryDate = dao.getTokenExpiryDateByUser(user);
+        LocalDateTime expiryDate = dao.getTokenExpiryDateByUser(user);
         System.out.println("verifyOTP: otp = " + otp);
         System.out.println("verifyOTP: otpToken = " + otpToken);
         System.out.println("verifyOTP: expiryDate = " + expiryDate);
-        System.out.println("verifyOTP: currentDate = " + LocalDate.now());
+        System.out.println("verifyOTP: currentDate = " + LocalDateTime.now());
         System.out.println("verifyOTP: user.email = " + user.getEmail());
         System.out.println("verifyOTP: user.validated (before) = " + user.getValidation());
 
@@ -171,7 +170,7 @@ public class UBuyCController {
             return new ModelAndView("badUser", "message", "invalid OTP!");
         }
 
-        if (expiryDate.isBefore(LocalDate.now())) { // TODO: make it so its not date but rather time
+        if (expiryDate.isBefore(LocalDateTime.now())) {
             //String expiryMessage = messages.getMessage("auth.message.expired", null, locale);
             return new ModelAndView("badUser", "message", "OTP is expired!");
         }

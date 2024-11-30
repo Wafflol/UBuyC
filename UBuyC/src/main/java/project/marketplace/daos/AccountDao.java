@@ -1,6 +1,6 @@
 package project.marketplace.daos;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -67,12 +67,13 @@ public class AccountDao {
        }
 
        // adding new user to database
-       String sql = "INSERT INTO users (fname, lname, email, password) VALUES(:fname, :lname, :email, :password)";
+       String sql = "INSERT INTO users (fname, lname, email, password, validated) VALUES(:fname, :lname, :email, :password, :validated)";
        MapSqlParameterSource parameters = new MapSqlParameterSource()
            .addValue("fname", userDTO.getFirstName())
            .addValue("lname", userDTO.getLastName())
            .addValue("email", userDTO.getEmail())
-           .addValue("password", userDTO.getPasswordHash());
+           .addValue("password", userDTO.getPasswordHash())
+           .addValue("validated", false);
        jdbcTemplate.update(sql, parameters);
        return userDTO;
    }
@@ -163,10 +164,10 @@ public class AccountDao {
      * @param user THe user that holds the token
      * @return the expiry date of the token
      */
-    public LocalDate getTokenExpiryDateByUser(User user) {
+    public LocalDateTime getTokenExpiryDateByUser(User user) {
         ensureConnectionSecure();
         String sql = "SELECT expiry_date FROM verification_tokens WHERE email = '" + user.getEmail() + "'";
-        List<LocalDate> expiryDate = jdbcTemplate.queryForList(sql, new MapSqlParameterSource(), LocalDate.class);
+        List<LocalDateTime> expiryDate = jdbcTemplate.queryForList(sql, new MapSqlParameterSource(), LocalDateTime.class);
         return expiryDate.get(0);
     }
 
