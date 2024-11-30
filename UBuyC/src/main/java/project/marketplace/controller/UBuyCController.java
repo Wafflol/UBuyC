@@ -126,7 +126,7 @@ public class UBuyCController {
      * Redirects to emailError page if email cannot be sent
      * 
      * @param user the user DTO being sent to the database
-     * @param request
+     * @param request server request
      * @param errors thrown errors
      * @return verification.html on success or emailError.html otherwise
      */

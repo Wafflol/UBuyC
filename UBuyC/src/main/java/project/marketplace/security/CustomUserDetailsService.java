@@ -10,12 +10,21 @@ import project.marketplace.daos.AccountDao;
 
 import java.util.Collections;
 
+/**
+ * This service sets user details
+ */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private AccountDao accountDao;
 
+    /**
+     * Loads user details from email
+     * @param email the email of the user
+     * @return user login details
+     * @throws UsernameNotFoundException if the email isn't connected to an account
+     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         System.out.println("CustomUserDetailsService.java: Attempting to load user: " + email);
