@@ -3,3 +3,5 @@
 3. Can access login and signup after login
 4. Can't delete listings yet
 5. Database and email login are hardcoded in the repo because if the website doesn't work, you have to run the website locally using the bash/batch scripts, so you need the login info
+6. Theres's not many error messages during signup/login (oops!)
+ 
