@@ -71,7 +71,7 @@
             <p th:each="error: ${#fields.errors('email')}" th:text ="$error">Validation Error</p>
 
             <label for="password">Password</label>
-            <input type="password" id="password" :field="*{passwordHash}" placeholder="Enter a password" required>
+            <input type="password" id="password" th:field="*{passwordHash}" placeholder="Enter a password" required>
             <p th:each="error: ${#fields.errors('passwordHash')}" th:text ="$error">Validation Error</p>
 
             <label for="confirm-password">Retype Password</label>
@@ -93,6 +93,7 @@
                 document.getElementById('signup-btn').disabled = true;
             } else {
                 document.getElementById("password-error").style.display = "none";
+                document.getElementById('signup-btn').disabled = false;
             }
         }
         confirmPasswordInput.onblur = function() {
@@ -101,6 +102,7 @@
                 document.getElementById('signup-btn').disabled = true;
             } else {
                 document.getElementById("password-error").style.display = "none";
+                document.getElementById('signup-btn').disabled = false;
             }
         }
 
