@@ -1,15 +1,19 @@
 package project.marketplace.models;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Objects;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+/**
+ * A non-Entity version of the Listing class. This is required to get image information as Listing can only store 
+ * the byte representation of an image, while this class stores the MultipartFile version of the image. This
+ * is also required to display an image in HTML as is stores the Base64 encoded version of the file as well.
+ */
 public class ReducedListing {
 
     @Id
@@ -24,12 +28,18 @@ public class ReducedListing {
     private String base64Image;
     private String imageType;
 
+    /**
+     * Creates a ReducedListing object meant to form binding
+     */
     public ReducedListing() {
-        // initialize empty listing
     }
 
-    // Creates new Reduced Listing object meant for display from a Listing object 
-    // by encoding the byte array represetation of the image
+    /**
+     * Creates new Reduced Listing object meant for display from a Listing object by encoding 
+     * the byte array represetation of the image in Base64.
+     *
+     * @param listing the listing to show
+     */
     public ReducedListing(Listing listing) {
         this.id = listing.getId();
         this.email = listing.getEmail();
@@ -42,7 +52,17 @@ public class ReducedListing {
     }
 
     /**
+     * Gets the unique id of the listing
+     * 
+     * @return id of listing
+     */
+    public long getId() {
+        return this.id;
+    }
+
+    /**
      * Returns the owner of the listing
+     * 
      * @return the owner of the listing
      */
     public String getEmail() {
@@ -51,6 +71,7 @@ public class ReducedListing {
 
     /**
      * Returns the title of the listing
+     * 
      * @return the title of the listing
      */
     public String getTitle() {
@@ -59,6 +80,7 @@ public class ReducedListing {
 
     /**
      * Returns the description of the listing
+     * 
      * @return the description of the listing
      */
     public String getDescription() {
@@ -67,6 +89,7 @@ public class ReducedListing {
 
     /**
      * Returns the price of the listing
+     * 
      * @return the price of the listing
      */
     public double getPrice() {
@@ -74,8 +97,9 @@ public class ReducedListing {
     }
 
     /**
-     * Returns the image path of the listing image
-     * @return the image path of the listing image
+     * Returns the image of the listing image
+     * 
+     * @return the image of the listing image
      */
     public MultipartFile getImage() {
         return this.image;
@@ -83,6 +107,7 @@ public class ReducedListing {
 
     /**
      * Returns the age of the listing
+     * 
      * @return the age of the listing
      */
     public LocalDateTime getListingAge() {
@@ -91,18 +116,34 @@ public class ReducedListing {
 
     /**
      * Returns the base64 encoded version of the image
+     * 
      * @return the base64 encoded version of the image
      */
     public String getBase64Image() {
         return this.base64Image;
     }
 
+    /**
+     * Returns the image file extension
+     * 
+     * @return the image file extension
+     */
     public String getImageType() {
         return this.imageType;
     }
 
     /**
+     * Sets the id of the listing
+     * 
+     * @param id id to set
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
      * Sets the email of the listing
+     * 
      * @param email the email to set
      */
     public void setEmail(String email) {
@@ -111,6 +152,7 @@ public class ReducedListing {
 
     /**
      * Sets the title of the listing
+     * 
      * @param title the title to set
      */
     public void setTitle(String title) {
@@ -119,6 +161,7 @@ public class ReducedListing {
 
     /**
      * Sets the description of the listing
+     * 
      * @param description the description to set
      */
     public void setDescription(String description) {
@@ -127,6 +170,7 @@ public class ReducedListing {
 
     /**
      * Sets the price of the listing
+     * 
      * @param price the price to set
      */
     public void setPrice(double price) {
@@ -134,8 +178,9 @@ public class ReducedListing {
     }
 
     /**
-     * Sets the image path of the listing image
-     * @param imagePath the image path to set
+     * Sets the image of the listing
+     * 
+     * @param image the image to set
      */
     public void setImage(MultipartFile image) {
         this.image = image;
@@ -143,6 +188,7 @@ public class ReducedListing {
 
     /**
      * Sets the listing age to present datetime
+     * 
      * @param listingAge the current datetime
      */
     public void setListingAge(LocalDateTime listingAge) {
@@ -151,6 +197,7 @@ public class ReducedListing {
 
     /**
      * Returns the base64 encoded version of the image
+     * 
      * @return the base64 encoded version of the image
      */
     public void setBase64Image(String base64Image) {
@@ -158,28 +205,16 @@ public class ReducedListing {
     }
 
     /**
-     * Sets the id of the listing
-     * @param id id to set
-     */
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    /**
-     * Gets the unique id of the listing
-     * @return id of listing
-     */
-    public long getId() {
-        return this.id;
-    }
-
-    /**
      * Overrides equal method for this ReducedListing object
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ReducedListing listing = (ReducedListing) o;
         return id == listing.id;
     }

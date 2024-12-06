@@ -16,38 +16,38 @@ import project.marketplace.daos.AccountDao;
  */
 @Component
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
- 
+
     @Autowired
     private AccountDao dao;
- 
+
     @Autowired
     private MessageSource messages;
- 
+
     @Autowired
     private JavaMailSender mailSender;
 
     /**
-     * Calls confirmRegistration once is hears the registration event occur
+     * Calls confirmRegistration once it hears the registration event occur
      */
     @Override
     public void onApplicationEvent(OnRegistrationCompleteEvent event) {
         this.confirmRegistration(event);
     }
-    
+
     /**
      * Creates a new verification token linked to the user. Sends an email with the generated OTP
      * to the user's email.
-     * 
+     *
      * @param event the registration event heard by this
      */
     private void confirmRegistration(OnRegistrationCompleteEvent event) {
         User user = event.getUser();
         int otp = dao.createVerificationToken(user);
-        
+
         String recipientAddress = user.getEmail();
         String subject = "Your UBuyC One Time Password";
         String message = messages.getMessage("message.registrationSuccessful", null, event.getLocale());
-        
+
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);
         email.setSubject(subject);

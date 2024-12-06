@@ -18,8 +18,7 @@ cd into Release1.0, and run
 ```
 ./init_bash.sh
 ```
-the file should already be executable, but if not, try:
-```
+the file should already be executable, but if not, tr
 chmod +x init_bash.sh 
 ```
 and then try again \

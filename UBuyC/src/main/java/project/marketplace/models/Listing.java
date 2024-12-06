@@ -1,13 +1,19 @@
 package project.marketplace.models;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Objects;
+
+/**
+ * The basic listing model. It is annotated with @Entity as it is the Listing class that 
+ * will be used as a DTO (data-transfer object). It stores the listing image as a byte array so that
+ * it is compatible with the database (db column is of type bytea).
+ */
 @Entity
 public class Listing {
 
@@ -22,19 +28,23 @@ public class Listing {
     private String imageType;
     private LocalDateTime listingAge;
 
+    /**
+     * Creates an empty Listing object.
+     */
     public Listing() {
         //empty listing
     }
 
     /**
-     * Creates a new listing object
-     * @param email the email of the owner of the listing
-     * @param title the title of the listing
+     * Creates a new listing object for test cases
+     *
+     * @param email       the email of the owner of the listing
+     * @param title       the title of the listing
      * @param description the description of the listing
-     * @param price the price of the listing
-     * @param image the image of the listing
+     * @param price       the price of the listing
+     * @param image       the image of the listing
      */
-    public Listing (String email, String title, String description, double price, byte[] image) {
+    public Listing(String email, String title, String description, double price, byte[] image) {
         this.email = email;
         this.title = title;
         this.description = description;
@@ -44,16 +54,18 @@ public class Listing {
     }
 
     /**
-     * creates a new listing object
-     * @param id the owner of the listing
-     * @param title the title of the listing
+     * Creates a new Listing object used as a DAO (data access object) to retrieve data from the database
+     *
+     * @param id          the owner of the listing
+     * @param title       the title of the listing
      * @param description the description of the listing
-     * @param price the price of the listing
-     * @param image the image
-     * @param imageType the image type
-     * @param listingAge the age of the listing
+     * @param price       the price of the listing
+     * @param image       the image
+     * @param imageType   the image type
+     * @param listingAge  the age of the listing
      */
-    public Listing (long id, String email, String title, String description, double price, byte[] image, String imageType, LocalDateTime listingAge) {
+    public Listing(long id, String email, String title, String description,
+                   double price, byte[] image, String imageType, LocalDateTime listingAge) {
         this.id = id;
         this.email = email;
         this.title = title;
@@ -64,14 +76,18 @@ public class Listing {
         this.listingAge = listingAge;
     }
 
-    // For creating a new listing from a reducedListing object
+    /**
+     * Creates a new Listing object from a ReducedListing object. 
+     * 
+     * @param reducedListing contains the inital listing creation form information
+     */
     public Listing (ReducedListing reducedListing) {
         this.title = reducedListing.getTitle();
         this.description = reducedListing.getDescription();
         this.price = reducedListing.getPrice();
         try {
             this.image = reducedListing.getImage().getBytes();
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Failed to do get image bytes in Listing contructor");
         }
         this.imageType = reducedListing.getImage().getContentType();
@@ -79,8 +95,18 @@ public class Listing {
     }
 
     /**
-     * Returns the owner of the listing
-     * @return the owner of the listing
+     * Gets the unique id of this listing object
+     * 
+     * @return id of listing
+     */
+    public long getId() {
+        return this.id;
+    }
+
+    /**
+     * Returns the email of the owner of the listing
+     * 
+     * @return the email of the owner of the listing
      */
     public String getEmail() {
         return this.email;
@@ -88,6 +114,7 @@ public class Listing {
 
     /**
      * Returns the title of the listing
+     * 
      * @return the title of the listing
      */
     public String getTitle() {
@@ -96,6 +123,7 @@ public class Listing {
 
     /**
      * Returns the description of the listing
+     * 
      * @return the description of the listing
      */
     public String getDescription() {
@@ -104,6 +132,7 @@ public class Listing {
 
     /**
      * Returns the price of the listing
+     * 
      * @return the price of the listing
      */
     public double getPrice() {
@@ -111,8 +140,9 @@ public class Listing {
     }
 
     /**
-     * Returns the image path of the listing image
-     * @return the image path of the listing image
+     * Returns the image of the listing image
+     * 
+     * @return the image of the listing image
      */
     public byte[] getImage() {
         return this.image;
@@ -120,6 +150,7 @@ public class Listing {
 
     /**
      * Returns the image type of the image stored
+     * 
      * @return image type
      */
     public String getImageType() {
@@ -128,6 +159,7 @@ public class Listing {
 
     /**
      * Returns the age of the listing
+     * 
      * @return the age of the listing
      */
     public LocalDateTime getListingAge() {
@@ -136,6 +168,7 @@ public class Listing {
 
     /**
      * Sets the email of the listing
+     * 
      * @param email the email to set
      */
     public void setEmail(String email) {
@@ -144,6 +177,7 @@ public class Listing {
 
     /**
      * Sets the title of the listing
+     *
      * @param title the title to set
      */
     public void setTitle(String title) {
@@ -152,6 +186,7 @@ public class Listing {
 
     /**
      * Sets the description of the listing
+     *
      * @param description the description to set
      */
     public void setDescription(String description) {
@@ -160,6 +195,7 @@ public class Listing {
 
     /**
      * Sets the price of the listing
+     *
      * @param price the price to set
      */
     public void setPrice(double price) {
@@ -167,7 +203,8 @@ public class Listing {
     }
 
     /**
-     * Sets the image path of the listing image
+     * Sets the image of the listing image
+     * 
      * @param imagePath the image path to set
      */
     public void setImage(byte[] image) {
@@ -176,6 +213,7 @@ public class Listing {
 
     /**
      * Sets the image type of the listing image
+     *
      * @param imageType image type to set
      */
     public void setImageType(String imageType) {
@@ -184,6 +222,7 @@ public class Listing {
 
     /**
      * Sets the listing age to present datetime
+     * 
      * @param listingAge the current datetime
      */
     public void setListingAge(LocalDateTime listingAge) {
@@ -191,24 +230,20 @@ public class Listing {
     }
 
     /**
-     * Gets the unique id of this listing object
-     * @return id of listing
-     */
-    public long getId() {
-        return this.id;
-    }
-
-    /**
      * Overrides the equal method for listing objects
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Listing listing = (Listing) o;
         return id == listing.id;
     }
- 
+
     /**
      * Overrides the hashcode method for listing objects
      */

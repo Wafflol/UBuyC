@@ -1,7 +1,5 @@
 package project.marketplace.models;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -12,12 +10,16 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
 import org.mindrot.jbcrypt.BCrypt;
 
+/**
+ * The basic user model. It is annotated with @Entity as it is the User class that 
+ * will be used as a DTO (data-transfer object). It uses Bcrypt to encrypt the user's password
+ */
 @Entity
 @Table(name = "users")
 public class User {
+    private static final int WFACTOR = 12;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,7 +54,7 @@ public class User {
 
     /**
      * Returns the id of the user
-     * 
+     *
      * @return the id of the user
      */
     public Long getId() {
@@ -60,9 +62,9 @@ public class User {
     }
 
     /**
-      * Returns the first name of the user
-
-      * @return the first name of the user
+     * Returns the first name of the user
+     *
+     * @return the first name of the user
      */
     public String getFirstName() {
         return this.firstName;
@@ -70,7 +72,7 @@ public class User {
 
     /**
      * Returns the last name of the user
-     * 
+     *
      * @return the last name of the user
      */
     public String getLastName() {
@@ -79,7 +81,7 @@ public class User {
 
     /**
      * Returns the email of the user
-     * 
+     *
      * @return the email of the user
      */
     public String getEmail() {
@@ -88,13 +90,13 @@ public class User {
 
     /**
      * Returns the hash of the user's password
-     * 
+     *
      * @return the hash of the user's password
      */
     public String getPasswordHash() {
         return this.passwordHash;
     }
-    
+
     /**
      * Gets the validation status of the user.
      *
@@ -166,30 +168,38 @@ public class User {
      */
     public void setValidated(boolean bool) {
         this.validated = bool;
-    }   
-    
+    }
+
     /**
      * Hashes a given string and returns it
-     * @param password the to hash password
-     * @precondition - password not null
-     * @postcondition - sets passwordHash
+     * 
+     * @param password the password to hash - must not be null 
      */
     public static String encryptPassword(String password) {
-        int wFactor = 12;
+        int wFactor = WFACTOR;
         return BCrypt.hashpw(password, BCrypt.gensalt(wFactor));
     }
 
+    /**
+     * Compares the given password with this password. Returns true is if passwords match, false otherwise
+     * 
+     * @returns true if passwords match, false otherwise
+     */
     public Boolean compare(String password) {
         return BCrypt.checkpw(password, this.getPasswordHash());
-    } 
+    }
 
     /**
      * Overrides the equals method using the email field
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
         return Objects.equals(email, user.email);
     }

@@ -21,6 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     /**
      * Loads user details from email
+     *
      * @param email the email of the user
      * @return user login details
      * @throws UsernameNotFoundException if the email isn't connected to an account
@@ -37,7 +38,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new User(
                 user.getEmail(),
                 user.getPasswordHash(),
-                Collections.singletonList(new org.springframework.security.core.authority.SimpleGrantedAuthority("USER"))
+                Collections.singletonList(new org.springframework.security.core.authority.
+                        SimpleGrantedAuthority("USER"))
         );
     }
 }

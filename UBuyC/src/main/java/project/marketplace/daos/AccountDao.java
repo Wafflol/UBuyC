@@ -17,7 +17,7 @@ import project.marketplace.models.Login;
 import project.marketplace.models.User;
 import project.marketplace.models.VerificationToken;
 
-    
+
 /**
  * Creates an AccountDao object to access data from the accounts database. Uses NamedParameterJdbcTemplates
  * to stop SQL injection attacks.
@@ -39,13 +39,14 @@ public class AccountDao {
 
     /**
      * Checks if the given email exists in the users table. Returns true if it exists, false otherwise.
-     * 
+     *
      * @param email the given email
      * @return true if the email exists, false otherwise
      */
     private Boolean emailExists(String email) {
         ensureConnectionSecure();
-        List<Boolean> namesFound = jdbcTemplate.queryForList("SELECT EXISTS (SELECT 1 FROM users WHERE email = '" + email + "')",
+        List<Boolean> namesFound = jdbcTemplate.queryForList("SELECT EXISTS (SELECT 1 FROM users WHERE email = '"
+                        + email + "')",
                 new MapSqlParameterSource(), Boolean.class);
         System.out.println(namesFound.get(0));
         return namesFound.get(0);
@@ -61,28 +62,30 @@ public class AccountDao {
     public User createUser(User userDTO) throws UserAlreadyExistsException {
         ensureConnectionSecure();
 
-       // checks if user already exists by email
-       if (emailExists(userDTO.getEmail())) {
-           throw new UserAlreadyExistsException("An account has already been registered with that email address.");
-       }
+        // checks if user already exists by email
+        if (emailExists(userDTO.getEmail())) {
+            throw new UserAlreadyExistsException("An account has already been registered with that email address.");
+        }
 
-       // adding new user to database
-       String sql = "INSERT INTO users (fname, lname, email, password, validated) VALUES(:fname, :lname, :email, :password, :validated)";
-       MapSqlParameterSource parameters = new MapSqlParameterSource()
-           .addValue("fname", userDTO.getFirstName())
-           .addValue("lname", userDTO.getLastName())
-           .addValue("email", userDTO.getEmail())
-           .addValue("password", userDTO.getPasswordHash())
-           .addValue("validated", false);
-       jdbcTemplate.update(sql, parameters);
-       return userDTO;
-   }
+        // adding new user to database
+        String sql = "INSERT INTO users (fname, lname, email, password, validated) "
+                + "VALUES(:fname, :lname, :email, :password, :validated)";
+        MapSqlParameterSource parameters = new MapSqlParameterSource().
+                addValue("fname", userDTO.getFirstName()).
+                addValue("lname", userDTO.getLastName()).
+                addValue("email", userDTO.getEmail()).
+                addValue("password", userDTO.getPasswordHash()).
+                addValue("validated", false);
+        jdbcTemplate.update(sql, parameters);
+        return userDTO;
+    }
 
-   /**
-    * Gets a User object from user database upon login
-    * @param login login instance
-    * @return User object from this login
-    */
+    /**
+     * Gets a User object from user database upon login
+     *
+     * @param login login instance
+     * @return User object from this login
+     */
     public User getUserByLogin(Login login) {
         ensureConnectionSecure();
 
@@ -103,6 +106,7 @@ public class AccountDao {
 
     /**
      * Gets a User object from its unique id
+     *
      * @param id id of user
      * @return User object from id
      */
@@ -126,6 +130,7 @@ public class AccountDao {
 
     /**
      * Gets a User object from its unique ubc email
+     *
      * @param email email of user
      * @return User object from email
      */
@@ -149,6 +154,7 @@ public class AccountDao {
 
     /**
      * Gets a verification token for a user
+     *
      * @param user user object to obtain verification token
      * @return verification token
      */
@@ -156,23 +162,24 @@ public class AccountDao {
         ensureConnectionSecure();
         VerificationToken token = new VerificationToken(user);
         String sql = "INSERT INTO verification_tokens (email, otp, expiry_date) VALUES(:email, :otp, :expiry_date)";
-        MapSqlParameterSource parameters = new MapSqlParameterSource()
-            .addValue("email", token.getUser().getEmail())
-            .addValue("otp", token.getOtp())
-            .addValue("expiry_date", token.getExpiryDate());
+        MapSqlParameterSource parameters = new MapSqlParameterSource().
+                addValue("email", token.getUser().getEmail()).
+                addValue("otp", token.getOtp()).
+                addValue("expiry_date", token.getExpiryDate());
         jdbcTemplate.update(sql, parameters);
         return token.getOtp();
     }
 
     /**
      * Returns the OTP with the matching email as the user
-     * 
+     *
      * @param user The user that holds the token
      * @return a 6-digit OTP
      */
     public int getOtpByUser(User user) {
         ensureConnectionSecure();
-        String sql = "SELECT otp FROM verification_tokens WHERE id = (SELECT MAX(id) FROM verification_tokens WHERE email = '"
+        String sql = "SELECT otp FROM verification_tokens WHERE id = "
+                + "(SELECT MAX(id) FROM verification_tokens WHERE email = '"
                 + user.getEmail() + "')";
         List<Integer> otps = jdbcTemplate.queryForList(sql, new MapSqlParameterSource(), Integer.class);
         return otps.get(0);
@@ -180,32 +187,34 @@ public class AccountDao {
 
     /**
      * Returns the expiry date of the token held by the given user
-     * 
+     *
      * @param user THe user that holds the token
      * @return the expiry date of the token
      */
     public LocalDateTime getTokenExpiryDateByUser(User user) {
         ensureConnectionSecure();
         String sql = "SELECT expiry_date FROM verification_tokens WHERE email = '" + user.getEmail() + "'";
-        List<LocalDateTime> expiryDate = jdbcTemplate.queryForList(sql, new MapSqlParameterSource(), LocalDateTime.class);
+        List<LocalDateTime> expiryDate = jdbcTemplate.queryForList(sql,
+                new MapSqlParameterSource(), LocalDateTime.class);
         return expiryDate.get(0);
     }
 
     /**
      * Updates the users table in the database to set the given user's validated field to true
-     * 
+     *
      * @param user The user whose field is being updated
      */
     public void updateValidatedUser(User user) {
         ensureConnectionSecure();
         String sql = "UPDATE users SET validated = true WHERE email = :email";
-        MapSqlParameterSource parameters =  new MapSqlParameterSource();
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("email", user.getEmail());
         jdbcTemplate.update(sql, parameters);
     }
 
     /**
      * Checks if the password matches database (encrypted)
+     *
      * @param login the login instance
      * @return true if pasword matches, false otherwise
      */
@@ -224,6 +233,7 @@ public class AccountDao {
 
     /**
      * Checks if user from this login instance is validated in database
+     *
      * @param login the login instance
      * @return true if validated, false otherwise
      */
@@ -233,7 +243,7 @@ public class AccountDao {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("email", login.getEmail());
         List<Boolean> validated = jdbcTemplate.queryForList(sql, parameters, Boolean.class);
-        System.out.println(this.getClass().toString() + ": VALIDATED: " + validated.get(0));
+        System.out.println(this.getClass() + ": VALIDATED: " + validated.get(0));
         return validated.get(0);
     }
 }

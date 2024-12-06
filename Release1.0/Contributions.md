@@ -52,10 +52,15 @@ Created html, css, javascript files for all web pages
   * design and display decisions on htmls pages
   * listing creation modal on home page
   * populated dynamic listing views on index and account pages
+  * added form input requirements (non-neg price, passwords match etc.)
 
 Configured basic nagivation between html pages\
 Various JavaDoc comments
 
 
 #### Ethan
-
+Implemented password encryption
+  * Encryption using bcrypt
+  * Salting
+    
+Created Unit Tests for method testing
