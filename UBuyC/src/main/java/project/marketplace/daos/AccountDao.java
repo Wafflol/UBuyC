@@ -193,7 +193,9 @@ public class AccountDao {
      */
     public LocalDateTime getTokenExpiryDateByUser(User user) {
         ensureConnectionSecure();
-        String sql = "SELECT expiry_date FROM verification_tokens WHERE email = '" + user.getEmail() + "'";
+        String sql = "SELECT expiry_date FROM verification_tokens WHERE id = "
+                + "(SELECT MAX(id) FROM verification_tokens WHERE email = '"
+                + user.getEmail() + "')";
         List<LocalDateTime> expiryDate = jdbcTemplate.queryForList(sql,
                 new MapSqlParameterSource(), LocalDateTime.class);
         return expiryDate.get(0);
